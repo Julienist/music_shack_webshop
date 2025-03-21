@@ -9,16 +9,8 @@
     }
 
     @if (receivedProducts) {
-        <!-- @for (product of products(); track product.id) { -->
-            <!-- <app-product [product]="products()!" /> -->
-        <!-- } -->
-
-
         <app-product [products]="receivedProducts" />
     } @else if (receivedProducts) {
         <p class="fallback-text">Het in laden van de producten is niet gelukt.</p>
     }
-    <!-- @for (product of products; track $index) {
-        <app-product [product]="product" />
-    } -->
 </section>

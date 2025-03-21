@@ -83,3 +83,4 @@ export {
   getDOM as ɵgetDOM,
   initDomAdapter as ɵinitDomAdapter
 };
+//# sourceMappingURL=@angular_platform-browser.js.map

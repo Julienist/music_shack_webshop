@@ -84,3 +84,4 @@ export {
   REQUESTS_CONTRIBUTE_TO_STABILITY as ɵREQUESTS_CONTRIBUTE_TO_STABILITY,
   withHttpTransferCache as ɵwithHttpTransferCache
 };
+//# sourceMappingURL=@angular_common_http.js.map
