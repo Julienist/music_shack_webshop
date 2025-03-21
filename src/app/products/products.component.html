@@ -1,0 +1,14 @@
+<ul>
+    @for (product of products; track product.id) {
+        <li class="product-item">]
+            <button routerLink="/product-specific-page">
+                <img
+                [src]="product.imageUrl"
+                [alt]="'product plaatje niet ingeladen'"
+                />
+            </button>
+            <h3> {{ product.name }}</h3>
+            <button>Koop nu!</button>
+        </li>
+    }
+</ul>

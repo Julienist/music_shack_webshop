@@ -1,0 +1,9 @@
+@mixin gradient-background($direction, $colors...) {
+    background: linear-gradient($direction, $colors);
+  }
+
+  .my-element {
+    @include gradient-background(to right, red, yellow, green);
+  }
+
+//   komt nog
