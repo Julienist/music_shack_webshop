@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Login } from '../models/login.model';
 import { Token } from '../models/token.model';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -27,20 +28,17 @@ export class LoginService {
     }
   }
 
-  public login(login: Login) {
-    const subscription = this.httpClient.post<Token>(
-      'http://localhost:8080/api/auth/login',
-      login
-    ).pipe(
+  public authenticate(action: 'login' | 'register', login: Login): Observable<Token> {
+    const endpointUrl = action === 'login' ? environment.loginUrl : environment.registerUrl;
+    return this.httpClient.post<Token>(endpointUrl, login).pipe(
       tap(token => {
         if (token.token) {
           this.loggedIn = true;
           this.token = token.token;
-          this.saveTokenInLocalStorage(token.token)
+          this.saveTokenInLocalStorage(token.token);
         }
       })
     );
-    return subscription
   }
 
   private saveTokenInLocalStorage(token: string){

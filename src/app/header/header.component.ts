@@ -12,7 +12,4 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  // imageUrl = 'assets/icons/';
-  shoppingCartimg = 'assets/shoppingCart.png';
-  shoppingCartAlt = 'Products';
 }

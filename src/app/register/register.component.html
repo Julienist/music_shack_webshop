@@ -1,0 +1,38 @@
+<form [formGroup]="authForm" (ngSubmit)="onMakeAccount()">
+    <p>
+      <label>Email</label><br>
+      <input type="text" formControlName="email">
+      @if (email?.touched && email?.invalid) {
+        <span>Email is benodigd.</span>
+      }
+    </p>
+    <p>
+        <label>Wachtwoord</label><br>
+        <input type="text" formControlName="password">
+        @if (authForm?.get('password')?.touched || authForm?.get('password')?.dirty) {
+          <div *ngIf="authForm?.get('password')?.hasError('required')">
+            <span>Wachtwoord is nodig.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('minlength') || authForm?.get('password')?.hasError('maxlength')">
+            <span>Wachtwoord moet tussen 8 en 30 karakters lang zijn.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('digit')">
+            <span>Wachtwoord moet minstens 1 cijfer bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('lowercase')">
+            <span>Wachtwoord moet minstens 1 kleine letter bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('uppercase')">
+            <span>Wachtwoord moet minstens 1 hoofdletter bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('specialChar')">
+            <span>Wachtwoord moet minstens 1 speciaal karakter bevatten.</span>
+          </div>
+        }
+      </p>
+    <p>
+      <button type="submit" [disabled]="!authForm.valid">
+        Maak account
+      </button>
+    </p>
+  </form>

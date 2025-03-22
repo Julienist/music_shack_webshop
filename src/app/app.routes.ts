@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RegisterComponent } from './register/register.component';
 
 // const canAccessWinkelmandje: canMatchFn = (route, segments) => {
     // const router = inject(Router)
@@ -21,6 +22,10 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     },
     {
         path: '',

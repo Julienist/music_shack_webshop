@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 

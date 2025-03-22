@@ -1,26 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { digitValidator, getControl, hasControlError, isControlTouchedOrDirty, lowercaseValidator, specialCharValidator, uppercaseValidator } from '../config/account-validaton.component';
+import { LoginComponent } from '../login/login.component';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-maak-account',
   standalone: true,
-  imports: [ FormsModule, NgIf, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  imports: [NgIf, FormsModule, ReactiveFormsModule],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   protected loginService = inject(LoginService);
   private router = inject(Router);
 
-  protected loginForm: FormGroup;
+  protected authForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
+    this.authForm = this.fb.group({
       "email": ["", [
         Validators.required,
         Validators.email
@@ -38,22 +40,22 @@ export class LoginComponent {
   }
 
   isPasswordTouchedOrDirty(): boolean {
-    return isControlTouchedOrDirty(this.loginForm, 'password');
+    return isControlTouchedOrDirty(this.authForm, 'password');
   }
 
   hasPasswordError(error: string): boolean {
-    return hasControlError(this.loginForm, 'password', error);
+    return hasControlError(this.authForm, 'password', error);
   }
 
   get email() {
-    return getControl(this.loginForm, 'email');
+    return getControl(this.authForm, 'email');
   }
 
-  onLogin() {
-    if (this.loginForm.valid) {
-      console.log("Result: email:"+ this.loginForm.value.email + " password: "+ this.loginForm.value.password);
-      const loginData = { email: this.loginForm.value.email, password: this.loginForm.value.password };
-      this.loginService.authenticate('login', loginData).subscribe({
+  onMakeAccount() {
+    if (this.authForm.valid) {
+      console.log("Result: email:"+ this.authForm.value.email + " password: "+ this.authForm.value.password);
+      const accountData = { email: this.authForm.value.email, password: this.authForm.value.password };
+      this.loginService.authenticate('register', accountData).subscribe({
         next: (responseData) => {
           console.log(responseData);
           this.router.navigate(['/products']);
@@ -65,7 +67,4 @@ export class LoginComponent {
     }
   }
 
-  navigateToMaakAccount() {
-    this.router.navigate(['register']);
-  }
 }

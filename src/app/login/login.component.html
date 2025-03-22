@@ -1,4 +1,4 @@
-<form (ngSubmit)="login()">
+<!-- <form (ngSubmit)="login()">
     <div>
       <label>Email:</label>
       <input type="text" name="email" [(ngModel)]="email">
@@ -8,5 +8,44 @@
       <input type="password" name="password"  [(ngModel)]="password">
     </div>
     <button type="submit">Login</button>
-  </form>
+  </form> -->
   
+
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <p>
+      <label>Email</label><br>
+      <input type="text" formControlName="email">
+      @if (email?.touched && email?.invalid) {
+        <span>Email is benodigd.</span>
+      }
+    </p>
+    <p>
+      <label>Wachtwoord</label><br>
+      <input type="text" formControlName="password">
+      @if (isPasswordTouchedOrDirty()) {
+        <div *ngIf="hasPasswordError('required')">
+          <br><span>Wachtwoord voldoet niet</span>
+        </div>
+        @if (
+          hasPasswordError('minlength') ||
+          hasPasswordError('maxlength') ||
+          hasPasswordError('digit') ||
+          hasPasswordError('lowercase') ||
+          hasPasswordError('uppercase') ||
+          hasPasswordError('specialChar')
+        ) 
+          {<span>Wachtwoord is fout.</span>}
+      }
+    </p>
+    <p>
+      <button type="submit" [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </p>
+    <p>
+      <label>nog geen account?</label><br>
+      <button (click)="navigateToMaakAccount()">
+        Maak een account
+      </button>
+    </p>
+  </form>
