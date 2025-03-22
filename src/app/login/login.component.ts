@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -19,7 +20,7 @@ export class LoginComponent {
   login() {
     this.loginService.login({email: this.email, password: this.password}).subscribe({
       next: (responseData) => {
-        this.router.navigate(['tasks'])
+        this.router.navigate(['products'])
       },
       error: (error) =>{
         //Error afhandeling hier!
@@ -28,7 +29,7 @@ export class LoginComponent {
     });
 
     if(this.loginService.isLoggedIn()){
-      this.router.navigate(['tasks']);
+      this.router.navigate(['products']);
     }
   }
 }

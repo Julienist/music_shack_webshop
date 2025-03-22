@@ -1,7 +1,21 @@
- <button routerLinkActive="active" routerLink="/products" class="product-page-knop">
-    <!-- <img [src]="shoppingCartimg" [alt]="shoppingCartAlt"> -->
+ <!-- <button routerLinkActive="active" routerLink="/products" class="product-page-knop">
+    <img [src]="shoppingCartimg" [alt]="shoppingCartAlt">
     <mat-icon>home</mat-icon>
 </button>
 <button routerLink="/login">
     <mat-icon>account_circle</mat-icon>
-</button>
+</button> -->
+<nav>
+    <a class="button"
+       routerLink="/products"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page">
+      <mat-icon>home</mat-icon>
+    </a> |
+    <a class="button"
+       routerLink="/login"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+  </nav>

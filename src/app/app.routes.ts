@@ -14,17 +14,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'products',
         component: ProductPageComponent
 
     },
     {
-        path: '/login',
+        path: 'login',
         component: LoginComponent
     },
     {
         path: '',
-        redirectTo: '/products',
+        redirectTo: 'products',
         pathMatch: 'full'
     },
     {
