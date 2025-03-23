@@ -9,7 +9,7 @@
     <p>
         <label>Wachtwoord</label><br>
         <input type="text" formControlName="password">
-        @if (authForm?.get('password')?.touched || authForm?.get('password')?.dirty) {
+        @if (authForm.get('password')?.touched || authForm.get('password')?.dirty) {
           <div *ngIf="authForm?.get('password')?.hasError('required')">
             <span>Wachtwoord is nodig.</span>
           </div>
