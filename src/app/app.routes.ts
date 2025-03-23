@@ -1,8 +1,11 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { ProductsContainerComponent } from './product-page/products-container/products-container.component';
+import { SpecificProductComponent } from './product-page/specific-product/specific-product.component';
+import { NgModule } from '@angular/core';
 
 // const canAccessWinkelmandje: canMatchFn = (route, segments) => {
     // const router = inject(Router)
@@ -16,7 +19,17 @@ import { RegisterComponent } from './register/register.component';
 export const routes: Routes = [
     {
         path: 'products',
-        component: ProductPageComponent
+        component: ProductPageComponent,
+        children: [
+            {
+                path: '',
+                component: ProductsContainerComponent
+            },
+            {
+                path: ':id',
+                component: SpecificProductComponent
+            }
+        ]
 
     },
     {
@@ -37,3 +50,9 @@ export const routes: Routes = [
         component: PageNotFoundComponent
     },
 ];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }

@@ -11,6 +11,6 @@ import { Product } from '../models/product.model';
 })
 export class ProductComponent {
   // products = input.required<Product[]>();
-  @Input() public products!: Product[] | undefined;  
+  @Input() public products!: Product[];  
 
 }
