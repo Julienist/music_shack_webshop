@@ -18,11 +18,16 @@ import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
     {
-        path: 'products',
+        path: 'producten',
         component: ProductPageComponent,
         children: [
             {
                 path: '',
+                redirectTo: 'AlleProducten',
+                pathMatch: 'full'
+            },
+            {
+                path: 'AlleProducten',
                 component: ProductsContainerComponent
             },
             {
@@ -42,7 +47,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'products',
+        redirectTo: 'producten/AlleProducten',
         pathMatch: 'full'
     },
     {

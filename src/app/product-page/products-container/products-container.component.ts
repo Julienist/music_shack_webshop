@@ -10,11 +10,12 @@ import { ProductsService } from '../../services/products.service';
   styleUrl: './products-container.component.scss'
 })
 export class ProductsContainerComponent {
-  title = input.required<string>();
+  // title = input.required<string>();
+  title = 'Products';
 
   public receivedProducts: Product[] = [];
   isFetching = signal(false);
-  error = signal('')
+  error = signal('');
   // private httpClient = inject(HttpClient);
   private productsService = inject(ProductsService);
   private destroyRef = inject(DestroyRef);
