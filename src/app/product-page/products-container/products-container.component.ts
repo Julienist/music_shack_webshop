@@ -13,32 +13,37 @@ export class ProductsContainerComponent {
   // title = input.required<string>();
   title = 'Products';
 
-  public receivedProducts: Product[] = [];
-  isFetching = signal(false);
-  error = signal('');
-  // private httpClient = inject(HttpClient);
+  // public receivedProducts: Product[] = [];
   private productsService = inject(ProductsService);
-  private destroyRef = inject(DestroyRef);
+  productList = this.productsService.productsList;
+  isFetching = this.productsService.isFetching;
+  error = this.productsService.error;
 
   ngOnInit() {
-    this.isFetching.set(true);
-    const subscription = 
-    this.productsService.loadProducts().subscribe({
-      next: (products) => {
-        console.log(products);
-        this.receivedProducts = products;
-      },
-      error: (error: Error) => {
-        this.error.set(error.message);
-      },
-      complete: () => {
-        console.log(this.receivedProducts)
-        this.isFetching.set(false);
-      }
-    });
-
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
+    this.productsService.loadProducts();
   }
+
+  // ngOnInit() {
+  //   this.isFetching.set(true);
+  //   const subscription = 
+  //   this.productsService.loadProducts().subscribe({
+  //     next: (products) => {
+  //       console.log(products);
+  //       this.receivedProducts = products;
+  //     },
+  //     error: (error: Error) => {
+  //       this.error.set(error.message);
+  //     },
+  //     complete: () => {
+  //       console.log(this.receivedProducts)
+  //       this.isFetching.set(false);
+  //     }
+  //   });
+
+  //   this.destroyRef.onDestroy(() => {
+  //     subscription.unsubscribe();
+  //   });
+  // }
+
+
 }

@@ -1,24 +1,49 @@
 import { HttpClient } from '@angular/common/http';
-import { DestroyRef, inject, Injectable, OnInit, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, OnInit, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 import { catchError, map, Subscription, throwError } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductsService {
   products = signal<Product[] | undefined>(undefined);
   isFetching = signal(false);
-  error = signal('')
+  error = signal('');
   private httpClient = inject(HttpClient);
-  private destroyRef = inject(DestroyRef);
 
   constructor() {}
 
+  // loadProducts() {
+  //   return this.fetchProducts(
+  //     environment.productsUrl,
+  //   'Something went wrong')
+  // }
+
   loadProducts() {
-    return this.fetchProducts(
-      'http://localhost:8080/api/products',
-    'Something went wrong')
+    this.isFetching.set(true);
+    this.httpClient.get<Product[]>(environment.productsUrl).pipe(
+      catchError((error) => {
+        this.error.set('Something went wrong');
+        return throwError(() => new Error('Something went wrong'));
+      })
+    ).subscribe({
+      next: (products) => {
+        this.products.set(products);
+        this.isFetching.set(false);
+      },
+      error: (error: Error) => {
+        this.error.set(error.message);
+        this.isFetching.set(false);
+      }
+    });
+  }
+
+
+  get productsList() {
+    return computed(() => this.products());
   }
 
   // ngOnInit() {
@@ -43,12 +68,12 @@ export class ProductsService {
   //   });
   // }
 
-  private fetchProducts(url: string, errorMessage: string) {
-    return this.httpClient.get<Product[]>(url).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(errorMessage));
-      })
-    );
+  // private fetchProducts(url: string, errorMessage: string) {
+  //   return this.httpClient.get<Product[]>(url).pipe(
+  //     catchError((error) => {
+  //       return throwError(() => new Error(errorMessage));
+  //     })
+  //   );
 
     // return this.httpClient.get<Product[]>(url).pipe(
       // map(resData) => resData.products),
@@ -57,5 +82,4 @@ export class ProductsService {
       // })
       // ;
   // }
-}
 }
