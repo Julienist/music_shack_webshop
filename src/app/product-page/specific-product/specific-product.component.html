@@ -5,6 +5,7 @@
   <p>{{ product()?.description }}</p>
   <p>Prijs: €{{ product()?.price }}</p>
   <p>Voorraad: {{ product()?.amountInStock }}</p>
+  <button (click)="addProductToCart()">Voeg toe aan mandje</button>
 </section>
 
 <div *ngIf="!product()">Product niet gevonden.</div>

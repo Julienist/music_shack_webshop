@@ -1,1 +1,19 @@
-<p>shopping-cart works!</p>
+<h2>Winkelmandje</h2>
+
+<ul *ngIf="cartItems().length > 0; else emptyCart">
+  @for (item of cartItems(); track item.id) {
+    <li>
+      <img [src]="item.imageUrl" alt="{{ item.name }}">
+      <h3>{{ item.name }}</h3>
+      <p>Prijs: €{{ item.price }}</p>
+      <p>Aantal: {{ item.quantity }}</p>
+      <button (click)="removeItem(item.id)">Verwijderen</button>
+    </li>
+  }
+</ul>
+
+<ng-template #emptyCart>
+  <p>Je winkelmandje is leeg.</p>
+</ng-template>
+
+<button *ngIf="cartItems().length > 0" (click)="clearCart()">Winkelmandje leegmaken</button>

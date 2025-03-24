@@ -6,4 +6,5 @@ export interface Product {
     available: boolean;
     imageUrl: string;
     amountInStock: number;
+    quantity?: number;
 }

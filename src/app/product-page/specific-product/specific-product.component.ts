@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { NgIf } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-specific-product',
@@ -14,6 +15,7 @@ export class SpecificProductComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
+  private cartService = inject(CartService);
 
   productId = signal<number | null>(null); // Opslaan van product-ID uit de URL
   product: Signal<Product | undefined>;
@@ -34,6 +36,12 @@ export class SpecificProductComponent implements OnInit {
 
     if (!this.productsService.products()) {
       this.productsService.loadProducts(); // Zorg dat de producten geladen worden als ze er nog niet zijn
+    }
+  }
+
+  addProductToCart() {
+    if (this.product()) {
+      this.cartService.addToCart(this.product()!);
     }
   }
 
