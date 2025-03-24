@@ -8,9 +8,9 @@
         <p class="fallback-text">{{ error() }}</p>
     }
 
-    @if (receivedProducts) {
-        <app-product [products]="receivedProducts" />
-    } @else if (receivedProducts) {
+    @if (productList() && productList().length > 0) {
+        <app-product [products]="productList()" />
+    } @else {
         <p class="fallback-text">Het in laden van de producten is niet gelukt.</p>
     }
 </section>

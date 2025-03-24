@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProductsContainerComponent } from './product-page/products-container/products-container.component';
 import { SpecificProductComponent } from './product-page/specific-product/specific-product.component';
 import { NgModule } from '@angular/core';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 // const canAccessWinkelmandje: canMatchFn = (route, segments) => {
     // const router = inject(Router)
@@ -44,6 +45,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'winkelwagen',
+        component: ShoppingCartComponent
     },
     {
         path: '',

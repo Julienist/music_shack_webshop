@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment.development';
 })
 
 export class ProductsService {
-  products = signal<Product[] | undefined>(undefined);
+  products = signal<Product[]>([]);
   isFetching = signal(false);
   error = signal('');
   private httpClient = inject(HttpClient);
