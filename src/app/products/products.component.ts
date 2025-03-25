@@ -48,5 +48,6 @@ export class ProductComponent {
 
   addProductToCart() {
     this.cartService.addToCart(this.product);
+    console.log(this.product + " toegevoegd aan winkelwagen")
   }
 }

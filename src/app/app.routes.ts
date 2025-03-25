@@ -51,7 +51,7 @@ export const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'winkelwagen',
+        path: 'winkelmandje',
         component: ShoppingCartComponent,
         canMatch: [canAccessWinkelmandje]
     },

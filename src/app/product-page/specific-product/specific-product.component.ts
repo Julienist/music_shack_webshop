@@ -42,6 +42,7 @@ export class SpecificProductComponent implements OnInit {
   addProductToCart() {
     if (this.product()) {
       this.cartService.addToCart(this.product()!);
+      console.log(this.product + " toegevoegd aan winkelmandje");
     }
   }
 
