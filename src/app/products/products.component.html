@@ -1,7 +1,7 @@
 <ul>
     @for (product of products; track product.id) {
       <li class="product-item">
-        <button [routerLink]="['/products', product.id]">
+        <button [routerLink]="['/producten', product.id]">
           <img
             [src]="product.imageUrl"
             [alt]="'product plaatje niet ingeladen'"
