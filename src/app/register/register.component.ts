@@ -58,7 +58,7 @@ export class RegisterComponent {
       this.loginService.authenticate('register', accountData).subscribe({
         next: (responseData) => {
           console.log(responseData);
-          this.router.navigate(['/products']);
+          this.router.navigate(['/producten/AlleProducten']);
         },
         error: (error) => {
           console.log(error);
