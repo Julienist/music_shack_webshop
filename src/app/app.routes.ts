@@ -1,21 +1,24 @@
-import { RouterModule, Routes } from '@angular/router';
+import { RedirectCommand, Router, RouterModule, Routes } from '@angular/router';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductsContainerComponent } from './product-page/products-container/products-container.component';
 import { SpecificProductComponent } from './product-page/specific-product/specific-product.component';
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { LoginService } from './services/login.service';
 
-// const canAccessWinkelmandje: canMatchFn = (route, segments) => {
-    // const router = inject(Router)
-    // const loginService = inject(LoginService)
-    // if(loginService).isLoggedIn()){
-        // return true;
-    // }
+const canAccessWinkelmandje: CanMatchFn = (route, segments) => {
+    const router = inject(Router)
+    const loginService = inject(LoginService)
+
+    if(loginService.isLoggedIn()){
+        return true;
+    }
     // return new RedirectCommand(router.parseUrl("/"))
-// }
+    return router.parseUrl('/login');
+};
 
 export const routes: Routes = [
     {
@@ -41,6 +44,7 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+        // component: () => import('./login/login.component').then(m => m.LoginComponent),
     },
     {
         path: 'register',
@@ -48,7 +52,8 @@ export const routes: Routes = [
     },
     {
         path: 'winkelwagen',
-        component: ShoppingCartComponent
+        component: ShoppingCartComponent,
+        canMatch: [canAccessWinkelmandje]
     },
     {
         path: '',

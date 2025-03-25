@@ -13,7 +13,7 @@ export class LoginService {
   private loggedIn: boolean = false;
   private token: string | null = null;
 
-  public isLoggedIn() {
+  public isLoggedIn(): boolean {
     return this.loggedIn;
   }
 
