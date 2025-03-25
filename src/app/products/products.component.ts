@@ -15,6 +15,7 @@ import { CartService } from '../services/cart.service';
 export class ProductComponent {
   // products = input.required<Product[]>();
   // @Input() public products!: Product[];
+  @Input() products: Product[] = [];
   @Input() product!: Product;
 
 
@@ -22,7 +23,7 @@ export class ProductComponent {
   private productsService = inject(ProductsService);
   private cartService = inject(CartService);
 
-  products: Signal<Product[]> = this.productsService.products;
+  productsSignal: Signal<Product[]> = this.productsService.products;
   
   // productId = signal<number | null>(null); // Opslaan van product-ID uit de URL
   // product: Signal<Product | undefined>;

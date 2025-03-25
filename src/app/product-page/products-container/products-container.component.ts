@@ -1,11 +1,13 @@
-import { Component, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, Signal, signal } from '@angular/core';
 import { ProductComponent } from "../../products/products.component";
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products-container',
-  imports: [ProductComponent],
+  standalone: true,
+  imports: [ProductComponent, CommonModule],
   templateUrl: './products-container.component.html',
   styleUrl: './products-container.component.scss'
 })
@@ -15,9 +17,10 @@ export class ProductsContainerComponent {
 
   // public receivedProducts: Product[] = [];
   private productsService = inject(ProductsService);
-  productList = this.productsService.productsList;
-  isFetching = this.productsService.isFetching;
-  error = this.productsService.error;
+  
+  isFetching = computed(() => this.productsService.isFetching());
+  error = computed(() => this.productsService.error());
+  productList: Signal<Product[]> = computed(() => this.productsService.products());
 
   ngOnInit() {
     this.productsService.loadProducts();
