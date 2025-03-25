@@ -15,7 +15,8 @@ export class ShoppingCartComponent {
   cartItems = this.cartService.getCartItems(); // ✅ Signal ophalen
 
   removeItem(productId: number) {
-    this.cartService.deleteItem(productId);
+    // this.cartService.deleteItem(productId);
+    this.cartService.removeItem(productId)
   }
 
   clearCart() {

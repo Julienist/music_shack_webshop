@@ -1,32 +1,53 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems = signal<Product[]>(this.loadCartFromStorage());
+  // private cartItems = signal<Product[]>(this.loadCartFromStorage());
+  private cartItems = signal<Product[]>([]);
 
   constructor() {}
 
   /** ✅ Product toevoegen aan winkelmandje */
+  // addToCart(product: Product) {
+  //   const currentCart = this.cartItems();
+  //   const existingItem = currentCart.find(p => p.id === product.id);
+
+  //   if (existingItem) {
+  //     existingItem.quantity = (existingItem.quantity || 1) + 1;
+  //   } else {
+  //     this.cartItems.set([...currentCart, { ...product, quantity: 1 }]);
+  //   }
+
+  //   this.saveCart();
+  // }
   addToCart(product: Product) {
-    const currentCart = this.cartItems();
-    const existingItem = currentCart.find(p => p.id === product.id);
+    const updatedCart = [...this.cartItems()];
+    const existingItem = updatedCart.find(item => item.id === product.id);
 
     if (existingItem) {
-      existingItem.quantity = (existingItem.quantity || 1) + 1;
+      existingItem.quantity! += 1;
     } else {
-      this.cartItems.set([...currentCart, { ...product, quantity: 1 }]);
+      updatedCart.push({ ...product, quantity: 1 }); // ✅ Product wordt correct opgeslagen
     }
 
-    this.saveCart();
+    this.cartItems.set(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // ✅ Opslaan in localStorage
   }
 
+
   /** ❌ Product verwijderen */
-  deleteItem(productId: number) {
-    this.updateCart(this.cartItems().filter(p => p.id !== productId));
+  // deleteItem(productId: number) {
+  //   this.updateCart(this.cartItems().filter(p => p.id !== productId));
+  // }
+  removeItem(productId: number) {
+    const updatedCart = this.cartItems().filter(item => item.id !== productId);
+    this.cartItems.set(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   }
+
 
   /** 🛒 Winkelmandje leegmaken */
   clearCart() {
@@ -40,9 +61,14 @@ export class CartService {
   }
 
   /** 🛒 Alle producten in winkelmandje */
-  getCartItems() {
+  // getCartItems() {
+  //   return this.cartItems;
+  // }
+  getCartItems(): Signal<Product[]> {
     return this.cartItems;
   }
+
+
 
   /** 🛒 Winkelmandje opslaan in localStorage */
   private saveCart() {
