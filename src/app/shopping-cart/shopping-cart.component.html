@@ -1,16 +1,19 @@
 <h2>Winkelmandje</h2>
 
-<ul *ngIf="cartItems().length > 0; else emptyCart">
-  @for (item of cartItems(); track item.id) {
-    <li>
-      <img [src]="item.imageUrl" alt="{{ item.name }}">
-      <h3>{{ item.name }}</h3>
-      <p>Prijs: €{{ item.price }}</p>
-      <p>Aantal: {{ item.quantity }}</p>
-      <button (click)="removeItem(item.id)">Verwijderen</button>
-    </li>
-  }
-</ul>
+<section>
+  <ul *ngIf="cartItems().length > 0; else emptyCart">
+    @for (item of cartItems(); track item.id) {
+      <li>
+        <img [src]="item.imageUrl" alt="{{ item.name }}">
+        <h3>{{ item.name }}</h3>
+        <p>Prijs: €{{ item.price }}</p>
+        <p>Aantal: {{ item.quantity }}</p>
+        <button (click)="removeItem(item.id)">Verwijderen</button>
+      </li>
+    }
+  </ul>
+  <p *ngIf="cartItems().length > 0">{{ totalPrice() }}</p>
+</section>
 
 <ng-template #emptyCart>
   <p>Je winkelmandje is leeg.</p>

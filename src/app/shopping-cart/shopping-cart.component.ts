@@ -28,4 +28,8 @@ export class ShoppingCartComponent {
     this.cartService.clearCart();
   }
 
+  totalPrice(): number {
+    return this.cartService.getTotalPrice();
+  }
+
 }
