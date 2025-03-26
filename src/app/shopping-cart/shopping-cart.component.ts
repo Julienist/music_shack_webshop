@@ -14,6 +14,11 @@ export class ShoppingCartComponent {
   private cartService = inject(CartService);
   cartItems = this.cartService.getCartItems(); // ✅ Signal ophalen
 
+  // onderstaande OnInit weghalen, testing purposes
+  ngOnInit() {
+    console.log("shopping-cart geladen met: ", this.cartItems())
+  }
+
   removeItem(productId: number) {
     // this.cartService.deleteItem(productId);
     this.cartService.removeItem(productId)

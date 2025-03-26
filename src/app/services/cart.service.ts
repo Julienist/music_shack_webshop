@@ -8,8 +8,12 @@ export class CartService {
   // private cartItems = signal<Product[]>(this.loadCartFromStorage());
   private cartItems = signal<Product[]>([]);
 
-  constructor() {}
+  constructor() {
+    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    this.cartItems.set(savedCart);
+  }
 
+  // V1 addToCart()
   /** ✅ Product toevoegen aan winkelmandje */
   // addToCart(product: Product) {
   //   const currentCart = this.cartItems();
@@ -23,19 +27,35 @@ export class CartService {
 
   //   this.saveCart();
   // }
+
+  // V2 addToCart()
+  // addToCart(product: Product) {
+    // const updatedCart = [...this.cartItems()];
+    // const existingItem = updatedCart.find(item => item.id === product.id);
+
+  //   if (existingItem) {
+  //     existingItem.quantity! += 1;
+  //   } else {
+  //     updatedCart.push({ ...product, quantity: 1 }); // ✅ Product wordt correct opgeslagen
+  //   }
+
+  //   this.cartItems.set(updatedCart);
+  //   localStorage.setItem('cart', JSON.stringify(updatedCart)); // ✅ Opslaan in localStorage
+  // }
+
   addToCart(product: Product) {
-    const updatedCart = [...this.cartItems()];
-    const existingItem = updatedCart.find(item => item.id === product.id);
-
-    if (existingItem) {
-      existingItem.quantity! += 1;
+    const existingProduct = this.cartItems().find(p => p.id === product.id);
+    
+    if (existingProduct) {
+      existingProduct.quantity++;
     } else {
-      updatedCart.push({ ...product, quantity: 1 }); // ✅ Product wordt correct opgeslagen
+      this.cartItems.set([...this.cartItems(), { ...product, quantity: 1 }]);
     }
-
-    this.cartItems.set(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart)); // ✅ Opslaan in localStorage
+    
+    console.log("winkelmandje bijgewerkt: ", this.cartItems());
+    localStorage.setItem("cart", JSON.stringify(this.cartItems()));
   }
+  
 
 
   /** ❌ Product verwijderen */

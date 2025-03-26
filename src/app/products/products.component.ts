@@ -16,7 +16,7 @@ export class ProductComponent {
   // products = input.required<Product[]>();
   // @Input() public products!: Product[];
   @Input() products: Product[] = [];
-  @Input() product!: Product;
+  // @Input() product!: Product;
 
 
   // private route = inject(ActivatedRoute);
@@ -46,12 +46,13 @@ export class ProductComponent {
   //   }
   // }
 
-  addProductToCart() {
-    if (!this.product) {
+  addProductToCart(product: Product) {
+    if (!product) {
       console.error("Product is niet geladen!");
       return;
     }
-    this.cartService.addToCart(this.product);
-    console.log(this.product, "toegevoegd aan winkelmandje");
+    
+    this.cartService.addToCart(product);
+    console.log(product, "toegevoegd aan winkelmandje");
   }
 }
