@@ -84,7 +84,7 @@ export class CartService {
   // getCartItems() {
   //   return this.cartItems;
   // }
-  getCartItems(): Signal<Product[]> {
+  public getCartItems(): Signal<Product[]> {
     return this.cartItems;
   }
 
@@ -100,4 +100,26 @@ export class CartService {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   }
+
+  public checkIfCartHasItems(): boolean {
+    return this.cartItems().length > 0;
+  }
+  
+
+  public getAmountOfCartItems(): number {
+    if (!this.checkIfCartHasItems()) return 0;
+    
+    return this.cartItems().reduce((total, item) => total + item.quantity, 0);
+  }
+  
+
+  public getTotalPrice(): number {
+    if (!this.checkIfCartHasItems()) return 0;
+    
+    return this.cartItems().reduce((total, item) => total + item.price * item.quantity, 0);
+  }
+  
+
+  // evt. cart to db -> vergt her-bouwing van ERD en db,
+  // zorg eerst voor orders.
 }
