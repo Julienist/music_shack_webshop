@@ -12,7 +12,7 @@
       </li>
     }
   </ul>
-  <p *ngIf="cartItems().length > 0">{{ totalPrice() }}</p>
+  <p *ngIf="cartItems().length > 0">Totale prijs: €{{ totalPrice() }}</p>
 </section>
 
 <ng-template #emptyCart>
