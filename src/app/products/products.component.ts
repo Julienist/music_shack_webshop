@@ -48,11 +48,13 @@ export class ProductComponent {
 
   addProductToCart(product: Product) {
     if (!product) {
+      //logs voor testing
       console.error("Product is niet geladen!");
       return;
     }
     
     this.cartService.addToCart(product);
+    //logs voor testing
     console.log(product, "toegevoegd aan winkelmandje");
   }
 }
