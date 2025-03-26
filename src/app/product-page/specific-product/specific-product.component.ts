@@ -24,7 +24,10 @@ export class SpecificProductComponent implements OnInit {
     // Bereken welk product overeenkomt met de productId
     this.product = computed(() => {
       const id = this.productId();
-      return this.productsService.products()?.find(p => p.id === id);
+      // return this.productsService.products()?.find(p => p.id === id);
+      const foundProduct =  this.productsService.products()?.find(p => p.id === id);
+      console.log('gevonden product: ', foundProduct);
+      return foundProduct;
     });
   }
 
@@ -35,6 +38,8 @@ export class SpecificProductComponent implements OnInit {
     });
 
     if (!this.productsService.products()) {
+      //haal onderstaande log eruit, testing-purposes
+      console.log('laden van producten...')
       this.productsService.loadProducts(); // Zorg dat de producten geladen worden als ze er nog niet zijn
     }
   }
@@ -42,7 +47,8 @@ export class SpecificProductComponent implements OnInit {
   addProductToCart() {
     if (this.product()) {
       this.cartService.addToCart(this.product()!);
-      console.log(this.product + " toegevoegd aan winkelmandje");
+      //haal onderstaande log eruit, testing-purposes
+      console.log(JSON.stringify(this.product()) + " toegevoegd aan winkelmandje");
     }
   }
 

@@ -4,7 +4,7 @@
   <p>ID: {{ product()?.id }}</p>
   <p>{{ product()?.description }}</p>
   <p>Prijs: €{{ product()?.price }}</p>
-  <p>Voorraad: {{ product()?.amountInStock }}</p>
+  <p>Voorraad: {{ product()?.stock }}</p>
   <button (click)="addProductToCart()">Voeg toe aan mandje</button>
 </section>
 

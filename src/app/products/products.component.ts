@@ -47,7 +47,11 @@ export class ProductComponent {
   // }
 
   addProductToCart() {
+    if (!this.product) {
+      console.error("Product is niet geladen!");
+      return;
+    }
     this.cartService.addToCart(this.product);
-    console.log(this.product + " toegevoegd aan winkelwagen")
+    console.log(this.product, "toegevoegd aan winkelmandje");
   }
 }
