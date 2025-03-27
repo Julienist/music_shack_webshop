@@ -22,7 +22,7 @@ export class ProductsService {
   //   'Something went wrong')
   // }
 
-  loadProducts() {
+  public loadProducts() {
     this.isFetching.set(true);
     this.httpClient.get<Product[]>(environment.productsUrl).pipe(
       catchError((error) => {
