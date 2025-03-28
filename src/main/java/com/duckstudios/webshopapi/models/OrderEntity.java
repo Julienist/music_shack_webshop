@@ -17,7 +17,7 @@ public class OrderEntity {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonBackReference
     private CustomUser customUser;
 
