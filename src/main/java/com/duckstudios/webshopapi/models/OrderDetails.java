@@ -11,6 +11,6 @@ public class OrderDetails {
     @GeneratedValue
     private long id;
 
-    @ManyToOne()
+//    @ManyToOne()
 
 }

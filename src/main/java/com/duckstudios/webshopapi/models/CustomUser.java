@@ -18,7 +18,7 @@ public class CustomUser {
 
     private String password;
 
-    @OneToOne(mappedBy = "Order")
+    @
     @JsonManagedReference
     private Order order;
 

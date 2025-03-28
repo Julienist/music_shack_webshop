@@ -7,15 +7,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "\"Order\"")
 public class Order {
     @Id
     @GeneratedValue
-    @OneToMany(mappedBy = "OrderDetails")
-    @OneToMany(mappedBy = "Payment")
-    @JsonManagedReference
     private long id;
 
-    @OneToOne(mappedBy = "CustomUser")
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JsonManagedReference
     private CustomUser customUser;
 
