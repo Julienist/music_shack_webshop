@@ -2,7 +2,7 @@ package com.duckstudios.webshopapi.controllers;
 
 import com.duckstudios.webshopapi.dao.OrderDAO;
 import com.duckstudios.webshopapi.dto.OrderDTO;
-import com.duckstudios.webshopapi.models.Order;
+import com.duckstudios.webshopapi.models.OrderEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +20,14 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders() {
-        List<Order> orders = this.orderDAO.getAllOrders();
+    public ResponseEntity<List<OrderEntity>> getOrders() {
+        List<OrderEntity> orders = this.orderDAO.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Order>> getOrder(@PathVariable long id) {
-        Optional<Order> order = this.orderDAO.getOrder(id);
+    public ResponseEntity<Optional<OrderEntity>> getOrder(@PathVariable long id) {
+        Optional<OrderEntity> order = this.orderDAO.getOrder(id);
         return ResponseEntity.ok(order);
     }
 

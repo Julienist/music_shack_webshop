@@ -1,20 +1,19 @@
 package com.duckstudios.webshopapi.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "\"Order\"")
-public class Order {
+public class OrderEntity {
     @Id
     @GeneratedValue
     private long id;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonBackReference
     private CustomUser customUser;
 
     private LocalDateTime orderDate;
@@ -23,9 +22,10 @@ public class Order {
 
     private BigDecimal totalPrice;
 
-    public Order(){}
 
-    public Order(CustomUser customUser, LocalDateTime orderDate, Enum orderStatus, BigDecimal totalPrice) {
+    public OrderEntity(){}
+
+    public OrderEntity(CustomUser customUser, LocalDateTime orderDate, Enum orderStatus, BigDecimal totalPrice) {
         this.customUser = customUser;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;

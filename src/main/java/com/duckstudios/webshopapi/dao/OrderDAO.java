@@ -2,7 +2,7 @@ package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
-import com.duckstudios.webshopapi.models.Order;
+import com.duckstudios.webshopapi.models.OrderEntity;
 import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.stereotype.Component;
 
@@ -22,23 +22,23 @@ public class OrderDAO {
         this.userRepository = userRepository;
     }
 
-    public List<Order> getAllOrders() {
+    public List<OrderEntity> getAllOrders() {
         //noinspection UnnecessaryLocalVariable
-        List<Order> orders = this.orderRepository.findAll();
+        List<OrderEntity> orders = this.orderRepository.findAll();
         return orders;
     }
 
-    public Optional<Order> getOrder(long id) {
+    public Optional<OrderEntity> getOrder(long id) {
         entityValidator.checkIfIdExists(id, orderRepository, "Order");
         //noinspection UnnecessaryLocalVariable
-        Optional<Order> order = this.orderRepository.findById(id);
+        Optional<OrderEntity> order = this.orderRepository.findById(id);
         // Opgesplitst in 2 lines, voor leesbaarheid
         return order;
     }
 
     public void createOrder(OrderDTO orderDTO) {
         CustomUser customuserId = entityValidator.checkIfIdExists(orderDTO.customuserId, userRepository, "CustomuserId");
-        Order order = new Order(customuserId, orderDTO.orderDate, orderDTO.orderStatus, orderDTO.totalPrice);
+        OrderEntity order = new OrderEntity(customuserId, orderDTO.orderDate, orderDTO.orderStatus, orderDTO.totalPrice);
         this.orderRepository.save(order);
     }
 }

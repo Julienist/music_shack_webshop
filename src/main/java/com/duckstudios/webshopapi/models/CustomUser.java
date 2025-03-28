@@ -20,9 +20,9 @@ public class CustomUser {
 
     private String password;
 
-    @OneToMany(mappedBy = "\"Order\"")
+    @OneToMany(mappedBy = "customUser")
     @JsonManagedReference
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
 //    @Enumerated(EnumType.STRING);
 //    private Role role;
