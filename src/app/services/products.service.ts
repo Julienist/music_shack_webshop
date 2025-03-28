@@ -24,7 +24,7 @@ export class ProductsService {
 
   public loadProducts() {
     this.isFetching.set(true);
-    this.httpClient.get<Product[]>(environment.productsUrl).pipe(
+    this.httpClient.get<Product[]>(environment.apiUrl + '/products').pipe(
       catchError((error) => {
         this.error.set('Something went wrong');
         return throwError(() => new Error('Something went wrong'));

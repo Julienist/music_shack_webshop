@@ -29,7 +29,7 @@ export class LoginService {
   }
 
   public authenticate(action: 'login' | 'register', login: Login): Observable<Token> {
-    const endpointUrl = action === 'login' ? environment.loginUrl : environment.registerUrl;
+    const endpointUrl = action === 'login' ? environment.apiUrl+'/auth/login' : environment.apiUrl+'/auth/register';
     return this.httpClient.post<Token>(endpointUrl, login).pipe(
       tap(token => {
         if (token.token) {
