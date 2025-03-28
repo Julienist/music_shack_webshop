@@ -1,5 +1,6 @@
 package com.duckstudios.webshopapi.models;
 
+import com.duckstudios.webshopapi.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class CustomUser {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String email;
@@ -24,8 +25,9 @@ public class CustomUser {
     @JsonManagedReference
     private List<OrderEntity> orders;
 
-//    @Enumerated(EnumType.STRING);
-//    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     public CustomUser(){}
 
