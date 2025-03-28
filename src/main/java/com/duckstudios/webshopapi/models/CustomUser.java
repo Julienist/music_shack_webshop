@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity(name = "custom_user")
 public class CustomUser {
 
@@ -30,34 +31,8 @@ public class CustomUser {
     @Column(nullable = false)
     private Role role;
 
-    public CustomUser(){}
-
     public CustomUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
-
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 }
