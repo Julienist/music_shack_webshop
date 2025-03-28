@@ -3,6 +3,8 @@ package com.duckstudios.webshopapi.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 //public enum Role {
 //    ADMIN, CUSTOMER
 //}
@@ -18,9 +20,9 @@ public class CustomUser {
 
     private String password;
 
-    @
+    @OneToMany(mappedBy = "\"Order\"")
     @JsonManagedReference
-    private Order order;
+    private List<Order> orders;
 
 //    @Enumerated(EnumType.STRING);
 //    private Role role;
