@@ -23,17 +23,17 @@ public class OrderDAO {
     }
 
     public List<OrderEntity> getAllOrders() {
-        //noinspection UnnecessaryLocalVariable
-        List<OrderEntity> orders = this.orderRepository.findAll();
-        return orders;
+        return orderRepository.findAll();
+//        List<OrderEntity> orders = this.orderRepository.findAll();
+//        return orders;
     }
 
-    public Optional<OrderEntity> getOrder(long id) {
+    public Optional<OrderEntity> getOrderById(long id) {
         entityValidator.checkIfIdExists(id, orderRepository, "Order");
-        //noinspection UnnecessaryLocalVariable
-        Optional<OrderEntity> order = this.orderRepository.findById(id);
+        return orderRepository.findById(id);
+//        Optional<OrderEntity> order = this.orderRepository.findById(id);
         // Opgesplitst in 2 lines, voor leesbaarheid
-        return order;
+//        return order;
     }
 
     public void createOrder(OrderDTO orderDTO) {

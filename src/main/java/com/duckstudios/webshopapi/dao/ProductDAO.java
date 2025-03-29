@@ -29,7 +29,7 @@ public class ProductDAO {
         return products;
     }
 
-    public Optional<Product> getProduct(long id) {
+    public Optional<Product> getProductById(long id) {
         entityValidator.checkIfIdExists(id, productRepository, "Product");
         //noinspection UnnecessaryLocalVariable
         Optional<Product> product = this.productRepository.findById(id);
@@ -56,7 +56,7 @@ public class ProductDAO {
         this.productRepository.save(product);
     }
 
-    public void setProductunAvailable(long id) {
+    public void setProductUnavailable(long id) {
         Product product = entityValidator.checkIfIdExists(id, productRepository, "Product");
         product.setAvailable(false);
         this.productRepository.save(product);

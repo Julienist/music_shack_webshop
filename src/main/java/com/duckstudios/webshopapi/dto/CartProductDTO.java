@@ -1,12 +1,11 @@
 package com.duckstudios.webshopapi.dto;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class CartProductDTO {
 
     private long productId;
     private int quantity;
 
-    public CartProductDTO(long productId, int quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
 }

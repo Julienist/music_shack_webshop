@@ -38,7 +38,7 @@ public class Product {
     @JsonManagedReference
     private List<OrderProduct> orderProducts;
 
-    public Product(String name, String description, BigDecimal price, boolean isAvailable, String imageurl, long amountInStock, Category category, List<OrderProduct> orderProducts) {
+    public Product(String name, String description, BigDecimal price, boolean isAvailable, String imageurl, long amountInStock, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -46,6 +46,5 @@ public class Product {
         this.imageurl = imageurl;
         this.amountInStock = amountInStock;
         this.category = category;
-        this.orderProducts = orderProducts;
     }
 }

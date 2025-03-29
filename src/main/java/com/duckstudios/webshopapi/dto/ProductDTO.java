@@ -1,11 +1,11 @@
 package com.duckstudios.webshopapi.dto;
 
-import com.duckstudios.webshopapi.models.OrderProduct;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+@AllArgsConstructor
 public class ProductDTO {
     public String name;
     public String description;
@@ -20,13 +20,4 @@ public class ProductDTO {
 //    public List<OrderProduct> orderProducts;
     // weet niet of bovenstaande in constructor moet.
 
-    public ProductDTO(String name, String description, BigDecimal price, boolean isAvailable, String imageurl, long amountInStock, long categoryid) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.isAvailable = isAvailable;
-        this.imageurl = imageurl;
-        this.amountInStock = amountInStock;
-        this.categoryId = categoryid;
-    }
 }
