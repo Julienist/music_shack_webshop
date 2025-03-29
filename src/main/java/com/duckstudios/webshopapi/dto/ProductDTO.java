@@ -1,8 +1,10 @@
 package com.duckstudios.webshopapi.dto;
 
+import com.duckstudios.webshopapi.models.OrderProduct;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProductDTO {
     public String name;
@@ -14,6 +16,9 @@ public class ProductDTO {
 
     @JsonAlias("category_id")
     public long categoryId;
+
+//    public List<OrderProduct> orderProducts;
+    // weet niet of bovenstaande in constructor moet.
 
     public ProductDTO(String name, String description, BigDecimal price, boolean isAvailable, String imageurl, long amountInStock, long categoryid) {
         this.name = name;

@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 public class OrderDTO {
 
     @JsonAlias("customuser_id")
-    public long customuserId;
+    public long customUserId;
 
     public LocalDateTime orderDate;
     public OrderStatus orderStatus;
     public BigDecimal totalPrice;
 
-    public OrderDTO(long customuserId, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice) {
-        this.customuserId = customuserId;
+    public OrderDTO(long customUserId, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice) {
+        this.customUserId = customUserId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
         this.totalPrice = totalPrice;

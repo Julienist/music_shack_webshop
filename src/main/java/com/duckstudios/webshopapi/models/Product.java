@@ -29,7 +29,6 @@ public class Product {
     private int version;
     private long amountInStock;
 
-//    @ManyToOne(cascade = CascadeType.MERGE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @JsonBackReference
@@ -49,60 +48,4 @@ public class Product {
         this.category = category;
         this.orderProducts = orderProducts;
     }
-
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public BigDecimal getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(BigDecimal price) {
-//        this.price = price;
-//    }
-//
-//    public boolean isAvailable() {
-//        return isAvailable;
-//    }
-//
-//    public void setAvailable(boolean available) {
-//        isAvailable = available;
-//    }
-//
-//    public String getImageurl() {
-//        return imageurl;
-//    }
-//
-//    public void setImageurl(String imageurl) {
-//        this.imageurl = imageurl;
-//    }
-//
-//    public long getStock() {
-//        return amountInStock;
-//    }
-//
-//    public void setStock(long stock) {
-//        this.amountInStock = stock;
-//    }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,48 +24,9 @@ public class Category {
     @JsonManagedReference
     private List<Product> products;
 
-    //    @OneToMany(mappedBy = "category")
-//    @JsonManagedReference
-//    private List<Task> tasks;
-
-    public Category(String name, List<Product> products) {
+    //constructor maakt bij aanmaak van cat. een lege categorie aan.
+    public Category(String name) {
         this.name = name;
-        this.products = products;
+        this.products = new ArrayList<>();
     }
-
-    //    public Category(String name) {
-//        this.name = name;
-//    }
-
-    //    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-
-//    public List<Task> getTasks() {
-//        return tasks;
-//    }
-
-//    public void setTasks(List<Task> tasks) {
-//        this.tasks = tasks;
-//    }
-
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
 }

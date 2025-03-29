@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,9 +32,18 @@ public class CustomUser {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "customUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Cart> carts = new ArrayList<>();
+
     public CustomUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
-//    misschien nog constructor aanpassen met role erin?
+
+    public CustomUser(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }
