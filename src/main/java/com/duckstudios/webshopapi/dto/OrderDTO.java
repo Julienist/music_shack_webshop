@@ -1,5 +1,6 @@
 package com.duckstudios.webshopapi.dto;
 
+import com.duckstudios.webshopapi.models.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.math.BigDecimal;
@@ -11,10 +12,10 @@ public class OrderDTO {
     public long customuserId;
 
     public LocalDateTime orderDate;
-    public Enum orderStatus;
+    public OrderStatus orderStatus;
     public BigDecimal totalPrice;
 
-    public OrderDTO(long customuserId, LocalDateTime orderDate, Enum orderStatus, BigDecimal totalPrice) {
+    public OrderDTO(long customuserId, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice) {
         this.customuserId = customuserId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;

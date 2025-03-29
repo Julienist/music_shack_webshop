@@ -1,13 +1,16 @@
 package com.duckstudios.webshopapi.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Category {
     @Id
@@ -16,35 +19,38 @@ public class Category {
 
     private String name;
 
-//    @OneToMany(mappedBy = "category")
-//    @JsonManagedReference
-//    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Product> products;
 
-    public Category(String name) {
+    //    @OneToMany(mappedBy = "category")
+//    @JsonManagedReference
+//    private List<Task> tasks;
+
+    public Category(String name, List<Product> products) {
         this.name = name;
+        this.products = products;
     }
 
-    public Category(){}
+    //    public Category(String name) {
+//        this.name = name;
+//    }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    //    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
 //    public List<Task> getTasks() {
 //        return tasks;
@@ -54,11 +60,11 @@ public class Category {
 //        this.tasks = tasks;
 //    }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 }

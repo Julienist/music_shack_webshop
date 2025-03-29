@@ -23,7 +23,7 @@ public class CustomUser {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "customUser")
+    @OneToMany(mappedBy = "customUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<OrderEntity> orders;
 
@@ -35,4 +35,5 @@ public class CustomUser {
         this.email = email;
         this.password = password;
     }
+//    misschien nog constructor aanpassen met role erin?
 }

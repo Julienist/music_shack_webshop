@@ -1,5 +1,6 @@
 package com.duckstudios.webshopapi.models;
 
+import com.duckstudios.webshopapi.models.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,11 +24,12 @@ public class OrderEntity {
 
     private LocalDateTime orderDate;
 
-    private Enum orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     private BigDecimal totalPrice;
 
-    public OrderEntity(CustomUser customUser, LocalDateTime orderDate, Enum orderStatus, BigDecimal totalPrice) {
+    public OrderEntity(CustomUser customUser, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice) {
         this.customUser = customUser;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
