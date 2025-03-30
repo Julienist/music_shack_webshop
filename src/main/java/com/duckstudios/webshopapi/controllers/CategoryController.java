@@ -27,7 +27,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Category>> getCategory(@PathVariable long id) {
-        return ResponseEntity.ok(this.categoryDAO.getCategory(id));
+        return ResponseEntity.ok(this.categoryDAO.getCategoryById(id));
     }
 
     @PostMapping
@@ -35,4 +35,11 @@ public class CategoryController {
         this.categoryDAO.createCategory(categoryDTO);
         return ResponseEntity.ok("New category was created!");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCategory(@PathVariable long id){
+        this.categoryDAO.deleteCategory(id);
+        return ResponseEntity.ok("Category deleted");
+    }
+
 }

@@ -20,13 +20,32 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        CustomUser customUser = userRepository.findByEmail(email);
+//        return new User(
+//                email,
+//                customUser.getPassword(),
+//                Collections.singleton(new SimpleGrantedAuthority("ROLE USER")));
+//        // role uit db halen.
+//    }
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         CustomUser customUser = userRepository.findByEmail(email);
+
+        if (customUser == null) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        // Haal de rol van de gebruiker op en zet deze correct in Spring Security formaat
+        String roleName = "ROLE_" + customUser.getRole().name();
+
         return new User(
-                email,
+                customUser.getEmail(),
                 customUser.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority("ROLE USER")));
-        // role uit db halen.
+                Collections.singleton(new SimpleGrantedAuthority(roleName))
+        );
     }
 }
