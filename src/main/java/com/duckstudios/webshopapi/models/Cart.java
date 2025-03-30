@@ -32,4 +32,7 @@ public class Cart {
         this.customUser = customUser;
         this.isActive = isActive;
     }
+
+    public Cart(List<CartProduct> cartProducts, long customUserId, boolean isActive) {
+    }
 }

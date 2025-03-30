@@ -10,6 +10,13 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(
+name = "cart_product",
+uniqueConstraints = {
+    @UniqueConstraint(
+        columnNames = { "cart_id", "product_id" }
+    )
+})
 public class CartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +24,12 @@ public class CartProduct {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private int quantity;

@@ -27,7 +27,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<OrderEntity>> getOrder(@PathVariable long id) {
-        Optional<OrderEntity> order = this.orderDAO.getOrder(id);
+        Optional<OrderEntity> order = this.orderDAO.getOrderById(id);
         return ResponseEntity.ok(order);
     }
 
@@ -35,5 +35,11 @@ public class OrderController {
     public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
         this.orderDAO.createOrder(orderDTO);
         return ResponseEntity.ok("Order aangemaakt!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOrder(@PathVariable long id){
+        this.orderDAO.deleteOrderById(id);
+        return ResponseEntity.ok("Order deleted");
     }
 }

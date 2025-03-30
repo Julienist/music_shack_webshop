@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable long id) {
-        Optional<Product> product = this.productDAO.getProduct(id);
+        Optional<Product> product = this.productDAO.getProductById(id);
         return ResponseEntity.ok(product);
     }
 
@@ -54,7 +54,7 @@ public class ProductController {
 
     @PutMapping("/uncheck/{id}")
     public ResponseEntity<String> uncheckProduct(@PathVariable long id) {
-        this.productDAO.setProductunAvailable(id);
+        this.productDAO.setProductUnavailable(id);
         return ResponseEntity.ok("Unfinished product with id " + id);
     }
 

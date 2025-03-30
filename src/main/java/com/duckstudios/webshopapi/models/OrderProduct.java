@@ -9,17 +9,27 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(
+name= "order_product",
+uniqueConstraints = {
+    @UniqueConstraint(
+        columnNames = {"order_id","product_id"}
+    )
+})
 public class OrderProduct {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name= "order_id", nullable = false)
     private OrderEntity order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name= "product_id", nullable = false)
     private Product product;
 
     private int quantity;

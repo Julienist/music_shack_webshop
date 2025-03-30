@@ -2,14 +2,11 @@ package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
-import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Component
 public class CartDAO {
@@ -31,14 +28,13 @@ public class CartDAO {
         return this.cartRepository.findById(id);
     }
 
-//    public void createCart(CartDTO cartDTO) {
-//    CustomUser customUserId = entityValidator.checkIfIdExists(id, UserRepository, "CustomUser");
-// 1. Weten of CustomUserId bestaat
-// 2. Weten of CartId al bestaat, G
-// 2. Cart maken met customUserId
-//        Cart cart = new Cart(cartDTO.customUserId);
-//        this.cartRepository.save(cart);
-//    }
+    public void createCart(CartDTO cartDTO) {
+        //note:
+        // 1. waarschijnlijk wil je ook checken of een customUser wel bestaat.
+        // 2. Producten wil je in een cart zetten, je wilt dus niet hier een table vullen wss.
+        Cart cart = new Cart(cartDTO.cartProducts,cartDTO.customUser,cartDTO.isActive);
+        this.cartRepository.save(cart);
+    }
 
     public void deleteCart(long id) {
         Cart cart = entityValidator.checkIfIdExists(id, cartRepository, "Cart");

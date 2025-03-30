@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 public class AuthenticationDTO {
 
     public String email;
-
     public String password;
-
     public Role role;
 
 }

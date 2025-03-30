@@ -7,8 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import java.util.Optional;
 
 @Component
 public class CartProductDAO {
@@ -25,17 +24,23 @@ public class CartProductDAO {
         return this.cartProductRepository.findAll();
     }
 
-//    public void createCartProduct(CartProductDTO cartProductDTO) {
-//        entityValidator.checkIfIdExists(cartProductDTO.id, cartProductRepository, "CartProduct");
-//        this.cartProductRepository.save();
-//    }
+    public Optional<CartProduct> getCartProductById(long id) {
+        entityValidator.checkIfIdExists(id, cartProductRepository, "CartProduct");
+        Optional<CartProduct> cartProduct = this.cartProductRepository.findById(id);
+        return cartProduct;
+    }
 
+    public void createCartProduct(CartProductDTO cartProductDTO) {
+        CartProduct cartProduct = new CartProduct(cartProductDTO.cart, cartProductDTO.product, cartProductDTO.quantity, cartProductDTO.totalPrice);
+        this.cartProductRepository.save(cartProduct);
+    }
 
-// functie hieronder heeft EntityValidator nodig, maar voor 2 Id validators uit 2 verschillende Entities.
-//
-//    public void deleteCartProduct(long cartId, long productId) {
-//        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, productId)
-//                .orElseThrow(() -> new EntityNotFoundException("CartProduct not found"));
-//        this.cartProductRepository.delete(cartProduct);
-//    }
+    public void deleteCartProduct(long cartId, long productId) {
+        if (!entityValidator.checkOrderProductExists(cartId, productId)) {
+            throw new EntityNotFoundException("cartProduct not found");
+        }
+
+        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, productId).get();
+        this.cartProductRepository.delete(cartProduct);
+    }
 }

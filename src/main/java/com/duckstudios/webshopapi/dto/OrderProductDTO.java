@@ -1,11 +1,17 @@
 package com.duckstudios.webshopapi.dto;
 
+import com.duckstudios.webshopapi.models.OrderEntity;
+import com.duckstudios.webshopapi.models.Product;
 import lombok.AllArgsConstructor;
+
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 public class OrderProductDTO {
 
-    private long productId;
-    private int quantity;
+    public OrderEntity order;
+    public Product product;
+    public int quantity;
+    public BigDecimal totalPrice;
 
 }

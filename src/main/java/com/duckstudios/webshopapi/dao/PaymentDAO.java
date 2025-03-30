@@ -1,5 +1,6 @@
 package com.duckstudios.webshopapi.dao;
 
+import com.duckstudios.webshopapi.dto.PaymentDTO;
 import com.duckstudios.webshopapi.models.Payment;
 import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.stereotype.Component;
@@ -27,13 +28,13 @@ public class PaymentDAO {
         return this.paymentRepository.findById(id);
     }
 
-//    public void createPayment(Payment payment) {
-//        this.paymentRepository.save(payment);
-//    }
+    public void createPayment(PaymentDTO paymentDTO) {
+        Payment payment = new Payment(paymentDTO.order, paymentDTO.paymentMethod, paymentDTO.paymentAmount, paymentDTO.paymentDate);
+        this.paymentRepository.save(payment);
+    }
 
-//    public void deletePayment(long id) {
-//        Payment payment = entityValidator.checkIfIdExists(id, paymentRepository, "Payment");
-//        this.paymentRepository.delete(payment);
-//    }
-
+    public void deletePayment(long id) {
+        Payment payment = entityValidator.checkIfIdExists(id, paymentRepository, "Payment");
+        this.paymentRepository.delete(payment);
+    }
 }

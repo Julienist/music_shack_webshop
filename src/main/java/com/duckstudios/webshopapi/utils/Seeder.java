@@ -14,12 +14,11 @@ import java.math.BigDecimal;
 @Component
 public class Seeder {
 
-    private final TaskRepository taskRepository;
+//    private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
-    public Seeder(TaskRepository taskRepository, CategoryRepository categoryRepository, ProductRepository productRepository) {
-        this.taskRepository = taskRepository;
+    public Seeder(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
     }
@@ -63,6 +62,7 @@ public class Seeder {
     //        this.productRepository.save(product4);
     //        this.productRepository.save(product5);
     }
+
     private void createAndSaveProduct(String name, String artist, BigDecimal price, boolean isAvailable, String imageUrl, long stock, Category category) {
         Product product = new Product(name + " - " + artist, "Een klassiek album van " + artist, price, isAvailable, imageUrl, stock, category);
         productRepository.save(product);

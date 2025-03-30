@@ -41,4 +41,9 @@ public class OrderDAO {
         OrderEntity order = new OrderEntity(customuserId, orderDTO.orderDate, orderDTO.orderStatus, orderDTO.totalPrice);
         this.orderRepository.save(order);
     }
+
+    public void deleteOrderById(long id) {
+        OrderEntity order = entityValidator.checkIfIdExists(id, orderRepository, "OrderEntity");
+        this.orderRepository.delete(order);
+    }
 }
