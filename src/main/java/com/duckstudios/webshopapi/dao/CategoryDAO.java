@@ -37,9 +37,4 @@ public class CategoryDAO {
         Category category = entityValidator.checkIfIdExists(id, categoryRepository, "Category");
         this.categoryRepository.delete(category);
     }
-
-//    private <T, ID> T checkIfIdExists(ID id, JpaRepository<T, ID> repository) {
-//        return repository.findById(id).orElseThrow(() ->
-//                new ResponseStatusException(HttpStatus.NOT_FOUND, "Category" + " met dat id bestaat niet!"));
-//    }
 }

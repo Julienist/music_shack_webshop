@@ -20,17 +20,6 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        CustomUser customUser = userRepository.findByEmail(email);
-//        return new User(
-//                email,
-//                customUser.getPassword(),
-//                Collections.singleton(new SimpleGrantedAuthority("ROLE USER")));
-//        // role uit db halen.
-//    }
-
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         CustomUser customUser = userRepository.findByEmail(email);
