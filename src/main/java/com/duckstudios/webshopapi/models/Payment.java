@@ -21,7 +21,7 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @JsonBackReference // Voorkomt oneindige JSON-lussen
+    @JsonBackReference
     private OrderEntity order;
 
     private String paymentMethod;

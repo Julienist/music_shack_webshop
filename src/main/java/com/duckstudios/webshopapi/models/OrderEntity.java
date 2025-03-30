@@ -2,11 +2,13 @@ package com.duckstudios.webshopapi.models;
 
 import com.duckstudios.webshopapi.models.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +19,15 @@ public class OrderEntity {
     @Id
     @GeneratedValue
     private long id;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<OrderProduct> orderProducts;
+
+    @OneToOne
+//    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private OrderEntity order;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonBackReference

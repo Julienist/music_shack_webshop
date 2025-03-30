@@ -4,6 +4,7 @@ import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.models.OrderEntity;
 import com.duckstudios.webshopapi.services.EntityValidator;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class OrderDAO {
         this.orderRepository.save(order);
     }
 
+    @Transactional
     public void deleteOrderById(long id) {
         OrderEntity order = entityValidator.checkIfIdExists(id, orderRepository, "OrderEntity");
         this.orderRepository.delete(order);
