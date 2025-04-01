@@ -1,6 +1,7 @@
 package com.duckstudios.webshopapi.controllers;
 
 import com.duckstudios.webshopapi.dao.OrderDAO;
+import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.models.OrderEntity;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,12 @@ public class OrderController {
 
     public OrderController(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;
+    }
+
+    @GetMapping("/my_orders")
+    public ResponseEntity<List<OrderEntity>> getOrdersForCurrentUser(@RequestBody AuthenticationDTO authenticationDTO) {
+        List<OrderEntity> orders = this.orderDAO.getOrdersForCurrentUser(authenticationDTO.email);
+        return ResponseEntity.ok(orders);
     }
 
     @GetMapping

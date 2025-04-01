@@ -1,11 +1,16 @@
 package com.duckstudios.webshopapi.controllers;
 
 import com.duckstudios.webshopapi.dao.CartDAO;
+import com.duckstudios.webshopapi.dao.CartRepository;
+import com.duckstudios.webshopapi.dao.UserRepository;
+import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
+import com.duckstudios.webshopapi.models.CustomUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,11 @@ public class CartController {
 
     public CartController(CartDAO cartDAO) {
         this.cartDAO = cartDAO;
+    }
+
+    @GetMapping("/my_cart")
+    public ResponseEntity<List<Cart>>  getCartForUser(@RequestBody AuthenticationDTO authenticationDTO) {
+        return ResponseEntity.ok(Collections.singletonList(cartDAO.getCartForCurrentUser(authenticationDTO.email)));
     }
 
     @GetMapping

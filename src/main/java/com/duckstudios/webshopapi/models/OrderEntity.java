@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "\"Order\"")
+//@Table(name = "\"Order\"")
 public class OrderEntity {
     @Id
     @GeneratedValue
@@ -31,6 +31,7 @@ public class OrderEntity {
     //payment via 1:M relatie erin zetten via orderId.
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name="customUserId", nullable = false)
     @JsonBackReference
     private CustomUser customUser;
 

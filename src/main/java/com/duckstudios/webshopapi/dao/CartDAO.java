@@ -2,6 +2,7 @@ package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
+import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +14,18 @@ public class CartDAO {
 
     private final CartRepository cartRepository;
     private final EntityValidator entityValidator;
+    private final UserRepository userRepository;
 
-    public CartDAO(CartRepository cartRepository, EntityValidator entityValidator) {
+    public CartDAO(CartRepository cartRepository, EntityValidator entityValidator, UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.entityValidator = entityValidator;
+        this.userRepository = userRepository;
+    }
+
+    public Cart getCartForCurrentUser(String email) {
+        CustomUser currentUser = userRepository.findByEmail(email);
+        return cartRepository.findByCustomUser(currentUser)
+                .orElseThrow(() -> new RuntimeException("geen winkelmandje gevonden voor gebruiker"));
     }
 
     public List<Cart> getAllCarts() {

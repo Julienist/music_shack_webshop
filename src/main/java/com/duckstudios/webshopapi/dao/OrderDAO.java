@@ -4,7 +4,9 @@ import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.models.OrderEntity;
 import com.duckstudios.webshopapi.services.EntityValidator;
+import com.duckstudios.webshopapi.services.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,6 +37,11 @@ public class OrderDAO {
 //        Optional<OrderEntity> order = this.orderRepository.findById(id);
         // Opgesplitst in 2 lines, voor leesbaarheid
 //        return order;
+    }
+
+    public List<OrderEntity> getOrdersForCurrentUser(String email) {
+        CustomUser customUser = userRepository.findByEmail(email);
+        return orderRepository.findOrderEntityByCustomUser(customUser);
     }
 
     public void createOrder(OrderDTO orderDTO) {

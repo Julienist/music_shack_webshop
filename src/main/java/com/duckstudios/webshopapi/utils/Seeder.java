@@ -3,6 +3,8 @@ package com.duckstudios.webshopapi.utils;
 import com.duckstudios.webshopapi.dao.*;
 import com.duckstudios.webshopapi.models.*;
 import com.duckstudios.webshopapi.models.enums.*;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class Seeder {
@@ -133,20 +136,33 @@ public class Seeder {
         }
     }
 
-    private void createOrderWithPayment(CustomUser user, List<Product> products) {
-        OrderEntity order = new OrderEntity(user, LocalDateTime.now(), OrderStatus.PAID, new BigDecimal("0.00"));
-        orderRepository.save(order);
+    @Transactional
+    public void createOrderWithPayment(CustomUser user, List<Product> products) {
+        // 1️⃣ Haal een persistente user op om detach errors te vermijden
+        CustomUser persistentUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found!"));
 
+        // 2️⃣ Maak de order aan
+        OrderEntity order = new OrderEntity(persistentUser, LocalDateTime.now(), OrderStatus.PAID, BigDecimal.ZERO);
+
+        // 3️⃣ Maak de OrderProducts aan en koppel ze aan de OrderEntity
         BigDecimal total = BigDecimal.ZERO;
+        List<OrderProduct> orderProducts = new ArrayList<>();
+
         for (Product product : products) {
             OrderProduct orderProduct = new OrderProduct(order, product, 1, product.getPrice());
-            orderProductRepository.save(orderProduct);
+            orderProducts.add(orderProduct);
             total = total.add(product.getPrice());
         }
-        order.setTotalPrice(total);
-        orderRepository.save(order);
 
-//        Payment payment = new Payment(order, "Credit Card", total, LocalDateTime.now());
-//        paymentRepository.save(payment);
+        // 4️⃣ Zet de producten in de order en sla alles op in één keer
+        order.setOrderProducts(orderProducts);
+        order.setTotalPrice(total);
+
+        orderRepository.saveAndFlush(order);
+
+        // 5️⃣ Check of de producten zijn opgeslagen
+        System.out.println("✅ Order opgeslagen met " + order.getOrderProducts().size() + " producten!");
     }
+
 }
