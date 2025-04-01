@@ -23,21 +23,19 @@ public class Seeder {
     private final CartProductRepository cartProductRepository;
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
-//    private final PaymentRepository paymentRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public Seeder(CategoryRepository categoryRepository, ProductRepository productRepository,
                   CartRepository cartRepository, CartProductRepository cartProductRepository,
                   OrderRepository orderRepository, OrderProductRepository orderProductRepository,
-                  PaymentRepository paymentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+                  UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartProductRepository = cartProductRepository;
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
-//        this.paymentRepository = paymentRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
