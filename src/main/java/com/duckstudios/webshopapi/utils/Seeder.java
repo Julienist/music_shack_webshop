@@ -3,7 +3,6 @@ package com.duckstudios.webshopapi.utils;
 import com.duckstudios.webshopapi.dao.*;
 import com.duckstudios.webshopapi.models.*;
 import com.duckstudios.webshopapi.models.enums.*;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class Seeder {

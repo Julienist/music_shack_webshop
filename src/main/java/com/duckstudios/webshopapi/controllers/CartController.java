@@ -1,12 +1,9 @@
 package com.duckstudios.webshopapi.controllers;
 
 import com.duckstudios.webshopapi.dao.CartDAO;
-import com.duckstudios.webshopapi.dao.CartRepository;
-import com.duckstudios.webshopapi.dao.UserRepository;
 import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
-import com.duckstudios.webshopapi.models.CustomUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
