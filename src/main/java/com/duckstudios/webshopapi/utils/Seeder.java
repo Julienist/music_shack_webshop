@@ -5,6 +5,7 @@ import com.duckstudios.webshopapi.models.*;
 import com.duckstudios.webshopapi.models.enums.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -21,21 +22,23 @@ public class Seeder {
     private final CartProductRepository cartProductRepository;
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
-    private final PaymentRepository paymentRepository;
+//    private final PaymentRepository paymentRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Seeder(CategoryRepository categoryRepository, ProductRepository productRepository,
                   CartRepository cartRepository, CartProductRepository cartProductRepository,
                   OrderRepository orderRepository, OrderProductRepository orderProductRepository,
-                  PaymentRepository paymentRepository, UserRepository userRepository) {
+                  PaymentRepository paymentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartProductRepository = cartProductRepository;
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
-        this.paymentRepository = paymentRepository;
+//        this.paymentRepository = paymentRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @EventListener
@@ -98,10 +101,11 @@ public class Seeder {
     }
 
     private void seedUsersAndOrders() {
-        CustomUser dummyUser = createUser("dummy@example.com", "password123", Role.CUSTOMER);
-        CustomUser cartUser = createUser("cartuser@example.com", "password123", Role.CUSTOMER);
-        CustomUser orderUser = createUser("orderuser@example.com", "password123", Role.CUSTOMER);
-        CustomUser adminUser = createUser("admin@example.com", "adminpassword", Role.ADMIN);
+
+        CustomUser dummyUser = createUser("dummy@example.com", "Password123#", Role.CUSTOMER);
+        CustomUser cartUser = createUser("cartuser@example.com", "Password123#", Role.CUSTOMER);
+        CustomUser orderUser = createUser("orderuser@example.com", "Password123#", Role.CUSTOMER);
+        CustomUser adminUser = createUser("admin@example.com", "Adminpassword1#", Role.ADMIN);
 
         // Winkelmandje maken en opslaan
         Cart cart = new Cart( new ArrayList<>(), cartUser, true);
@@ -114,8 +118,11 @@ public class Seeder {
         createOrderWithPayment(orderUser, products.subList(3, 5)); // Voeg 2 producten toe aan de order
     }
 
-    private CustomUser createUser(String email, String password, Role role) {
-        CustomUser user = new CustomUser(email, password, role);
+    private CustomUser createUser(String email, String rawPassword, Role role) {
+        CustomUser user = new CustomUser();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(rawPassword)); // Hash password before storing
+        user.setRole(role);
         return userRepository.save(user);
     }
 
@@ -139,7 +146,7 @@ public class Seeder {
         order.setTotalPrice(total);
         orderRepository.save(order);
 
-        Payment payment = new Payment(order, "Credit Card", total, LocalDateTime.now());
-        paymentRepository.save(payment);
+//        Payment payment = new Payment(order, "Credit Card", total, LocalDateTime.now());
+//        paymentRepository.save(payment);
     }
 }

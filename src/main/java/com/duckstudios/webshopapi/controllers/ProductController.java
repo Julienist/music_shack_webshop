@@ -33,7 +33,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO ){
-        // De gebruiker moet een set aan data krijgen. → naam van task en description van task.
+        // De gebruiker moet een set aan data krijgen. → naam van product en description van product.
         this.productDAO.createProduct(productDTO);
         // De DAO vragen om de task te gaan maken en weg te schrijven naar de database.
         // Debug message if writing to db has gone good.

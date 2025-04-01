@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
-@RequestMapping("/Orders")
+@RequestMapping("/orders")
 public class OrderController {
     private final OrderDAO orderDAO;
 

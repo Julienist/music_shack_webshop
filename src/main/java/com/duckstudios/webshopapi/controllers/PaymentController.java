@@ -32,7 +32,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<String> createPayment(@RequestBody PaymentDTO paymentDTO) {
-        this.paymentDAO.createPayment(paymentDTO);
+//        this.paymentDAO.createPayment(paymentDTO);
         return ResponseEntity.ok("Payment created!");
     }
 

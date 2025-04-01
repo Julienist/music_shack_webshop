@@ -62,6 +62,8 @@ public class AuthController {
         CustomUser registeredUser = new CustomUser(authenticationDTO.email, encodedPassword);
         registeredUser.setRole(Role.CUSTOMER);
 
+        userDAO.save(registeredUser);
+
         String token = jwtUtil.generateToken(registeredUser.getEmail());
 
         LoginResponse loginResponse = new LoginResponse(registeredUser.getEmail(), token, registeredUser.getRole());

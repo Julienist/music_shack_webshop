@@ -28,10 +28,10 @@ public class PaymentDAO {
         return this.paymentRepository.findById(id);
     }
 
-    public void createPayment(PaymentDTO paymentDTO) {
-        Payment payment = new Payment(paymentDTO.order, paymentDTO.paymentMethod, paymentDTO.paymentAmount, paymentDTO.paymentDate);
-        this.paymentRepository.save(payment);
-    }
+//    public void createPayment(PaymentDTO paymentDTO) {
+//        Payment payment = new Payment(paymentDTO.order, paymentDTO.paymentMethod, paymentDTO.paymentAmount, paymentDTO.paymentDate);
+//        this.paymentRepository.save(payment);
+//    }
 
     public void deletePayment(long id) {
         Payment payment = entityValidator.checkIfIdExists(id, paymentRepository, "Payment");

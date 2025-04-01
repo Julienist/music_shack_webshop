@@ -37,7 +37,8 @@ public class SecurityConfig {
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/auth/**").permitAll()
-                    .requestMatchers("/products").permitAll()
+                    .requestMatchers("/products/**").permitAll()
+                    .requestMatchers("/categories/**").permitAll()
                     .requestMatchers("/error").anonymous()
                     .anyRequest().authenticated()
                 )

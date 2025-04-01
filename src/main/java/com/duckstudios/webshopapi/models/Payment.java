@@ -19,19 +19,22 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @JsonBackReference
-    private OrderEntity order;
+//    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "order_id", referencedColumnName = "id")
+//    @JsonBackReference
+//    private Long orderId;
 
     private String paymentMethod;
     private BigDecimal paymentAmount;
     private LocalDateTime paymentDate;
 
-    public Payment(OrderEntity order, String paymentMethod, BigDecimal paymentAmount, LocalDateTime paymentDate) {
-        this.order = order;
+    public Payment(Long orderId, String paymentMethod, BigDecimal paymentAmount, LocalDateTime paymentDate) {
+//        this.orderId = orderId;
         this.paymentMethod = paymentMethod;
         this.paymentAmount = paymentAmount;
         this.paymentDate = paymentDate;
     }
+
+    // orderId hierin geintegreerd te krijgen met M:1 relatie.
+
 }

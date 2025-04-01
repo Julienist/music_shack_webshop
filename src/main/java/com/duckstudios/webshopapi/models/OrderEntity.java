@@ -24,10 +24,11 @@ public class OrderEntity {
     @JsonManagedReference
     private List<OrderProduct> orderProducts;
 
-    @OneToOne
+//    @OneToOne
 //    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @JsonManagedReference
-    private OrderEntity order;
+//    @JsonManagedReference
+//    private Payment payment;
+    //payment via 1:M relatie erin zetten via orderId.
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonBackReference
