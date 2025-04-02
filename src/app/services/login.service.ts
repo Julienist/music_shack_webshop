@@ -12,6 +12,7 @@ export class LoginService {
   private httpClient = inject(HttpClient);
   private loggedIn: boolean = false;
   private token: string | null = null;
+  private role: string | null = null;
 
   public isLoggedIn(): boolean {
     return this.loggedIn;
@@ -19,6 +20,10 @@ export class LoginService {
 
   public getToken(){
     return this.token;
+  }
+
+  public getRole(){
+    return this.role;
   }
 
   constructor() {
@@ -37,6 +42,12 @@ export class LoginService {
           this.token = token.token;
           this.saveTokenInLocalStorage(token.token);
         }
+      }),
+      tap(role => {
+        if (role.role) {
+          this.role = role.role;
+          this.saveRoleInLocalStorage(role.role);
+        }
       })
     );
   }
@@ -47,5 +58,14 @@ export class LoginService {
 
   private loadTokenFromLocalStorage(){
       this.token = localStorage.getItem('authToken')
+  }
+
+  private saveRoleInLocalStorage(role: string){
+    localStorage.setItem('role', role);
+    console.log("role saved in localstorage: "+ role);
+  }
+
+  private loadRoleFromLocalStorage(){
+    this.role = localStorage.getItem('role');
   }
 }

@@ -3,8 +3,10 @@ export interface Product {
     name: string;
     description: string;
     price: number;
-    available: boolean;
     imageUrl: string;
+    version: number;
     stock: number;
+    available: boolean;
+    orderProducts: Array<null>;
     quantity: number;
 }
