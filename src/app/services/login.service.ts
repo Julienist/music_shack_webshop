@@ -12,19 +12,28 @@ export class LoginService {
   private httpClient = inject(HttpClient);
   private loggedIn: boolean = false;
   private token: string | null = null;
-  private role: string | null = null;
+  private role: string = '';
+  private email: string = '';
 
   public isLoggedIn(): boolean {
     return this.loggedIn;
   }
 
-  public getToken(){
+  public getToken() {
     return this.token;
   }
 
-  public getRole(){
+  public getRole() {
     return this.role;
   }
+
+  public getEmail() {
+    return localStorage.getItem('email');
+  }
+
+  //  getEmail(): string | null {
+  //   return this.email;
+  // }
 
   constructor() {
     this.loadTokenFromLocalStorage()
@@ -36,19 +45,22 @@ export class LoginService {
   public authenticate(action: 'login' | 'register', login: Login): Observable<Token> {
     const endpointUrl = action === 'login' ? environment.apiUrl+'/auth/login' : environment.apiUrl+'/auth/register';
     return this.httpClient.post<Token>(endpointUrl, login).pipe(
-      tap(token => {
-        if (token.token) {
+      tap(response => {
+        if (response.token) {
           this.loggedIn = true;
-          this.token = token.token;
-          this.saveTokenInLocalStorage(token.token);
-        }
-      }),
-      tap(role => {
-        if (role.role) {
-          this.role = role.role;
-          this.saveRoleInLocalStorage(role.role);
+          this.token = response.token;
+          this.role = response.role;
+          // this.email = response.email;
+          localStorage.setItem('email', login.email);
+          this.saveTokenInLocalStorage(response.token);
         }
       })
+      // tap(role => {
+      //   if (role.role) {
+      //     this.role = role.role;
+      //     this.saveRoleInLocalStorage(role.role);
+      //   }
+      // })
     );
   }
 
@@ -60,12 +72,13 @@ export class LoginService {
       this.token = localStorage.getItem('authToken')
   }
 
-  private saveRoleInLocalStorage(role: string){
-    localStorage.setItem('role', role);
-    console.log("role saved in localstorage: "+ role);
-  }
+  // private saveRoleInLocalStorage(role: string){
+  //   localStorage.setItem('role', role);
+  //   console.log("role saved in localstorage: "+ role);
+  // }
 
-  private loadRoleFromLocalStorage(){
-    this.role = localStorage.getItem('role');
-  }
+  // private loadRoleFromLocalStorage(){
+  //   this.role = localStorage.getItem('role');
+  // }
+
 }
