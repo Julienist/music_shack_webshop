@@ -13,6 +13,7 @@
     }
   </ul>
   <p *ngIf="cartItems().length > 0">Totale prijs: €{{ totalPrice() }}</p>
+  <button routerLink="/afrekenen">Afrekenen</button>
 </section>
 
 <ng-template #emptyCart>

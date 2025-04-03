@@ -1,4 +1,4 @@
-import { computed, Injectable } from '@angular/core';
+import { computed, Inject, inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartService } from './cart.service';
 import { Observable } from 'rxjs';
@@ -9,9 +9,10 @@ import { Order } from '../models/order.model'; // Importeer de interface
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = environment.orderUrl; // URL van backend API
-
-  constructor(private http: HttpClient, private cartService: CartService) {}
+  private apiUrl = environment.apiUrl + '/orders/my_order'; // URL van backend API
+  private httpClient = inject(HttpClient);
+  private cartService = inject(CartService);
+  // constructor(private http: HttpClient, private cartService: CartService) {}
 
   public createOrder(userId: string, token: string): Observable<Order> {
     const cartItems = this.cartService.getCartItems();

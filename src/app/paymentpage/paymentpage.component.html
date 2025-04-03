@@ -1,0 +1,19 @@
+<div class="pincode-container">
+    <mat-form-field>
+      <mat-label>geef je pincode</mat-label>
+      <input
+        matInput
+        placeholder="1234"
+        [formControl]="pincode"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (pincode.invalid) {
+        <mat-error>{{errorMessage()}}</mat-error>
+      }
+    </mat-form-field>
+    <div class="example-button-row">
+        <button mat-raised-button [disabled]="!pincode.valid" type="submit" (click)="onPay()">Betaal</button>
+    </div>
+  </div>
+  

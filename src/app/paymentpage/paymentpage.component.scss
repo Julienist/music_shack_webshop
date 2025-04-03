@@ -1,0 +1,20 @@
+pincode-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+
+  section {
+    display: table;
+        // &.example-label {
+        //     display: table-cell;
+        //     font-size: 14px;
+        //     margin-left: 8px;
+        //     min-width: 120px;
+        //   }
+          
+        &.example-button-row {
+            display: table-cell;
+            max-width: 600px;
+          }
+}
+  
+  
