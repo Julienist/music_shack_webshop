@@ -81,7 +81,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(body.email);
 
             CustomUser customUser = userDAO.findByEmail(body.email);
-            LoginResponse loginResponse = new LoginResponse(customUser.getCustomUserId() ,customUser.getEmail(), token, customUser.getRole());
+            LoginResponse loginResponse = new LoginResponse(customUser.getEmail(), token, customUser.getRole());
 
 
             return ResponseEntity.ok(loginResponse);
