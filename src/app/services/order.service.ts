@@ -1,4 +1,4 @@
-import { computed, Inject, inject, Injectable } from '@angular/core';
+import { computed, Inject, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartService } from './cart.service';
 import { Observable } from 'rxjs';
@@ -12,6 +12,8 @@ export class OrderService {
   private apiUrl = environment.apiUrl + '/orders/my_order'; // URL van backend API
   private httpClient = inject(HttpClient);
   private cartService = inject(CartService);
+  orders = signal<Order[]>([]);
+
   // constructor(private http: HttpClient, private cartService: CartService) {}
 
   public createOrder(userId: string, token: string): Observable<Order> {
@@ -22,18 +24,18 @@ export class OrderService {
 
     const totalPrice = computed(() => this.cartService.getTotalPrice());
 
-    const order: Order = {
-      customUserId: userId,
-      orderDate: new Date(),
-      orderStatus: 'Pending',
-      totalPrice: totalPrice(),
-      //Testen met map, is ENG. DUS hieronder kunnen problemen zitten.
-      orderDetails: cartItems.map(item => ({
-        productId: item.id,
-        quantity: item.quantity,
-        totalPrice: item.price * item.quantity
-      }))
-    };
+    // const order: Order = {
+    //   customUserId: userId,
+    //   orderDate: new Date(),
+    //   orderStatus: 'Pending',
+    //   totalPrice: totalPrice(),
+    //   //Testen met map, is ENG. DUS hieronder kunnen problemen zitten.
+    //   orderDetails: cartItems.map(item => ({
+    //     productId: item.id,
+    //     quantity: item.quantity,
+    //     totalPrice: item.price * item.quantity
+    //   }))
+    // };
 
     // Headers met Authorization Bearer Token
     // const headers = new HttpHeaders({
