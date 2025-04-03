@@ -44,7 +44,7 @@ public class OrderDAO {
 
     public void createOrder(OrderDTO orderDTO) {
         CustomUser customuserId = entityValidator.checkIfIdExists(orderDTO.customUserId, userRepository, "CustomuserId");
-        OrderEntity order = new OrderEntity(customuserId, orderDTO.orderDate, orderDTO.orderStatus, orderDTO.totalPrice);
+        OrderEntity order = new OrderEntity(customuserId, orderDTO.orderDate, orderDTO.orderStatus, orderDTO.totalPrice, orderDTO.orderProducts);
         this.orderRepository.save(order);
     }
 

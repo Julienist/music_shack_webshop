@@ -1,11 +1,13 @@
 package com.duckstudios.webshopapi.dto;
 
+import com.duckstudios.webshopapi.models.OrderProduct;
 import com.duckstudios.webshopapi.models.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 public class OrderDTO {
@@ -16,5 +18,5 @@ public class OrderDTO {
     public LocalDateTime orderDate;
     public OrderStatus orderStatus;
     public BigDecimal totalPrice;
-
+    public List<OrderProduct> orderProducts;
 }

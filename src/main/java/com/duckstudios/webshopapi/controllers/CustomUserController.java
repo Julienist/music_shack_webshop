@@ -26,18 +26,24 @@ public class CustomUserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<Optional<CustomUser>> getUserByEmail(@PathVariable String email) {
-        CustomUser user = userDAO.findCustomUserByEmail((email));
-        return ResponseEntity.ok(Optional.ofNullable(user));
+    @GetMapping("/id/{email}")
+    public ResponseEntity<Long> getUserIdByEmail(@PathVariable String email) {
+//        Optional<Long> id = userDAO.findCustomUserIdByEmail(email);
+        Long id = userDAO.findCustomUserIdByEmail(email);
+
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(id);
     }
-    @GetMapping("/{id}")
+
+    @GetMapping("/user_of_{id}")
     public ResponseEntity<Optional<CustomUser>> getUserById(@PathVariable long id) {
         CustomUser user = userDAO.findCustomUserById(id);
         return ResponseEntity.ok(Optional.ofNullable(user));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_user_{id}")
     public ResponseEntity<String> deleteUser(@PathVariable long id) {
         this.userDAO.deleteCustomUserById(id);
         return ResponseEntity.ok("User deleted!");

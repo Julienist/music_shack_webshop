@@ -158,7 +158,7 @@ public class Seeder {
         orderRepository.saveAndFlush(order);
 
         // 5️⃣ Check of de producten zijn opgeslagen
-        System.out.println("✅ Order opgeslagen met " + order.getOrderProducts().size() + " producten!");
+//        System.out.println("✅ Order opgeslagen met " + order.getOrderProducts().size() + " producten!");
     }
 
 }

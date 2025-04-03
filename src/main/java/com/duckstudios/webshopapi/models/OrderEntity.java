@@ -20,10 +20,6 @@ public class OrderEntity {
     @GeneratedValue
     private long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<OrderProduct> orderProducts;
-
 //    @OneToOne
 //    @JoinColumn(name = "order_id", referencedColumnName = "id")
 //    @JsonManagedReference
@@ -41,6 +37,18 @@ public class OrderEntity {
     private OrderStatus orderStatus;
 
     private BigDecimal totalPrice;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<OrderProduct> orderProducts;
+
+    public OrderEntity(CustomUser customUser, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice, List<OrderProduct> orderProducts) {
+        this.customUser = customUser;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.totalPrice = totalPrice;
+        this.orderProducts = orderProducts;
+    }
 
     public OrderEntity(CustomUser customUser, LocalDateTime orderDate, OrderStatus orderStatus, BigDecimal totalPrice) {
         this.customUser = customUser;
