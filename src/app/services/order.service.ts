@@ -9,7 +9,7 @@ import { Order } from '../models/order.model';
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = environment.apiUrl + '/orders';
+  private orderUrl = environment.apiUrl + '/orders';
   private httpClient = inject(HttpClient);
   private storageKey = 'pendingOrder';
 
@@ -23,30 +23,32 @@ export class OrderService {
   }
 
   placeOrder(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(`${this.apiUrl}`, order);
+    return this.httpClient.post<Order>(`${this.orderUrl}`, order, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    });
   }
 
   getOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.apiUrl}/my_orders`);
+    return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
   }
 
   // hieronder de order data, als getters.
 
   /** 🎲 Haal een willekeurige productafbeelding uit de order */
-  getRandomProductImage(order: Order): string | null {
-    if (!order || !order.orderDetails.length) return null;
-    const randomIndex = Math.floor(Math.random() * order.orderDetails.length);
-    return order.orderDetails[randomIndex].product.imageUrl || null;  // ✅ product.imageUrl gebruiken
-  }
+  // getRandomProductImage(order: Order): string | null {
+  //   if (!order || !order.orderDetails.length) return null;
+  //   const randomIndex = Math.floor(Math.random() * order.orderDetails.length);
+  //   return order.orderDetails[randomIndex].product.imageUrl || null;  // ✅ product.imageUrl gebruiken
+  // }
 
   /** ✅ Ophalen van alle productnamen */
-  getProductNames(order: Order): string[] {
-    return order.orderDetails.map(item => item.product.name);  // ✅ product.name gebruiken
-  }
+  // getProductNames(order: Order): string[] {
+  //   return order.orderDetails.map(item => item.product.name);  // ✅ product.name gebruiken
+  // }
 
   /** ✅ Ophalen van alle productaantallen */
   getProductQuantities(order: Order): number[] {
-    return order.orderDetails.map(item => item.quantity);
+    return order.orderProducts.map(item => item.quantity);
   }
 
   /** ✅ Ophalen van orderdatum */

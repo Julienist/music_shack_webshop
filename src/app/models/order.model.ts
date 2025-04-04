@@ -9,17 +9,17 @@ export enum OrderStatus {
 }
 
 export interface Order {
-  customUserId: number;
+  // customUserId: number;
   orderDate: Date;
   orderStatus: OrderStatus;
   totalPrice: number;
-  orderDetails: OrderDetail[];
+  orderProducts: OrderProduct[];
 }
 
-export interface OrderDetail {
-  orderId: number;
-  // productId: number;
-  product: Product;
+export interface OrderProduct {
+  // orderId: number;
+  productId: number;
+  // product: Product;
   quantity: number;
   totalPrice: number;
 }

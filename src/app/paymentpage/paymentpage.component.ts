@@ -56,9 +56,9 @@ export class PaymentpageComponent {
     if (this.isProcessing()) return; // ✅ voorkomt dubbele betaling
     this.isProcessing.set(true);
 
-    this.userService.getUserId().subscribe({
-      next: (userId) => {
-        const order = this.createOrder(userId);
+    this.userService.getUserId.subscribe({
+      next: () => {
+        const order = this.createOrder();
         this.storeOrderLocally(order);
         this.submitOrder(order);
       },
@@ -69,16 +69,16 @@ export class PaymentpageComponent {
     });
   }
 
-  private createOrder(userId: number): Order {
+  private createOrder(): Order {
     return {
-      customUserId: userId,
+      // customUserId: userId,
       orderDate: new Date(),
-      orderStatus: OrderStatus.PENDING,
+      orderStatus: OrderStatus.PAID,
       totalPrice: this.cartService.getTotalPrice(),
-      orderDetails: this.cartService.getCartItems()()
+      orderProducts: this.cartService.getCartItems()()
         .map((item: Product) => ({
-          orderId: 0, // Backend genereert orderId
-          product: item,
+          // orderId: 0, // Backend genereert orderId
+          productId: item.id,
           quantity: item.quantity,
           totalPrice: item.price * item.quantity
         }))

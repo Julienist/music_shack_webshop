@@ -18,6 +18,6 @@ export class UserService {
             return throwError(() => 
                 new Error('Gebruiker niet ingelogd.'));
         }
-        return this.httpClient.get<number>(`${this.usersUrl}/${email}`);
+        return this.httpClient.get<number>(`${this.usersUrl}/id/${email}`);
     }
 }
