@@ -5,6 +5,7 @@ import { LoginComponent } from '../login/login.component';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
   protected authForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private translate: TranslateService) {
     this.authForm = this.fb.group({
       "email": ["", [
         Validators.required,
@@ -37,7 +38,13 @@ export class RegisterComponent {
         specialCharValidator
       ]]
     });
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
+
+
 
   isPasswordTouchedOrDirty(): boolean {
     return isControlTouchedOrDirty(this.authForm, 'password');

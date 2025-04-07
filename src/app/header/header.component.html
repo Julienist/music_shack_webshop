@@ -19,9 +19,18 @@
    <mat-icon>shopping_bag</mat-icon>
     </a> |
     <a class="button"
+     routerLink="/orders"
+     routerLinkActive="activebutton"
+     ariaCurrentWhenActive="page">
+    <mat-icon>local_shipping</mat-icon>
+    </a> |
+    <a class="button"
        routerLink="/login"
        routerLinkActive="activebutton"
        ariaCurrentWhenActive="page">
       <mat-icon>account_circle</mat-icon>
     </a>
+  <button (click)="useLanguage('nl')" >nl</button>
+  <button (click)="useLanguage('en')" >en</button>
+
   </nav>

@@ -9,6 +9,7 @@ import { inject, NgModule } from '@angular/core';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginService } from './services/login.service';
 import { PaymentpageComponent } from './paymentpage/paymentpage.component';
+import {OrderComponent} from './order/order.component';
 
 const canAccessWinkelmandje: CanMatchFn = (route, segments) => {
     const router = inject(Router)
@@ -59,6 +60,11 @@ export const routes: Routes = [
     {
         path: 'afrekenen',
         component: PaymentpageComponent
+    },
+    {
+      path: 'orders',
+      component: OrderComponent,
+      canMatch: [canAccessWinkelmandje]
     },
     {
         path: '',

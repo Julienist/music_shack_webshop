@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Order, OrderStatus } from '../models/order.model';
 import { Product } from '../models/product.model';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-paymentpage',
@@ -33,10 +34,14 @@ export class PaymentpageComponent {
   errorMessage = signal('');
   isProcessing = signal(false);
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     merge(this.pincode.statusChanges, this.pincode.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
 
   updateErrorMessage() {
@@ -52,15 +57,23 @@ export class PaymentpageComponent {
   // Onderstaande kan beter in payment-service worden geplaatst.
   // HIERVOOR IS NIET GEKOZEN, wegens dat payments niet worden gekozen.
 
-  onPay() {
-    if (this.isProcessing()) return; // ✅ voorkomt dubbele betaling
+  async onPay() {
+    if (this.isProcessing()) return;
     this.isProcessing.set(true);
 
     const order = this.createOrder();
     this.storeOrderLocally(order);
-    this.submitOrder(order);
+
+    try {
+      await this.router.navigate(['/orders']);
+      console.log('✅ Navigatie succesvol');
+    } catch (err) {
+      console.error('❌ Navigatie mislukt:', err);
+    }
+    // this.submitOrder(order);
 
   }
+
 
   private createOrder(): Order {
     return {
@@ -74,29 +87,29 @@ export class PaymentpageComponent {
       }))
     };
   }
-  
+
   private storeOrderLocally(order: Order) {
     this.orderService.saveOrderToLocalStorage(order);
     console.log("Order opgeslagen in LocalStorage:", order);
   }
 
-  private submitOrder(order: Order) {
-    this.orderService.placeOrder(order).subscribe({
-      next: response => {
-        console.log('✅ Order succesvol verstuurd:', response);
-        this.cartService.clearCart(); 
-        this.router.navigate(['/orders']);
-      },
-      error: err => {
-        console.error('❌ Fout bij order plaatsen:', err);
-      },
-      complete: () => {
-        this.isProcessing.set(false);
-      }
-    });
-  }
-  
-  
+  // private submitOrder(order: Order) {
+  //   this.orderService.sendLocalOrdersToBackend().subscribe({
+  //     next: response => {
+  //       console.log('✅ Order succesvol verstuurd:', response);
+  //       this.cartService.clearCart();
+  //       // this.router.navigate(['/orders']);
+  //     },
+  //     error: err => {
+  //       console.error('❌ Fout bij order plaatsen:', err);
+  //     },
+  //     complete: () => {
+  //       this.isProcessing.set(false);
+  //     }
+  //   });
+  // }
+
+
 
 
     // if (this.hasPayed === true) {
@@ -154,5 +167,5 @@ export class PaymentpageComponent {
   //       console.log('Order geplaatst:', order);
   //       this.cartService.clearCart(); // ✅ Winkelmand legen na bestelling
   //     });
-    
+
 }

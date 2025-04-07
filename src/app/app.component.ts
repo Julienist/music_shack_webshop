@@ -1,13 +1,37 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
+import {TranslateService} from '@ngx-translate/core';
+// import translationsEN from "../../public/i18n/en.json";
+// import translationsNL from "../../public/i18n/nl.json";
+import {TranslateModule} from "@ngx-translate/core";
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent],
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, TranslateModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss', './mixins.scss']
 })
 export class AppComponent {
   title = 'webshop';
+
+  constructor(private translate: TranslateService) {
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
+  }
+
+
+  // constructor() {
+  //   this.initialiseTranslateService();
+  // }
+
+  // private initialiseTranslateService() {
+  //   this.translateService.addLangs(['nl', 'en']);
+  //   this.translateService.setTranslation('en', translationsEN)
+  //   this.translateService.setTranslation('nl', translationsNL)
+  // }
+
 }

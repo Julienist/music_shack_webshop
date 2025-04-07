@@ -1,1 +1,48 @@
-<p>order works!</p>
+<!--<h2>Bestellingen</h2>-->
+
+<!--<section>-->
+<!--  <ul *ngIf="orders().length > 0; else #emptyOrder">-->
+<!--    @for (item of orders(); track orders.id) {-->
+<!--      <li>-->
+<!--        <img [src]="item.imageUrl" alt="{{ item.name }}">-->
+<!--        <h3>@for (item of orders()); track Orders.id) {{ item.name }}</h3>-->
+<!--        <p>@for (item of orders()); track Orders.id) {{ item.quantity }}</p>-->
+<!--        <p>{{ order.orderDate}}</p>-->
+<!--        <p>{{ order.status}}</p>-->
+<!--        <p>{{ order.getTotalPrice()}}</p>-->
+<!--      </li>-->
+<!--    }-->
+<!--  </ul>-->
+<!--</section>-->
+
+<!--<ng-template #emptyOrders>-->
+<!--  <p>Je hebt geen orders</p>-->
+<!--</ng-template>-->
+
+<h2 class="text-2xl font-semibold mb-4">🧾 Jouw Bestellingen</h2>
+
+<section *ngIf="orders.length > 0; else emptyOrders">
+  <ul class="space-y-6">
+    <li *ngFor="let order of orders" class="border rounded-xl p-4 shadow-md">
+      <div class="flex items-center space-x-4">
+        <img [src]="getRandomImage(order)" alt="Product" class="w-20 h-20 object-cover rounded-lg" />
+        <div class="flex-1">
+          <h3 class="text-lg font-bold mb-1">📦 Producten:</h3>
+          <ul class="list-disc ml-5">
+            <li *ngFor="let name of getProductNames(order); let i = index">
+              {{ name }} - x{{ getProductQuantities(order)[i] }}
+            </li>
+          </ul>
+          <p class="mt-2">📅 Datum: {{ getOrderDate(order) | date:'mediumDate' }}</p>
+          <p>🔖 Status: {{ getOrderStatus(order) }}</p>
+          <p>💰 Totaal: €{{ getTotalPrice(order) | number:'1.2-2' }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+<!--  <button (click)="sendLocalOrders()">📤 Verstuur lokale orders</button>-->
+</section>
+
+<ng-template #emptyOrders>
+  <p class="text-gray-500">Je hebt nog geen bestellingen geplaatst.</p>
+</ng-template>

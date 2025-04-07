@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, DestroyRef, inject, Injectable, OnInit, signal } from '@angular/core';
 import { Product } from '../models/product.model';
-import { catchError, map, Subscription, throwError } from 'rxjs';
+import {catchError, map, Observable, Subscription, throwError} from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -41,14 +41,17 @@ export class ProductsService {
     });
   }
 
-
   get productsList() {
     return computed(() => this.products());
   }
 
+  getProductByIdFromCache(productId: number): Product | undefined {
+    return this.products().find(p => p.id === productId);
+  }
+
   // ngOnInit() {
   //   this.isFetching.set(true);
-  //   const subscription = 
+  //   const subscription =
   //   this.productsService.loadProducts()
   //   .subscribe({
   //     next: (products) => {

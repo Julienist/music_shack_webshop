@@ -4,6 +4,7 @@ import { digitValidator, getControl, hasControlError, isControlTouchedOrDirty, l
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
 
   protected loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private translate: TranslateService) {
     this.loginForm = this.fb.group({
       "email": ["", [
         Validators.required,
@@ -35,6 +36,10 @@ export class LoginComponent {
         specialCharValidator
       ]]
     });
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
 
   isPasswordTouchedOrDirty(): boolean {

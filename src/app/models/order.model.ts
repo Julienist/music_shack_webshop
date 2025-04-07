@@ -19,7 +19,6 @@ export interface Order {
 export interface OrderProduct {
   // orderId: number;
   productId: number;
-  // product: Product;
   quantity: number;
   totalPrice: number;
 }

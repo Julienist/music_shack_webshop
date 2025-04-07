@@ -1,10 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
-import { Order } from '../models/order.model';
+import { Order, OrderProduct } from '../models/order.model';
+import {DatePipe, DecimalPipe, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order',
-  imports: [],
+  imports: [
+    NgIf,
+    DatePipe,
+    DecimalPipe
+  ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
 })
@@ -12,43 +19,83 @@ export class OrderComponent {
   private orderService = inject(OrderService);
   orders: Order[] = [];
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.loadOrders();
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
+
+
+
 
   loadOrders() {
     this.orderService.getOrders().subscribe({
       next: (orders: Order[]) => {
-        this.orders = orders;
-        console.log('Orders geladen:', orders);
+        this.orders = [...orders]; // Vanuit backend
+        this.loadLocalOrders(); // Voeg lokale orders toe
       },
       error: (err: Error) => {
+        //comment/debug: testing debug
         console.error('❌ Fout bij ophalen orders:', err);
+        this.loadLocalOrders(); // Fallback naar lokale data
       }
     });
   }
 
-  getImage(order: Order): string | null {
+
+  loadLocalOrders() {
+    const localOrders = this.orderService.getOrdersFromLocalStorage();
+    if (localOrders.length > 0) {
+      this.orders.push(...localOrders);
+      //comment/debug: testing debug
+      console.log('📦 Lokale orders geladen:', localOrders);
+    }
+  }
+
+  // getImage(order: Order): string | null {
+  //   return this.orderService.getRandomProductImage(order);
+  // }
+
+  // getNames(order: Order): string[] {
+    // return this.orderService.getProductNames(order);
+  // }
+
+  // sendLocalOrders() {
+  //   this.orderService.sendLocalOrdersToBackend().subscribe({
+  //     next: (result) => {
+  //       console.log('📦 Lokale orders succesvol verzonden:', result);
+  //       this.loadOrders(); // Refresh orders
+  //     },
+  //     error: (err) => {
+  //       console.error('❌ Fout bij verzenden lokale orders:', err);
+  //     }
+  //   });
+  // }
+
+
+  getRandomImage(order: Order): string | null {
     return this.orderService.getRandomProductImage(order);
   }
 
-  getNames(order: Order): string[] {
+  getProductNames(order: Order): string[] {
     return this.orderService.getProductNames(order);
   }
 
-  getQuantities(order: Order): number[] {
+  getProductQuantities(order: Order): number[] {
     return this.orderService.getProductQuantities(order);
   }
 
-  getDate(order: Order): Date {
+  getOrderDate(order: Order): Date {
     return this.orderService.getOrderDate(order);
   }
 
-  getStatus(order: Order): string {
+  getOrderStatus(order: Order): string {
     return this.orderService.getOrderStatus(order);
   }
 
-  getPrice(order: Order): number {
+  getTotalPrice(order: Order): number {
     return this.orderService.getTotalPrice(order);
   }
 }

@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { NgIf } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-specific-product',
@@ -20,7 +21,7 @@ export class SpecificProductComponent implements OnInit {
   productId = signal<number | null>(null); // Opslaan van product-ID uit de URL
   product: Signal<Product | undefined>;
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     // Bereken welk product overeenkomt met de productId
     this.product = computed(() => {
       const id = this.productId();
@@ -29,6 +30,10 @@ export class SpecificProductComponent implements OnInit {
       console.log('gevonden product: ', foundProduct);
       return foundProduct;
     });
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
 
   ngOnInit() {
