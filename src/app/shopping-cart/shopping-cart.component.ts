@@ -22,13 +22,7 @@ export class ShoppingCartComponent {
     this.translate.use('en');
   }
 
-  // onderstaande OnInit weghalen, testing purposes
-  ngOnInit() {
-    console.log("shopping-cart geladen met: ", this.cartItems())
-  }
-
   removeItem(productId: number) {
-    // this.cartService.deleteItem(productId);
     this.cartService.removeItem(productId)
   }
 

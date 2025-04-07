@@ -23,15 +23,4 @@ export class AppComponent {
     this.translate.use('en');
   }
 
-
-  // constructor() {
-  //   this.initialiseTranslateService();
-  // }
-
-  // private initialiseTranslateService() {
-  //   this.translateService.addLangs(['nl', 'en']);
-  //   this.translateService.setTranslation('en', translationsEN)
-  //   this.translateService.setTranslation('nl', translationsNL)
-  // }
-
 }

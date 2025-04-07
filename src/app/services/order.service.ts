@@ -28,30 +28,6 @@ export class OrderService {
     return data ? JSON.parse(data) : [];
   }
 
-  // placeOrder(order: Order): Observable<Order> {
-  //   return this.httpClient.post<Order>(`${this.orderUrl}`, order, {
-  //     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-  //   });
-  // }
-
-  // sendLocalOrdersToBackend(): Observable<Order[]> {
-  //   const localOrders = this.getOrdersFromLocalStorage();
-  //
-  //   if (!localOrders.length) return of([]); // Niks te verzenden
-
-    // Map elke order naar een POST request
-    // const requests = localOrders.map(order =>
-      // this.httpClient.post<Order>(`${this.orderUrl}`, order, {
-      //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      // })
-    // );
-
-    // Als alle succesvol zijn: clear local storage
-    // return forkJoin(requests).pipe(
-    //   tap(() => this.clearLocalOrders())
-    // );
-  // }
-
   clearLocalOrders() {
     localStorage.removeItem(this.storageKey);
   }
@@ -105,57 +81,6 @@ export class OrderService {
   getTotalPrice(order: Order): number {
     return order.totalPrice;
   }
-
-
-
-  //----------------------------------
-  // hieronder alle eerder geschreven code.
-
-  // getProductNames(order: Order): string[] {
-  //   return order.orderDetails.map(item => item.product.name);  // ✅ product.name gebruiken
-  // }
-
-  // getRandomProductImage(order: Order): string | null {
-  //   if (!order || !order.orderProducts.length) return null;
-  //   const randomIndex = Math.floor(Math.random() * order.orderProducts.length);
-  //   return order.orderProducts[randomIndex].product.imageUrl || null;
-  // }
-
-  // orders = signal<Order[]>([]);
-
-  // constructor(private http: HttpClient, private cartService: CartService) {}
-
-  // public createOrder(userId: string, token: string): Observable<Order> {
-  //   const cartItems = this.cartService.getCartItems();
-  //   if (cartItems.length === 0) {
-  //     return new Observable(observer => observer.error("Winkelmandje is leeg"));
-  //   }
-
-    // const totalPrice = computed(() => this.cartService.getTotalPrice());
-
-    // const order: Order = {
-    //   customUserId: userId,
-    //   orderDate: new Date(),
-    //   orderStatus: 'Pending',
-    //   totalPrice: totalPrice(),
-    //   //Testen met map, is ENG. DUS hieronder kunnen problemen zitten.
-    //   orderDetails: cartItems.map(item => ({
-    //     productId: item.id,
-    //     quantity: item.quantity,
-    //     totalPrice: item.price * item.quantity
-    //   }))
-    // };
-
-    // Headers met Authorization Bearer Token
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${token}`
-    // });
-
-    // return this.httpClient.post<Order>(this.apiUrl, order)
-    // .subscribe(response => {
-    //     console.log('Order geplaatst:', response);
-    //   });
 
 }
 

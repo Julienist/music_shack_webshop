@@ -54,27 +54,6 @@ export class OrderComponent {
     }
   }
 
-  // getImage(order: Order): string | null {
-  //   return this.orderService.getRandomProductImage(order);
-  // }
-
-  // getNames(order: Order): string[] {
-    // return this.orderService.getProductNames(order);
-  // }
-
-  // sendLocalOrders() {
-  //   this.orderService.sendLocalOrdersToBackend().subscribe({
-  //     next: (result) => {
-  //       console.log('📦 Lokale orders succesvol verzonden:', result);
-  //       this.loadOrders(); // Refresh orders
-  //     },
-  //     error: (err) => {
-  //       console.error('❌ Fout bij verzenden lokale orders:', err);
-  //     }
-  //   });
-  // }
-
-
   getRandomImage(order: Order): string | null {
     return this.orderService.getRandomProductImage(order);
   }

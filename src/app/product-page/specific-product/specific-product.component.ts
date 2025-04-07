@@ -31,6 +31,7 @@ export class SpecificProductComponent implements OnInit {
       return foundProduct;
     });
 
+    // en hier translate, doe later maar in eigen functie.
     this.translate.addLangs(['nl', 'en']);
     this.translate.setDefaultLang('nl');
     this.translate.use('en');
@@ -43,17 +44,13 @@ export class SpecificProductComponent implements OnInit {
     });
 
     if (!this.productsService.products()) {
-      //haal onderstaande log eruit, testing-purposes
-      console.log('laden van producten...')
-      this.productsService.loadProducts(); // Zorg dat de producten geladen worden als ze er nog niet zijn
+      this.productsService.loadProducts();
     }
   }
 
   addProductToCart() {
     if (this.product()) {
       this.cartService.addToCart(this.product()!);
-      //haal onderstaande log eruit, testing-purposes
-      console.log(JSON.stringify(this.product()) + " toegevoegd aan winkelmandje");
     }
   }
 

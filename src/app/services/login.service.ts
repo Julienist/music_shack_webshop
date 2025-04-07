@@ -31,10 +31,6 @@ export class LoginService {
     return localStorage.getItem('email');
   }
 
-  //  getEmail(): string | null {
-  //   return this.email;
-  // }
-
   constructor() {
     this.loadTokenFromLocalStorage()
     if(this.token != null){
@@ -55,12 +51,6 @@ export class LoginService {
           this.saveTokenInLocalStorage(response.token);
         }
       })
-      // tap(role => {
-      //   if (role.role) {
-      //     this.role = role.role;
-      //     this.saveRoleInLocalStorage(role.role);
-      //   }
-      // })
     );
   }
 

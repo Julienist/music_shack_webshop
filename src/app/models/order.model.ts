@@ -9,7 +9,7 @@ export enum OrderStatus {
 }
 
 export interface Order {
-  // customUserId: number;
+
   orderDate: Date;
   orderStatus: OrderStatus;
   totalPrice: number;
@@ -17,7 +17,6 @@ export interface Order {
 }
 
 export interface OrderProduct {
-  // orderId: number;
   productId: number;
   quantity: number;
   totalPrice: number;

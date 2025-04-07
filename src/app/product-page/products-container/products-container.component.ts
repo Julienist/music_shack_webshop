@@ -33,27 +33,5 @@ export class ProductsContainerComponent {
     this.translate.use('en');
   }
 
-  // ngOnInit() {
-  //   this.isFetching.set(true);
-  //   const subscription =
-  //   this.productsService.loadProducts().subscribe({
-  //     next: (products) => {
-  //       console.log(products);
-  //       this.receivedProducts = products;
-  //     },
-  //     error: (error: Error) => {
-  //       this.error.set(error.message);
-  //     },
-  //     complete: () => {
-  //       console.log(this.receivedProducts)
-  //       this.isFetching.set(false);
-  //     }
-  //   });
-
-  //   this.destroyRef.onDestroy(() => {
-  //     subscription.unsubscribe();
-  //   });
-  // }
-
 
 }
