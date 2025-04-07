@@ -31,7 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/
 /src/main/resources/application.properties
 
 /.idea/
@@ -40,3 +39,4 @@ build/
 /WebshopAPI/
 /WebshopAPI/.idea/
 /WebshopAPI/.idea/workspace.xml
+/src/main/resources/
