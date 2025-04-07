@@ -3,6 +3,7 @@ package com.duckstudios.webshopapi.models;
 import com.duckstudios.webshopapi.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class CustomUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
 
     @Column(nullable = false,unique = true)
     private String email;

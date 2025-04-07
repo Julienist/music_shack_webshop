@@ -31,10 +31,10 @@ public class OrderProductDAO {
         return orderProduct;
     }
 
-    public void createOrderProduct(OrderProductDTO orderProductDTO) {
-        OrderProduct orderProduct = new OrderProduct(orderProductDTO.order, orderProductDTO.product, orderProductDTO.quantity, orderProductDTO.totalPrice);
-        this.orderProductRepository.save(orderProduct);
-    }
+//    public void createOrderProduct(OrderProductDTO orderProductDTO) {
+//        OrderProduct orderProduct = new OrderProduct(orderProductDTO.order, orderProductDTO.product, orderProductDTO.quantity, orderProductDTO.totalPrice);
+//        this.orderProductRepository.save(orderProduct);
+//    }
 
     public void deleteOrderProduct(long orderId, long productId) {
         if (!entityValidator.checkOrderProductExists(orderId, productId)) {

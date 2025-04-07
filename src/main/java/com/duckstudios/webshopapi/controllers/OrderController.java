@@ -3,10 +3,13 @@ package com.duckstudios.webshopapi.controllers;
 import com.duckstudios.webshopapi.dao.OrderDAO;
 import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.OrderDTO;
+import com.duckstudios.webshopapi.dto.OrderProductDTO;
 import com.duckstudios.webshopapi.models.OrderEntity;
+import com.duckstudios.webshopapi.models.OrderProduct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,12 +43,12 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
-        this.orderDAO.createOrder(orderDTO);
+        orderDAO.createOrder(orderDTO);
         return ResponseEntity.ok("Order aangemaakt!");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable long id){
+    public ResponseEntity<String> deleteOrder(@PathVariable long id) {
         this.orderDAO.deleteOrderById(id);
         return ResponseEntity.ok("Order deleted");
     }

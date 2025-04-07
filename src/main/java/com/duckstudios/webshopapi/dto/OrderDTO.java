@@ -12,11 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
 
-    @JsonAlias("customuser_id")
-    public long customUserId;
+//    @JsonAlias("customuser_id")
+//    public long customUserId;
 
+    public String email;
     public LocalDateTime orderDate;
     public OrderStatus orderStatus;
     public BigDecimal totalPrice;
-    public List<OrderProduct> orderProducts;
+    public List<OrderProductDTO> orderProducts;
 }

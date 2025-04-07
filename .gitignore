@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/
+/src/main/resources/application.properties
+
+/.idea/
+/.mvn/
+/.vscode/
+/WebshopAPI/
+/WebshopAPI/.idea/
+/WebshopAPI/.idea/workspace.xml
