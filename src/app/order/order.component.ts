@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
-import { Order, OrderProduct } from '../models/order.model';
+import { Order } from '../models/order.model';
 import {DatePipe, DecimalPipe, NgIf} from '@angular/common';
-import {RouterLink} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({

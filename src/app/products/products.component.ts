@@ -1,7 +1,6 @@
-import { Component, computed, inject, Input, input, Signal, signal } from '@angular/core';
-
+import { Component, inject, Input, Signal } from '@angular/core';
 import { Product } from '../models/product.model';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import {TranslateService} from '@ngx-translate/core';

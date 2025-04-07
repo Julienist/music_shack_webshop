@@ -1,9 +1,7 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import {TranslateService} from '@ngx-translate/core';
-// import translationsEN from "../../public/i18n/en.json";
-// import translationsNL from "../../public/i18n/nl.json";
 import {TranslateModule} from "@ngx-translate/core";
 
 

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, Signal, signal } from '@angular/core';
+import { Component, computed,inject, Signal } from '@angular/core';
 import { ProductComponent } from "../../products/products.component";
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';

@@ -1,7 +1,6 @@
-import { computed, Inject, inject, Injectable, signal } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CartService } from './cart.service';
-import {forkJoin, Observable, of, tap} from 'rxjs';
+import { inject, Injectable} from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import {Order, OrderProduct} from '../models/order.model';
 import {Product} from '../models/product.model';

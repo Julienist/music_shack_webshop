@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { digitValidator, getControl, hasControlError, isControlTouchedOrDirty, lowercaseValidator, specialCharValidator, uppercaseValidator } from '../config/account-validaton.component';
-import { LoginComponent } from '../login/login.component';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';

@@ -1,4 +1,4 @@
-import { CanMatchFn, RedirectCommand, Router, RouterModule, Routes } from '@angular/router';
+import { CanMatchFn, Router, RouterModule, Routes } from '@angular/router';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
