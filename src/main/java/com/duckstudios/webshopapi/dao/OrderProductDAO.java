@@ -1,7 +1,6 @@
 package com.duckstudios.webshopapi.dao;
 
-import com.duckstudios.webshopapi.dto.OrderProductDTO;
-import com.duckstudios.webshopapi.models.CartProduct;
+
 import com.duckstudios.webshopapi.models.OrderProduct;
 import com.duckstudios.webshopapi.services.EntityValidator;
 import jakarta.persistence.EntityNotFoundException;

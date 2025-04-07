@@ -2,7 +2,6 @@ package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.dto.OrderProductDTO;
-import com.duckstudios.webshopapi.dto.ProductDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.models.OrderEntity;
 import com.duckstudios.webshopapi.models.OrderProduct;
@@ -22,16 +21,13 @@ public class OrderDAO {
     private final EntityValidator entityValidator;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final OrderProductRepository orderProductRepository;
 
     public OrderDAO(OrderRepository orderRepository, EntityValidator entityValidator,
-                    UserRepository userRepository, ProductRepository productRepository,
-                    OrderProductRepository orderProductRepository) {
+                    UserRepository userRepository, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.entityValidator = entityValidator;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
-        this.orderProductRepository = orderProductRepository;
     }
 
     public List<OrderEntity> getAllOrders() {
