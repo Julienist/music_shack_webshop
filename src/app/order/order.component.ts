@@ -29,21 +29,23 @@ export class OrderComponent {
   }
 
 
-
-
-  loadOrders() {
-    this.orderService.getOrders().subscribe({
-      next: (orders: Order[]) => {
-        // this.orders = [...orders]; // Vanuit backend
-        this.loadLocalOrders(); // Voeg lokale orders toe
-      },
-      error: (err: Error) => {
-        //comment/debug: testing debug
-        console.error('❌ Fout bij ophalen orders:', err);
-        this.loadLocalOrders(); // Fallback naar lokale data
-      }
-    });
+  loadOrders(): void {
+    this.loadLocalOrders()
   }
+
+  // loadOrders() {
+  //   this.orderService.getOrders().subscribe({
+  //     next: (orders: Order[]) => {
+  //       // this.orders = [...orders]; // Vanuit backend
+  //       this.loadLocalOrders(); // Voeg lokale orders toe
+  //     },
+  //     error: (err: Error) => {
+  //       //comment/debug: testing debug
+  //       console.error('❌ Fout bij ophalen orders:', err);
+  //       this.loadLocalOrders(); // Fallback naar lokale data
+  //     }
+  //   });
+  // }
 
 
   loadLocalOrders() {

@@ -32,9 +32,9 @@ export class OrderService {
   }
 
 
-  getOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
-  }
+  // getOrders(): Observable<Order[]> {
+  //   return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
+  // }
 
   // hieronder de order data, als getters.
 
