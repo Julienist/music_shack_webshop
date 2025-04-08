@@ -1,15 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
-import {DatePipe, DecimalPipe, NgIf} from '@angular/common';
+import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order',
+  standalone: true,
   imports: [
     NgIf,
     DatePipe,
-    DecimalPipe
+    DecimalPipe,
+    NgFor
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
@@ -32,7 +34,7 @@ export class OrderComponent {
   loadOrders() {
     this.orderService.getOrders().subscribe({
       next: (orders: Order[]) => {
-        this.orders = [...orders]; // Vanuit backend
+        // this.orders = [...orders]; // Vanuit backend
         this.loadLocalOrders(); // Voeg lokale orders toe
       },
       error: (err: Error) => {
