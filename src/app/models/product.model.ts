@@ -1,12 +1,15 @@
+import {OrderProduct} from './order.model';
+
 export interface Product {
     id: number;
     name: string;
     description: string;
     price: number;
-    imageUrl: string;
+    imageurl: string;
     version: number;
-    stock: number;
+    amountInStock: number;
     available: boolean;
-    orderProducts: Array<null>;
+    orderProducts: Array<null | OrderProduct>;
     quantity: number;
+    categoryId: number;
 }

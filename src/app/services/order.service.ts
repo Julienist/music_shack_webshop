@@ -50,7 +50,7 @@ export class OrderService {
     const randomOrderProduct = order.orderProducts[randomIndex];
 
     const product = this.productsService.getProductByIdFromCache(randomOrderProduct.productId);
-    return product?.imageUrl || null;
+    return product?.imageurl || null;
   }
 
   /** ✅ Ophalen van alle productnamen */

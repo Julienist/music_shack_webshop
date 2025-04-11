@@ -6,30 +6,31 @@
     <mat-icon>account_circle</mat-icon>
 </button> -->
 <nav>
-    <a class="button"
-       routerLink="/producten/AlleProducten"
-       routerLinkActive="activebutton"
-       ariaCurrentWhenActive="page">
-      <mat-icon>home</mat-icon>
-    </a> |
-    <a class="button"
-    routerLink="/winkelmandje"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">
-   <mat-icon>shopping_bag</mat-icon>
-    </a> |
-    <a class="button"
-     routerLink="/orders"
+  <a class="button"
+     routerLink="/producten"
+     routerLinkActive="activebutton"
+     [routerLinkActiveOptions]="{ exact: false }"
+     ariaCurrentWhenActive="page">
+    <mat-icon>home</mat-icon>
+  </a> |
+  <a class="button"
+  routerLink="/winkelmandje"
+  routerLinkActive="activebutton"
+  ariaCurrentWhenActive="page">
+ <mat-icon>shopping_bag</mat-icon>
+</a> |
+  <a class="button"
+   routerLink="/orders"
+   routerLinkActive="activebutton"
+   ariaCurrentWhenActive="page">
+  <mat-icon>local_shipping</mat-icon>
+  </a> |
+  <a class="button"
+     routerLink="/login"
      routerLinkActive="activebutton"
      ariaCurrentWhenActive="page">
-    <mat-icon>local_shipping</mat-icon>
-    </a> |
-    <a class="button"
-       routerLink="/login"
-       routerLinkActive="activebutton"
-       ariaCurrentWhenActive="page">
-      <mat-icon>account_circle</mat-icon>
-    </a>
+    <mat-icon>account_circle</mat-icon>
+  </a>
   <button (click)="useLanguage('nl')" >nl</button>
   <button (click)="useLanguage('en')" >en</button>
 

@@ -1,10 +1,10 @@
-<img *ngIf="product()" [src]="product()?.imageUrl" alt="Productafbeelding">
+<img *ngIf="product()" [src]="product()?.imageurl" alt="Productafbeelding">
 <section *ngIf="product()">
   <h2>{{ product()?.name }}</h2>
   <p>ID: {{ product()?.id }}</p>
   <p>{{ product()?.description }}</p>
   <p>Prijs: €{{ product()?.price }}</p>
-  <p>Voorraad: {{ product()?.stock }}</p>
+  <p>Voorraad: {{ product()?.amountInStock }}</p>
   <button (click)="addProductToCart()">Voeg toe aan mandje</button>
 </section>
 

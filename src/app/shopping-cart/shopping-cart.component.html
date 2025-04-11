@@ -4,7 +4,7 @@
   <ul *ngIf="cartItems().length > 0; else emptyCart">
     @for (item of cartItems(); track item.id) {
       <li>
-        <img [src]="item.imageUrl" alt="{{ item.name }}">
+        <img [src]="item.imageurl" alt="{{ item.name }}">
         <h3>{{ item.name }}</h3>
         <p>Prijs: €{{ item.price }}</p>
         <p>Aantal: {{ item.quantity }}</p>

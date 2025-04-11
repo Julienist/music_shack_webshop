@@ -1,5 +1,6 @@
-<button>Alle producten</button>
-<button>Vinylplaten</button>
-<button>Cassette tapes</button>
-<button>Platen spelers</button>
-<button>Cassette spelers</button>
+<button (click)="selectCategory(null)">Alle producten</button>
+@for (category of categories(); track category.id) {
+  <button (click)="selectCategory(category.id)">
+    {{ category.name }}
+  </button>
+}

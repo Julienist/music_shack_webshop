@@ -8,8 +8,8 @@
         <p class="fallback-text">{{ error() }}</p>
     }
 
-    @if (productList() && productList().length > 0) {
-        <app-product [products]="productList()" />
+    @if (products() && products().length > 0) {
+        <app-product [products]="products()" />
     } @else {
         <p class="fallback-text">Het in laden van de producten is niet gelukt.</p>
     }

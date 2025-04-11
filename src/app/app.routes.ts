@@ -37,11 +37,14 @@ export const routes: Routes = [
                 component: ProductsContainerComponent
             },
             {
+                path: 'categorie/:id',
+                component: ProductsContainerComponent
+            },
+            {
                 path: ':id',
                 component: SpecificProductComponent
             }
         ],
-
     },
     {
         path: 'login',
