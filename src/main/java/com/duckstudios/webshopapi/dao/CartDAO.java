@@ -4,6 +4,7 @@ import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
 import com.duckstudios.webshopapi.models.CustomUser;
 import com.duckstudios.webshopapi.services.EntityValidator;
+import com.duckstudios.webshopapi.services.UserService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,16 +15,19 @@ public class CartDAO {
 
     private final CartRepository cartRepository;
     private final EntityValidator entityValidator;
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
+    private final CustomUserDAO customUserDAO;
 
-    public CartDAO(CartRepository cartRepository, EntityValidator entityValidator, UserRepository userRepository) {
+    public CartDAO(CartRepository cartRepository, EntityValidator entityValidator,
+                   UserRepository userRepository, CustomUserDAO customUserDAO) {
         this.cartRepository = cartRepository;
         this.entityValidator = entityValidator;
-        this.userRepository = userRepository;
+//        this.userRepository = userRepository;
+        this.customUserDAO = customUserDAO;
     }
 
     public Cart getCartForCurrentUser(String email) {
-        CustomUser currentUser = userRepository.findByEmail(email);
+        Optional<CustomUser> currentUser = Optional.ofNullable(customUserDAO.getCustomUserByEmail(email));
         return cartRepository.findByCustomUser(currentUser)
                 .orElseThrow(() -> new RuntimeException("geen winkelmandje gevonden voor gebruiker"));
     }
