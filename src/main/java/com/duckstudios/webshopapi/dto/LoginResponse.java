@@ -2,10 +2,12 @@ package com.duckstudios.webshopapi.dto;
 
 import com.duckstudios.webshopapi.models.enums.Role;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public class LoginResponse {
-    public String email;
-    public String token;
-    public Role role;
+    private String email;
+    private String token;
+    private Role role;
 }
