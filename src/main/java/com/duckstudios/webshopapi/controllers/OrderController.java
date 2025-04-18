@@ -22,7 +22,7 @@ public class OrderController {
 
     @GetMapping("/my_orders")
     public ResponseEntity<List<OrderEntity>> getOrdersForCurrentUser(@RequestBody AuthenticationDTO authenticationDTO) {
-        List<OrderEntity> orders = this.orderDAO.getOrdersForCurrentUser(authenticationDTO.email);
+        List<OrderEntity> orders = this.orderDAO.getOrdersForCurrentUser(authenticationDTO.getEmail());
         return ResponseEntity.ok(orders);
     }
 
