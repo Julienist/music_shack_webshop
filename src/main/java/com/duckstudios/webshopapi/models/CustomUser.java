@@ -16,10 +16,7 @@ import java.util.UUID;
 @Entity(name = "custom_user")
 public class CustomUser {
 
-    @IdCartDAO now dependent on CustomUserDAO.
-not using UserService anymore for getting the mail
-
-CartRepo optional customUser
+    @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
