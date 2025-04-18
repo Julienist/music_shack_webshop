@@ -8,20 +8,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<CustomUser, Long> {
 
-    CustomUser findByEmail(String email);
-    @Query("Select u.id FROM custom_user u WHERE u.email = :email")
-    Long findCustomUserIdByEmail(@Param("email") String email);
-    String email(String email);
-
-    CustomUser findCustomUserById(long id);
+    Optional<CustomUser> findUserById(UUID id);
+    Optional<CustomUser> findUserByEmail(String email);
 
     @Override
     @Nonnull
     List<CustomUser> findAll();
 
-    void deleteCustomUserById(long id);
+    void deleteCustomUserById(UUID id);
 }
