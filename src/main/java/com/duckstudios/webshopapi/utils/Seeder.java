@@ -94,7 +94,18 @@ public class Seeder {
     private void createProducts(Category category, String[][] productsData) {
         for (String[] data : productsData) {
             BigDecimal price = new BigDecimal(data[2]);
-            Product product = new Product(data[0] + " - " + data[1], "Een klassiek product van " + data[1], price, Boolean.parseBoolean(data[3]), data[4], Integer.parseInt(data[5]), category);
+            Product product = new Product(
+                    data[0] + " - " + data[1],
+                    "Een klassiek product van " + data[1],
+                    price,
+                    Boolean.parseBoolean(data[3]),
+                    "",
+                    Integer.parseInt(data[5]),
+                    category);
+            productRepository.save(product);
+
+            String imageUrl = "assets/products/product_image_" + product.getId() + ".jpg";
+            product.setImageurl(imageUrl);
             productRepository.save(product);
         }
     }
@@ -135,7 +146,7 @@ public class Seeder {
     @Transactional
     public void createOrderWithPayment(CustomUser user, List<Product> products) {
         // 1️⃣ Haal een persistente user op om detach errors te vermijden
-        CustomUser persistentUser = userRepository.findById(user.getId())
+        CustomUser persistentUser = userRepository.findUserById(user.getId())
                 .orElseThrow(() -> new RuntimeException("User not found!"));
 
         // 2️⃣ Maak de order aan
