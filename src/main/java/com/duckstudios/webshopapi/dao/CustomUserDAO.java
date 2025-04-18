@@ -70,9 +70,11 @@ public class CustomUserDAO {
 //    }
     public void deleteCustomUserById(UUID id) {
         Optional<CustomUser> user = userRepository.findUserById(id);
-//        if (user.isEmpty()) {
-////            throw new
-//        }
+        if (user.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User not found"
+            );
+        }
         userRepository.deleteCustomUserById(id);
     }
 }
