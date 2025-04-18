@@ -1,11 +1,13 @@
 package com.duckstudios.webshopapi.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public class AuthenticationDTO {
 
-    public String email;
-    public String password;
+    private String email;
+    private String password;
 
 }
