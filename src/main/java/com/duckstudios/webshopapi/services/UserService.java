@@ -2,14 +2,13 @@ package com.duckstudios.webshopapi.services;
 
 import com.duckstudios.webshopapi.dao.UserRepository;
 import com.duckstudios.webshopapi.models.CustomUser;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -22,19 +21,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        CustomUser customUser = userRepository.findByEmail(email);
+        Optional<CustomUser> customUser = userRepository.findUserByEmail(email);
 
-        if (customUser == null) {
+        if (customUser.isEmpty()) {
             throw new UsernameNotFoundException("User with email " + email + " not found");
-        }
-
-        // Haal de rol van de gebruiker op en zet deze correct in Spring Security formaat
-        String roleName = "ROLE_" + customUser.getRole().name();
-
-        return new User(
-                customUser.getEmail(),
-                customUser.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority(roleName))
-        );
+        }   return User.builder()
+        .username(customUser.get().getEmail())
+        .password(customUser.get().getPassword())
+        .roles(String.valueOf(customUser.get().getRole()))
+        .build();
     }
 }
