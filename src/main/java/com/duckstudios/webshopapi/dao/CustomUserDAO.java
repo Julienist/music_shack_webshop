@@ -1,7 +1,6 @@
 package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.models.CustomUser;
-import com.duckstudios.webshopapi.models.enums.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,16 +23,6 @@ public class CustomUserDAO {
     public List<CustomUser> findAll() {
         return userRepository.findAll();
     }
-
-//    public CustomUser getCustomUserById(long id) {
-//        Optional<CustomUser> user = userRepository.findById(id);
-//        if (user.isEmpty()) {
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "User not found"
-//            );
-//        }
-//        return user.get();
-//    }
 
     public CustomUser getCustomUserById(UUID id) {
         Optional<CustomUser> user = userRepository.findUserById(id);
