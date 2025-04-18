@@ -24,7 +24,7 @@ public class CartController {
 
     @GetMapping("/my_cart")
     public ResponseEntity<List<Cart>>  getCartForUser(@RequestBody AuthenticationDTO authenticationDTO) {
-        return ResponseEntity.ok(Collections.singletonList(cartDAO.getCartForCurrentUser(authenticationDTO.email)));
+        return ResponseEntity.ok(Collections.singletonList(cartDAO.getCartForCurrentUser(authenticationDTO.getEmail())));
     }
 
     @GetMapping
