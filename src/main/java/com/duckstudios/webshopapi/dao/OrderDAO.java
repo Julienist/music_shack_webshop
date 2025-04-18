@@ -19,15 +19,15 @@ public class OrderDAO {
 
     private final OrderRepository orderRepository;
     private final EntityValidator entityValidator;
-    private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final CustomUserDAO customUserDAO;
 
     public OrderDAO(OrderRepository orderRepository, EntityValidator entityValidator,
-                    UserRepository userRepository, ProductRepository productRepository) {
+                    ProductRepository productRepository, CustomUserDAO customUserDAO) {
         this.orderRepository = orderRepository;
         this.entityValidator = entityValidator;
-        this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.customUserDAO = customUserDAO;
     }
 
     public List<OrderEntity> getAllOrders() {
@@ -45,7 +45,7 @@ public class OrderDAO {
     }
 
     public List<OrderEntity> getOrdersForCurrentUser(String email) {
-        CustomUser customUser = userRepository.findByEmail(email);
+        CustomUser customUser = customUserDAO.getCustomUserByEmail(email);
         return orderRepository.findOrderEntityByCustomUser(customUser);
     }
 
@@ -103,7 +103,7 @@ public class OrderDAO {
     @Transactional
     public void createOrder(OrderDTO orderDTO) {
         // 1. Haal ingelogde gebruiker op via email
-        CustomUser currentUser = userRepository.findByEmail(orderDTO.email);
+        CustomUser currentUser = customUserDAO.getCustomUserByEmail(orderDTO.email);
 
         // 2. Maak een nieuwe order aan
         OrderEntity order = new OrderEntity();
