@@ -59,7 +59,7 @@ public class CustomUserDAO {
         return getCustomUserByEmail(email).getId();
     }
 
-    public CustomUser createCustomUser(String email, String rawPassword, Role role) {
+    public CustomUser createCustomUser(String email, String rawPassword) {
         CustomUser user = new CustomUser(email, passwordEncoder.encode(rawPassword));
         userRepository.save(user);
         return user;

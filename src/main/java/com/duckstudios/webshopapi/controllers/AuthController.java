@@ -5,7 +5,6 @@ import com.duckstudios.webshopapi.dao.CustomUserDAO;
 import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.LoginResponse;
 import com.duckstudios.webshopapi.models.CustomUser;
-import com.duckstudios.webshopapi.models.enums.Role;
 import com.duckstudios.webshopapi.services.AuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class AuthController {
         authenticationService.throwIfCustomUserExists(authenticationDTO.getEmail());
         authenticationService.validateEmail(authenticationDTO.getEmail());
         authenticationService.validatePassword(authenticationDTO.getPassword());
-        CustomUser customUser = this.customUserDAO.createCustomUser(authenticationDTO.getEmail(), authenticationDTO.getPassword(), Role.CUSTOMER);
+        CustomUser customUser = this.customUserDAO.createCustomUser(authenticationDTO.getEmail(), authenticationDTO.getPassword());
         return createLoginResponse(customUser);
     }
 
@@ -48,10 +47,8 @@ public class AuthController {
             UsernamePasswordAuthenticationToken authInputToken =
                     new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(), authenticationDTO.getPassword());
             authManager.authenticate(authInputToken);
-
             CustomUser customUser = customUserDAO.getCustomUserByEmail(authenticationDTO.getEmail());
             return createLoginResponse(customUser);
-
         } catch (AuthenticationException authExc) {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN, "No valid credentials"
