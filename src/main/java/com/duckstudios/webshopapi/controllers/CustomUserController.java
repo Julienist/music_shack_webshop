@@ -1,51 +1,44 @@
 package com.duckstudios.webshopapi.controllers;
 
-import com.duckstudios.webshopapi.dao.UserRepository;
+import com.duckstudios.webshopapi.dao.CustomUserDAO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/users")
 public class CustomUserController {
+    private final CustomUserDAO customUserDAO;
 
-    private final UserRepository userDAO;
-
-
-    public CustomUserController(UserRepository userDAO) {
-        this.userDAO = userDAO;
+    public CustomUserController(CustomUserDAO customUserDAO) {
+        this.customUserDAO = customUserDAO;
     }
 
     @GetMapping
     public ResponseEntity<List<CustomUser>> getAllUsers() {
-        List<CustomUser> users = userDAO.findAll();
+        List<CustomUser> users = customUserDAO.findAll();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/id/{email}")
-    public ResponseEntity<Long> getUserIdByEmail(@PathVariable String email) {
-//        Optional<Long> id = userDAO.findCustomUserIdByEmail(email);
-        Long id = userDAO.findCustomUserIdByEmail(email);
-
-        if (id == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(id);
+    public UUID getUserIdByEmail(@PathVariable String email) {
+        return this.customUserDAO.getCustomUserIdByEmail(email);
     }
 
     @GetMapping("/user_of_{id}")
-    public ResponseEntity<Optional<CustomUser>> getUserById(@PathVariable long id) {
-        CustomUser user = userDAO.findCustomUserById(id);
+    public ResponseEntity<Optional<CustomUser>> getUserById(@PathVariable UUID id) {
+        CustomUser user = customUserDAO.getCustomUserById(id);
         return ResponseEntity.ok(Optional.ofNullable(user));
     }
 
     @DeleteMapping("/delete_user_{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable long id) {
-        this.userDAO.deleteCustomUserById(id);
+    public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
+        this.customUserDAO.deleteCustomUserById(id);
         return ResponseEntity.ok("User deleted!");
     }
 }
