@@ -1,10 +1,7 @@
 package com.duckstudios.webshopapi.services;
 
 import com.duckstudios.webshopapi.dao.CartProductRepository;
-import com.duckstudios.webshopapi.dao.CategoryRepository;
 import com.duckstudios.webshopapi.dao.OrderProductRepository;
-import com.duckstudios.webshopapi.models.CartProduct;
-import com.duckstudios.webshopapi.models.OrderProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.JpaRepository;
