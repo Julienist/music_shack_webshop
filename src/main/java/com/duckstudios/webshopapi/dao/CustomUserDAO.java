@@ -2,7 +2,6 @@ package com.duckstudios.webshopapi.dao;
 
 import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
-import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ public class CustomUserDAO {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public CustomUserDAO(UserRepository userRepository, PasswordEncoder passwordEncoder, EntityValidator entityValidator) {
+    public CustomUserDAO(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -28,22 +27,18 @@ public class CustomUserDAO {
 
     public CustomUser getCustomUserById(UUID id) {
         Optional<CustomUser> user = userRepository.findUserById(id);
-        if (user.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User not found"
-            );
-        }
-        return user.get();
+        return getUserOrThrow(user);
     }
 
     public CustomUser getCustomUserByEmail(String email) {
         Optional<CustomUser> user = userRepository.findUserByEmail(email);
-        if (user.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User not found"
-            );
-        }
-        return user.get();
+        return getUserOrThrow(user);
+    }
+
+    private CustomUser getUserOrThrow(Optional<CustomUser> user) {
+        return user.orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User not found"
+        ));
     }
 
     public UUID getCustomUserIdByEmail(String email) {
@@ -64,12 +59,7 @@ public class CustomUserDAO {
     }
 
     public void deleteCustomUserById(UUID id) {
-        Optional<CustomUser> user = userRepository.findUserById(id);
-        if (user.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User not found"
-            );
-        }
-        userRepository.deleteCustomUserById(id);
+        Optional<CustomUser> user = Optional.ofNullable(this.getCustomUserById(id));
+        user.ifPresent(customUser -> userRepository.deleteCustomUserById(customUser.getId()));
     }
 }
