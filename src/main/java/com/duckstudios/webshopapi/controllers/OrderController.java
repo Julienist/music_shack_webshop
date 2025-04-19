@@ -5,6 +5,7 @@ import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.OrderDTO;
 import com.duckstudios.webshopapi.models.OrderEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<OrderEntity>> getOrders() {
         List<OrderEntity> orders = this.orderDAO.getAllOrders();
@@ -44,6 +46,7 @@ public class OrderController {
         return ResponseEntity.ok("Order aangemaakt!");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable long id) {
         this.orderDAO.deleteOrderById(id);

@@ -5,6 +5,7 @@ import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.dto.CartDTO;
 import com.duckstudios.webshopapi.models.Cart;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -27,6 +28,7 @@ public class CartController {
         return ResponseEntity.ok(Collections.singletonList(cartDAO.getCartForCurrentUser(authenticationDTO.getEmail())));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Cart>> getAllCarts() {
         return ResponseEntity.ok(this.cartDAO.getAllCarts());
@@ -43,6 +45,7 @@ public class CartController {
         return ResponseEntity.ok("Cart created!");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCart(@PathVariable long id) {
         this.cartDAO.deleteCart(id);

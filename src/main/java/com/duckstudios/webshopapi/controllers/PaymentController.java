@@ -4,6 +4,7 @@ import com.duckstudios.webshopapi.dao.PaymentDAO;
 import com.duckstudios.webshopapi.dto.PaymentDTO;
 import com.duckstudios.webshopapi.models.Payment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,15 +21,18 @@ public class PaymentController {
         this.paymentDAO = paymentDAO;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Payment>> getAllPayments() {
         return ResponseEntity.ok(this.paymentDAO.getAllPayments());
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Payment>> getPaymentById(@PathVariable long id) {
         return ResponseEntity.ok(this.paymentDAO.getPaymentById(id));
     }
+
 
     @PostMapping
     public ResponseEntity<String> createPayment(@RequestBody PaymentDTO paymentDTO) {
@@ -36,6 +40,7 @@ public class PaymentController {
         return ResponseEntity.ok("Payment created!");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePayment(@PathVariable long id) {
         this.paymentDAO.deletePayment(id);

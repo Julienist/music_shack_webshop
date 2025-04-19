@@ -4,6 +4,7 @@ import com.duckstudios.webshopapi.dao.CategoryDAO;
 import com.duckstudios.webshopapi.dto.CategoryDTO;
 import com.duckstudios.webshopapi.models.Category;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,12 +31,14 @@ public class CategoryController {
         return ResponseEntity.ok(this.categoryDAO.getCategoryById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<String> createCategory(@RequestBody CategoryDTO categoryDTO){
         this.categoryDAO.createCategory(categoryDTO);
         return ResponseEntity.ok("New category was created!");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable long id){
         this.categoryDAO.deleteCategory(id);

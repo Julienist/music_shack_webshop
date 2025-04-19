@@ -4,6 +4,7 @@ import com.duckstudios.webshopapi.dto.ProductDTO;
 import com.duckstudios.webshopapi.dao.ProductDAO;
 import com.duckstudios.webshopapi.models.Product;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO ){
         // De gebruiker moet een set aan data krijgen. → naam van product en description van product.
@@ -40,24 +42,28 @@ public class ProductController {
         return ResponseEntity.ok("Het is gelukt!");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable long id, @RequestBody ProductDTO productDTO) {
         this.productDAO.updateProductByID(id, productDTO);
         return ResponseEntity.ok("Updated product with id " + id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/check/{id}")
     public ResponseEntity<String> checkProduct(@PathVariable long id) {
         this.productDAO.setProductAvailable(id);
         return ResponseEntity.ok("Finished product with id " + id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/uncheck/{id}")
     public ResponseEntity<String> uncheckProduct(@PathVariable long id) {
         this.productDAO.setProductUnavailable(id);
         return ResponseEntity.ok("Unfinished product with id " + id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> DeleteProduct(@PathVariable long id) {
         this.productDAO.deleteProduct(id);
