@@ -1,6 +1,6 @@
 package com.duckstudios.webshopapi.dao;
 
-import com.duckstudios.webshopapi.dto.AuthenticationDTO;
+import com.duckstudios.webshopapi.dto.UpdateAccountDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,11 +51,10 @@ public class CustomUserDAO {
         return user;
     }
 
-    public void updateCustomUser(AuthenticationDTO authenticationDTO) {
-        CustomUser customUser = this.getCustomUserByEmail(authenticationDTO.getEmail());
-        customUser.setEmail(authenticationDTO.getEmail());
-        customUser.setPassword(authenticationDTO.getPassword());
-        this.userRepository.save(customUser);
+    public void updateCustomUser(CustomUser user, UpdateAccountDTO updateAccountDTO) {
+        user.setEmail(updateAccountDTO.getEmail());
+        user.setPassword(updateAccountDTO.getPassword());
+        this.userRepository.save(user);
     }
 
     public void deleteCustomUserById(UUID id) {

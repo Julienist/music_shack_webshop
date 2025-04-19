@@ -2,6 +2,7 @@ package com.duckstudios.webshopapi.controllers;
 
 import com.duckstudios.webshopapi.dao.CustomUserDAO;
 import com.duckstudios.webshopapi.dto.AuthenticationDTO;
+import com.duckstudios.webshopapi.dto.UpdateAccountDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,9 +41,10 @@ public class CustomUserController {
         return ResponseEntity.ok(Optional.ofNullable(user));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUserData(@RequestBody AuthenticationDTO accountdata, @PathVariable String id) {
-        this.customUserDAO.updateCustomUser(accountdata);
+    @PutMapping("/{email}")
+    public ResponseEntity<String> updateUserData(@RequestBody AuthenticationDTO authenticationDTO, @RequestBody UpdateAccountDTO updateAccountDTO) {
+        CustomUser user = customUserDAO.getCustomUserByEmail(authenticationDTO.getEmail());
+        this.customUserDAO.updateCustomUser(user, updateAccountDTO);
         return ResponseEntity.ok("Updated user");
     }
 
