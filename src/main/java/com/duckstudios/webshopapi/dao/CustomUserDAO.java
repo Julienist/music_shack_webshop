@@ -1,6 +1,8 @@
 package com.duckstudios.webshopapi.dao;
 
+import com.duckstudios.webshopapi.dto.AuthenticationDTO;
 import com.duckstudios.webshopapi.models.CustomUser;
+import com.duckstudios.webshopapi.services.EntityValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,7 @@ public class CustomUserDAO {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public CustomUserDAO(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public CustomUserDAO(UserRepository userRepository, PasswordEncoder passwordEncoder, EntityValidator entityValidator) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -54,9 +56,13 @@ public class CustomUserDAO {
         return user;
     }
 
-//    public CustomUser updateCustomUser(CustomUser customUser) {
-//
-//    }
+    public void updateCustomUser(AuthenticationDTO authenticationDTO) {
+        CustomUser customUser = this.getCustomUserByEmail(authenticationDTO.getEmail());
+        customUser.setEmail(authenticationDTO.getEmail());
+        customUser.setPassword(authenticationDTO.getPassword());
+        this.userRepository.save(customUser);
+    }
+
     public void deleteCustomUserById(UUID id) {
         Optional<CustomUser> user = userRepository.findUserById(id);
         if (user.isEmpty()) {
