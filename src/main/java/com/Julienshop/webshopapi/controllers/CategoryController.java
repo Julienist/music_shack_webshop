@@ -24,6 +24,8 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
         return ResponseEntity.ok(this.categoryDAO.getAllCategories());
+//        List<Category> categories = this.categoryDAO.getAllCategories();
+//        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

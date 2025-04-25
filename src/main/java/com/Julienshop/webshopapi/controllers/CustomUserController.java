@@ -4,6 +4,7 @@ import com.Julienshop.webshopapi.dao.CustomUserDAO;
 import com.Julienshop.webshopapi.dto.AuthenticationDTO;
 import com.Julienshop.webshopapi.dto.UpdateAccountDTO;
 import com.Julienshop.webshopapi.models.CustomUser;
+import com.Julienshop.webshopapi.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,13 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/users")
 public class CustomUserController {
-    private final CustomUserDAO customUserDAO;
 
-    public CustomUserController(CustomUserDAO customUserDAO) {
+    private final CustomUserDAO customUserDAO;
+    private final AuthenticationService authService;
+
+    public CustomUserController(CustomUserDAO customUserDAO, AuthenticationService authService) {
         this.customUserDAO = customUserDAO;
+        this.authService = authService;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -32,7 +36,8 @@ public class CustomUserController {
 
     @GetMapping("/id/{email}")
     public UUID getUserIdByEmail(@PathVariable String email) {
-        return this.customUserDAO.getCustomUserIdByEmail(email);
+        CustomUser customUser = authService.getAuthenticatedUser();
+        return this.customUserDAO.getCustomUserIdByEmail(email, customUser);
     }
 
     @GetMapping("/user_of_{id}")
