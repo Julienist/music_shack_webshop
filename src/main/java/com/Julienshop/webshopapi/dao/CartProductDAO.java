@@ -31,7 +31,7 @@ public class CartProductDAO {
     }
 
     public void createCartProduct(CartProductDTO cartProductDTO) {
-        CartProduct cartProduct = new CartProduct(cartProductDTO.cart, cartProductDTO.product, cartProductDTO.quantity, cartProductDTO.totalPrice);
+        CartProduct cartProduct = new CartProduct(cartProductDTO.getCart(), cartProductDTO.getProduct(), cartProductDTO.getQuantity(), cartProductDTO.getTotalPrice());
         this.cartProductRepository.save(cartProduct);
     }
 

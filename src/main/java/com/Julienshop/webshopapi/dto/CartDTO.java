@@ -4,16 +4,18 @@ import com.Julienshop.webshopapi.models.CartProduct;
 import com.Julienshop.webshopapi.models.CustomUser;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 @AllArgsConstructor
 public class CartDTO {
 
-    public List<CartProduct> cartProducts;
+    private List<CartProduct> cartProducts;
 
     @JsonAlias("custom_user")
-    public CustomUser customUser;
-    public boolean isActive;
+    private CustomUser customUser;
+    private boolean isActive;
 
 }

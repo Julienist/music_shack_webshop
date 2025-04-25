@@ -2,20 +2,22 @@ package com.Julienshop.webshopapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
+@Getter
 @AllArgsConstructor
 public class ProductDTO {
-    public String name;
-    public String description;
-    public BigDecimal price;
-    public boolean isAvailable;
-    public String imageurl;
-    public long amountInStock;
+    private String name;
+    private String description;
+    private BigDecimal price;
+    private boolean isAvailable;
+    private String imageurl;
+    private long amountInStock;
 
     @JsonAlias("category_id")
-    public long categoryId;
+    private long categoryId;
 
 //    public List<OrderProduct> orderProducts;
     // weet niet of bovenstaande in constructor moet.
