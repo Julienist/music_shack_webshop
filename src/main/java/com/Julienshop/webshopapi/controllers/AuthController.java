@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     private ResponseEntity<LoginResponse> createLoginResponse(CustomUser customUser) {
-        String token = jwtUtil.generateToken(customUser.getEmail());
+        String token = jwtUtil.generateToken(customUser);
         LoginResponse loginResponse = new LoginResponse(customUser.getEmail(), token, customUser.getRole());
         return ResponseEntity.ok(loginResponse);
     }

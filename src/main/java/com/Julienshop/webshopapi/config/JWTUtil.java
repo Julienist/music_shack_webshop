@@ -1,5 +1,6 @@
 package com.Julienshop.webshopapi.config;
 
+import com.Julienshop.webshopapi.models.CustomUser;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -20,11 +21,12 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private int expiration;
 
-    public String generateToken(String email) throws IllegalArgumentException, JWTCreationException {
+    public String generateToken(CustomUser customUser) throws IllegalArgumentException, JWTCreationException {
 
         return JWT.create()
                 .withSubject("User Details")
-                .withClaim("email", email)
+                .withClaim("id", customUser.getId().toString())
+                .withClaim("email", customUser.getEmail())
                 .withIssuedAt(new Date())
                 .withExpiresAt(this.createExpirationDate())
                 .withIssuer("Julienshop")
