@@ -100,37 +100,40 @@ public class OrderDAO {
 //        // Klaar! (optional: return OrderEntity als je het nodig hebt)
 //    }
 
-    @Transactional
-    public void createOrder(OrderDTO orderDTO) {
-        // 1. Haal ingelogde gebruiker op via email
-        CustomUser currentUser = customUserDAO.getCustomUserByEmail(orderDTO.email);
-
-        // 2. Maak een nieuwe order aan
-        OrderEntity order = new OrderEntity();
-        order.setCustomUser(currentUser);
-        order.setOrderDate(orderDTO.orderDate);
-        order.setOrderStatus(orderDTO.orderStatus);
-        order.setTotalPrice(orderDTO.totalPrice);
-
-        // 3. Maak orderProducts aan
-        List<OrderProduct> orderProducts = new ArrayList<>();
-
-        for (OrderProductDTO orderProductDTO : orderDTO.orderProducts) {
-            Product product = productRepository.findById(orderProductDTO.productId)
-                    .orElseThrow(() -> new RuntimeException("Product niet gevonden met ID: " + orderProductDTO.productId));
-
-            OrderProduct orderProduct = new OrderProduct(order, product, orderProductDTO.quantity, orderProductDTO.totalPrice);
-            orderProducts.add(orderProduct);
-        }
 
 
-
-        // 4. Koppel producten aan order
-        order.setOrderProducts(orderProducts);
-
-        // 5. Save alles in één keer (cascade!)
-        orderRepository.save(order);
-    }
+//    // Onderstaande methode is nog niet af
+//    @Transactional
+//    public void createOrder(OrderDTO orderDTO) {
+//        // 1. Haal ingelogde gebruiker op via email
+//        CustomUser currentUser = customUserDAO.getCustomUserByEmail(orderDTO.email);
+//
+//        // 2. Maak een nieuwe order aan
+//        OrderEntity order = new OrderEntity();
+//        order.setCustomUser(currentUser);
+//        order.setOrderDate(orderDTO.orderDate);
+//        order.setOrderStatus(orderDTO.orderStatus);
+//        order.setTotalPrice(orderDTO.totalPrice);
+//
+//        // 3. Maak orderProducts aan
+//        List<OrderProduct> orderProducts = new ArrayList<>();
+//
+//        for (OrderProductDTO orderProductDTO : orderDTO.orderProducts) {
+//            Product product = productRepository.findById(orderProductDTO.productId)
+//                    .orElseThrow(() -> new RuntimeException("Product niet gevonden met ID: " + orderProductDTO.productId));
+//
+//            OrderProduct orderProduct = new OrderProduct(order, product, orderProductDTO.quantity, orderProductDTO.totalPrice);
+//            orderProducts.add(orderProduct);
+//        }
+//
+//
+//
+//        // 4. Koppel producten aan order
+//        order.setOrderProducts(orderProducts);
+//
+//        // 5. Save alles in één keer (cascade!)
+//        orderRepository.save(order);
+//    }
 
 
     @Transactional

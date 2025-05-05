@@ -39,11 +39,11 @@ public class CartController {
         return ResponseEntity.ok(this.cartDAO.getCartById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<String> createCart(@RequestBody CartDTO cartDTO) {
-        this.cartDAO.createCart(cartDTO);
-        return ResponseEntity.ok("Cart created!");
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createCart(@RequestBody CartDTO cartDTO) {
+//        this.cartDAO.createCart(cartDTO);
+//        return ResponseEntity.ok("Cart created!");
+//    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")

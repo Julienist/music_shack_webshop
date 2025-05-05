@@ -39,13 +39,13 @@ public class CartDAO {
         return this.cartRepository.findById(id);
     }
 
-    public void createCart(CartDTO cartDTO) {
+//    public void createCart(CartDTO cartDTO) {
         //note:
         // 1. waarschijnlijk wil je ook checken of een customUser wel bestaat.
         // 2. Producten wil je in een cart zetten, je wilt dus niet hier een table vullen wss.
-        Cart cart = new Cart(cartDTO.cartProducts,cartDTO.customUser,cartDTO.isActive);
-        this.cartRepository.save(cart);
-    }
+//        Cart cart = new Cart(cartDTO.cartProducts,cartDTO.customUser,cartDTO.isActive);
+//        this.cartRepository.save(cart);
+//    }
 
     public void deleteCart(long id) {
         Cart cart = entityValidator.checkIfIdExists(id, cartRepository, "Cart");
