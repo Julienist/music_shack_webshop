@@ -1,42 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Product } from '../models/product.model';
-import {catchError, throwError} from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import {Category} from '../models/category.model';
+import { Category } from '../models/category.model';
+import { DataLoaderService } from './data-loader.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ProductsService {
   products = signal<Product[]>([]);
   isFetching = signal(false);
   error = signal('');
 
   private httpClient = inject(HttpClient);
+  private dataLoaderService = inject(DataLoaderService);
 
   constructor() {}
 
   public loadProducts(): void {
     this.isFetching.set(true);
 
-    this.httpClient.get<Category[]>(`${environment.apiUrl}/categories`).pipe(
-      catchError((error) => {
-        this.error.set('Something went wrong');
-        return throwError(() => new Error('Something went wrong'));
-      })
-    ).subscribe({
-      next: (categories) => {
-        const allProducts = this.flattenProducts(categories);
-        this.products.set(allProducts);
-        this.isFetching.set(false);
-      },
-      error: (error: Error) => {
-        this.error.set(error.message);
-        this.isFetching.set(false);
-      },
-    });
+    this.dataLoaderService
+      .loadDataWithFallback<Category[]>(
+        `${environment.apiUrl}/categories`,
+        'assets/test_data/categorie_en_product_data.json'
+      )
+      .subscribe({
+        next: (categories) => {
+          const allProducts = this.flattenProducts(categories);
+          this.products.set(allProducts);
+          this.isFetching.set(false);
+        },
+        error: (error: Error) => {
+          this.error.set(error.message);
+          this.isFetching.set(false);
+        },
+      });
   }
 
   private flattenProducts(categories: Category[]): Product[] {
@@ -57,25 +57,6 @@ export class ProductsService {
     );
   }
 
-  // public loadProducts() {
-  //   this.isFetching.set(true);
-  //   this.httpClient.get<Product[]>(environment.apiUrl + '/products').pipe(
-  //     catchError((error) => {
-  //       this.error.set('Something went wrong');
-  //       return throwError(() => new Error('Something went wrong'));
-  //     })
-  //   ).subscribe({
-  //     next: (products) => {
-  //       this.products.set(products);
-  //       this.isFetching.set(false);
-  //     },
-  //     error: (error: Error) => {
-  //       this.error.set(error.message);
-  //       this.isFetching.set(false);
-  //     }
-  //   });
-  // }
-
   get productsList() {
     return computed(() => this.products());
   }
@@ -91,6 +72,4 @@ export class ProductsService {
   public getProductsByCategory(categoryId: number): Product[] {
     return this.products().filter((p) => p.categoryId === categoryId);
   }
-
-
 }
