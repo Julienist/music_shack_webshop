@@ -40,11 +40,11 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
-        orderDAO.createOrder(orderDTO);
-        return ResponseEntity.ok("Order aangemaakt!");
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
+//        orderDAO.createOrder(orderDTO);
+//        return ResponseEntity.ok("Order aangemaakt!");
+//    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
