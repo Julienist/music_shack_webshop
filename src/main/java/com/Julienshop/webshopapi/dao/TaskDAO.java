@@ -59,8 +59,8 @@ public class TaskDAO {
 
 
     public void createTask(TaskDTO taskDTO) {
-        Category category = entityValidator.checkIfIdExists(taskDTO.categoryId, categoryRepository, "Category");
-        Task task = new Task(taskDTO.name, taskDTO.description, category);
+        Category category = entityValidator.checkIfIdExists(taskDTO.getCategoryId(), categoryRepository, "Category");
+        Task task = new Task(taskDTO.getName(), taskDTO.getDescription(), category);
         this.taskRepository.save(task);
     }
 
@@ -84,8 +84,8 @@ public class TaskDAO {
 
     public void updateTaskByID(long id, TaskDTO taskDTO) {
         Task task = entityValidator.checkIfIdExists(id, taskRepository, "Task");
-        task.setName(taskDTO.name);
-        task.setDescription(taskDTO.description);
+        task.setName(taskDTO.getName());
+        task.setDescription(taskDTO.getDescription());
         this.taskRepository.save(task);
     }
 
