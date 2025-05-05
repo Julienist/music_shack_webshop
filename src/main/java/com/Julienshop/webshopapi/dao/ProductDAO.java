@@ -38,15 +38,15 @@ public class ProductDAO {
     }
 
     public void createProduct(ProductDTO productDTO) {
-        Category category = entityValidator.checkIfIdExists(productDTO.categoryId, categoryRepository, "Category");
-        Product product = new Product(productDTO.name, productDTO.description, productDTO.price, productDTO.isAvailable, productDTO.imageurl, productDTO.amountInStock, category);
+        Category category = entityValidator.checkIfIdExists(productDTO.getCategoryId(), categoryRepository, "Category");
+        Product product = new Product(productDTO.getName(), productDTO.getDescription(), productDTO.getPrice(), productDTO.isAvailable(), productDTO.getImageurl(), productDTO.getAmountInStock(), category);
         this.productRepository.save(product);
     }
 
     public void updateProductByID(long id, ProductDTO productDTO) {
         Product product = entityValidator.checkIfIdExists(id, productRepository, "Product");
-        product.setName(productDTO.name);
-        product.setDescription(productDTO.description);
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
         this.productRepository.save(product);
     }
 
