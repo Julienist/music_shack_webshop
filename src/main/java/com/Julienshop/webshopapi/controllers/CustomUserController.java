@@ -35,14 +35,15 @@ public class CustomUserController {
 
 
     @GetMapping("/id/{email}")
-    public UUID getUserIdByEmail(@PathVariable String email) {
+    public UUID getCustomUserIdByEmail(@PathVariable String email) {
         CustomUser customUser = authService.getAuthenticatedUser();
         return this.customUserDAO.getCustomUserIdByEmail(email, customUser);
     }
 
     @GetMapping("/user_of_{id}")
-    public ResponseEntity<Optional<CustomUser>> getUserById(@PathVariable UUID id) {
-        CustomUser user = customUserDAO.getCustomUserById(id);
+    public ResponseEntity<Optional<CustomUser>> getCustomUserById(@PathVariable UUID id) {
+        CustomUser customUser = authService.getAuthenticatedUser();
+        CustomUser user = customUserDAO.getCustomUserById(id, customUser);
         return ResponseEntity.ok(Optional.ofNullable(user));
     }
 
@@ -53,6 +54,7 @@ public class CustomUserController {
         return ResponseEntity.ok("Updated user");
     }
 
+    //voor nu keuze om alleen admin een user te laten verwijderen
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete_user_{id}")
     public ResponseEntity<String> deleteUser(@PathVariable UUID id) {

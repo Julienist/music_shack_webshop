@@ -25,9 +25,26 @@ public class CustomUserDAO {
         return userRepository.findAll();
     }
 
-    public CustomUser getCustomUserById(UUID id) {
-        Optional<CustomUser> user = userRepository.findUserById(id);
-        return getUserOrThrow(user);
+    public CustomUser getCustomUserById(UUID id, CustomUser customUser) {
+        if (customUser.getId().equals(id)) {
+            return customUser;
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Flikker op."
+                    //gets thrown if the user tries to get another user's id.
+            );
+        }
+    }
+
+    public UUID getCustomUserIdByEmail(String email, CustomUser customUser) {
+        if (customUser.getEmail().equals(email)) {
+            return customUser.getId();
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Flikker op."
+                    //gets thrown if the user tries to get another user's id.
+            );
+        }
     }
 
     public CustomUser getCustomUserByEmail(String email) {
@@ -57,7 +74,25 @@ public class CustomUserDAO {
         this.userRepository.save(user);
     }
 
+    public void updateCustomUserPassword(CustomUser user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        this.userRepository.save(user);
+    }
+
+    public void updateCustomUserEmail(CustomUser user, String newEmail) {
+        user.setEmail(newEmail);
+        this.userRepository.save(user);
+    }
+
+    public CustomUser getCustomUserById(UUID id) {
+        Optional<CustomUser> user = userRepository.findUserById(id);
+        return getUserOrThrow(user);
+    }
+
     public void deleteCustomUserById(UUID id) {
+        // 1. Check if the user is equal to the one being deleted
+        // 2. If not, throw a forbidden exception
+        // 3. If yes, delete the user
         Optional<CustomUser> user = Optional.ofNullable(this.getCustomUserById(id));
         user.ifPresent(customUser -> userRepository.deleteCustomUserById(customUser.getId()));
     }
