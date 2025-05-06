@@ -1,7 +1,6 @@
 package com.Julienshop.webshopapi.controllers;
 
 import com.Julienshop.webshopapi.dao.OrderDAO;
-import com.Julienshop.webshopapi.dto.AuthenticationDTO;
 import com.Julienshop.webshopapi.dto.OrderDTO;
 import com.Julienshop.webshopapi.models.CustomUser;
 import com.Julienshop.webshopapi.models.OrderEntity;

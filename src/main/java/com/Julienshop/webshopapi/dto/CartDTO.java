@@ -1,8 +1,6 @@
 package com.Julienshop.webshopapi.dto;
 
 import com.Julienshop.webshopapi.models.CartProduct;
-import com.Julienshop.webshopapi.models.CustomUser;
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
