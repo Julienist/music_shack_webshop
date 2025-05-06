@@ -27,7 +27,7 @@ public class OrderEntity {
     //payment via 1:M relatie erin zetten via orderId.
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name="customUserId", nullable = false)
+    @JoinColumn(name="customUser_id", nullable = false)
     @JsonBackReference
     private CustomUser customUser;
 

@@ -3,7 +3,9 @@ package com.Julienshop.webshopapi.controllers;
 import com.Julienshop.webshopapi.dao.OrderDAO;
 import com.Julienshop.webshopapi.dto.AuthenticationDTO;
 import com.Julienshop.webshopapi.dto.OrderDTO;
+import com.Julienshop.webshopapi.models.CustomUser;
 import com.Julienshop.webshopapi.models.OrderEntity;
+import com.Julienshop.webshopapi.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,18 @@ import java.util.Optional;
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderDAO orderDAO;
+    private final AuthenticationService authenticationService;
 
-    public OrderController(OrderDAO orderDAO) {
+    public OrderController(OrderDAO orderDAO,
+                           AuthenticationService authenticationService) {
         this.orderDAO = orderDAO;
+        this.authenticationService = authenticationService;
     }
 
     @GetMapping("/my_orders")
-    public ResponseEntity<List<OrderEntity>> getOrdersForCurrentUser(@RequestBody AuthenticationDTO authenticationDTO) {
-        List<OrderEntity> orders = this.orderDAO.getOrdersForCurrentUser(authenticationDTO.getEmail());
+    public ResponseEntity<List<OrderEntity>> getOrdersForCurrentUser() {
+        CustomUser customUser = authenticationService.getAuthenticatedUser();
+        List<OrderEntity> orders = this.orderDAO.getOrdersForCurrentUser(customUser);
         return ResponseEntity.ok(orders);
     }
 
@@ -34,17 +40,19 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<OrderEntity>> getOrder(@PathVariable long id) {
         Optional<OrderEntity> order = this.orderDAO.getOrderById(id);
         return ResponseEntity.ok(order);
     }
 
-//    @PostMapping
-//    public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
-//        orderDAO.createOrder(orderDTO);
-//        return ResponseEntity.ok("Order aangemaakt!");
-//    }
+    @PostMapping
+    public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
+        CustomUser customUser = authenticationService.getAuthenticatedUser();
+        orderDAO.createOrder(customUser, orderDTO);
+        return ResponseEntity.ok("Order aangemaakt!");
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
