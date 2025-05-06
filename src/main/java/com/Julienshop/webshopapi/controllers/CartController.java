@@ -4,6 +4,8 @@ import com.Julienshop.webshopapi.dao.CartDAO;
 import com.Julienshop.webshopapi.dto.AuthenticationDTO;
 import com.Julienshop.webshopapi.dto.CartDTO;
 import com.Julienshop.webshopapi.models.Cart;
+import com.Julienshop.webshopapi.models.CustomUser;
+import com.Julienshop.webshopapi.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,12 @@ import java.util.Optional;
 public class CartController {
 
     private final CartDAO cartDAO;
+    private final AuthenticationService authenticationService;
 
-    public CartController(CartDAO cartDAO) {
+    public CartController(CartDAO cartDAO,
+                          AuthenticationService authenticationService) {
         this.cartDAO = cartDAO;
+        this.authenticationService = authenticationService;
     }
 
     @GetMapping("/my_cart")
@@ -37,6 +42,13 @@ public class CartController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Cart>> getCartById(@PathVariable long id) {
         return ResponseEntity.ok(this.cartDAO.getCartById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createCart(@RequestBody CartDTO cartDTO) {
+        CustomUser customuser = authenticationService.getAuthenticatedUser();
+        this.cartDAO.createCart(customuser, cartDTO);
+        return ResponseEntity.ok("Cart created!");
     }
 
 //    @PostMapping

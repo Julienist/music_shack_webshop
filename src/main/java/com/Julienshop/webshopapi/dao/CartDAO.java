@@ -46,6 +46,16 @@ public class CartDAO {
 //        Cart cart = new Cart(cartDTO.cartProducts,cartDTO.customUser,cartDTO.isActive);
 //        this.cartRepository.save(cart);
 //    }
+    public void createCart(CustomUser customUser, CartDTO cartDTO) {
+        // 1. Haal ingelogde gebruiker op via email
+        CustomUser currentUser = customUserDAO.getCustomUserByEmail(customUser.getEmail());
+
+        // 2. Maak een nieuwe cart aan
+        Cart cart = new Cart(cartDTO.getCartProducts(), currentUser, cartDTO.isActive());
+
+        // 3. Sla de cart op in de database
+        this.cartRepository.save(cart);
+    }
 
     public void deleteCart(long id) {
         Cart cart = entityValidator.checkIfIdExists(id, cartRepository, "Cart");

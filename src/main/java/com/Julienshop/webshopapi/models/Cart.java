@@ -17,13 +17,14 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customUser_id", nullable = false)
+    @JsonBackReference
+    private CustomUser customUser;
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CartProduct> cartProducts;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private CustomUser customUser;
 
     private boolean isActive;
 
