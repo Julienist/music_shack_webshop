@@ -1,11 +1,19 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { Product } from '../models/product.model';
+import { environment } from '../../environments/environment.development';
+import { Cart } from '../models/cart.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cartItems = signal<Product[]>([]);
+  private httpClient = inject(HttpClient);
+  private cartUrl = environment.apiUrl + '/carts';
+  private cartProducts: Product[] = [];
+
 
   constructor() {
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -76,7 +84,16 @@ export class CartService {
   }
 
 
+  // public getCartFromApi(): Observable<Cart> {
+  //   return this.httpClient.get<Cart>(this.cartUrl);
+  // }
 
-  // evt. cart to db -> vergt her-bouwing van ERD en db,
-  // zorg eerst voor orders.
+    /** Haal winkelmandje op van de API */
+  //als user is ingelogd, save cart to API.
+  // Als user niet is ingelogd, haal cart op van localStorage.
+  public saveCartToApi(cart: Cart): Observable<Cart> {
+    return this.httpClient.post<Cart>(this.cartUrl, cart);
+  }
 }
+
+
