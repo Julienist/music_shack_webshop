@@ -70,7 +70,7 @@ export class PaymentpageComponent {
     } catch (err) {
       console.error('❌ Navigatie mislukt:', err);
     }
-    // this.submitOrder(order);
+    this.submitOrder(order);
 
   }
 
@@ -81,7 +81,7 @@ export class PaymentpageComponent {
       orderStatus: OrderStatus.PAID,
       totalPrice: this.cartService.getTotalPrice(),
       orderProducts: this.cartService.getCartItems()().map((item: Product) => ({
-        productId: item.id,
+        product: item,
         quantity: item.quantity,
         totalPrice: item.price * item.quantity
       }))
@@ -93,21 +93,21 @@ export class PaymentpageComponent {
     console.log("Order opgeslagen in LocalStorage:", order);
   }
 
-  // private submitOrder(order: Order) {
-  //   this.orderService.sendLocalOrdersToBackend().subscribe({
-  //     next: response => {
-  //       console.log('✅ Order succesvol verstuurd:', response);
-  //       this.cartService.clearCart();
-  //       // this.router.navigate(['/orders']);
-  //     },
-  //     error: err => {
-  //       console.error('❌ Fout bij order plaatsen:', err);
-  //     },
-  //     complete: () => {
-  //       this.isProcessing.set(false);
-  //     }
-  //   });
-  // }
+  private submitOrder(order: Order) {
+    this.orderService.saveOrderToApi(order).subscribe({
+      next: response => {
+        console.log('✅ Order succesvol verstuurd:', response);
+        this.cartService.clearCart();
+        this.router.navigate(['/orders']);
+      },
+      error: err => {
+        console.error('❌ Fout bij order plaatsen:', err);
+      },
+      complete: () => {
+        this.isProcessing.set(false);
+      }
+    });
+  }
 
 
 

@@ -1,3 +1,5 @@
+import { Product } from "./product.model";
+
 export enum OrderStatus {
   PENDING = 'PENDING',
   SHIPPED = 'SHIPPED',
@@ -7,7 +9,7 @@ export enum OrderStatus {
 }
 
 export interface Order {
-
+  // email: string;
   orderDate: Date;
   orderStatus: OrderStatus;
   totalPrice: number;
@@ -15,7 +17,7 @@ export interface Order {
 }
 
 export interface OrderProduct {
-  productId: number;
+  product: Product;
   quantity: number;
   totalPrice: number;
 }

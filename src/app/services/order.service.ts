@@ -31,15 +31,18 @@ export class OrderService {
     localStorage.removeItem(this.storageKey);
   }
 
+  getOrders(): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
+  }
 
-  // getOrders(): Observable<Order[]> {
-  //   return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
-  // }
+  public saveOrderToApi(order: Order): Observable<Order> {
+    return this.httpClient.post<Order>(this.orderUrl, order);
+  }
 
   // hieronder de order data, als getters.
 
-  getProductFromOrderProduct(op: OrderProduct): Product | undefined {
-    return this.productsService.getProductByIdFromCache(op.productId);
+  getProductFromOrderProduct(op: OrderProduct): Product | null {
+    return this.productsService.getProductByIdFromCache(op.product.id);
   }
 
   /** 🎲 Haal een willekeurige productafbeelding uit de order */
@@ -49,14 +52,14 @@ export class OrderService {
     const randomIndex = Math.floor(Math.random() * order.orderProducts.length);
     const randomOrderProduct = order.orderProducts[randomIndex];
 
-    const product = this.productsService.getProductByIdFromCache(randomOrderProduct.productId);
+    const product = this.productsService.getProductByIdFromCache(randomOrderProduct.product.id);
     return product?.imageurl || null;
   }
 
   /** ✅ Ophalen van alle productnamen */
   getProductNames(order: Order): string[] {
     return order.orderProducts.map(item => {
-      const product = this.productsService.getProductByIdFromCache(item.productId);
+      const product = this.productsService.getProductByIdFromCache(item.product.id);
       return product?.name ?? 'Onbekend product';
     });
   }
