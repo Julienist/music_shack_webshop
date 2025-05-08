@@ -1,6 +1,26 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { digitValidator, getControl, hasControlError, isControlTouchedOrDirty, lowercaseValidator, specialCharValidator, uppercaseValidator } from '../config/account-validaton.component';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatFormFieldModule,
+  MatLabel
+} from '@angular/material/form-field';
+import {
+  digitValidator,
+  getControl,
+  hasControlError,
+  isControlTouchedOrDirty,
+  lowercaseValidator,
+  specialCharValidator,
+  uppercaseValidator
+} from '../config/account-validaton.component';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
@@ -10,7 +30,15 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'app-maak-account',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule],
+  imports: [
+    NgIf,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatLabel,
+    MatButtonModule
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -18,10 +46,18 @@ export class RegisterComponent {
 
   protected loginService = inject(LoginService);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private translate = inject(TranslateService);
 
   protected authForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private translate: TranslateService) {
+  ngOnInit() {
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
+  }
+
+  constructor() {
     this.authForm = this.fb.group({
       "email": ["", [
         Validators.required,
@@ -37,13 +73,11 @@ export class RegisterComponent {
         specialCharValidator
       ]]
     });
-
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
   }
 
-
+  hasControlError(formGroup: FormGroup, controlName: string, error: string): boolean {
+    return hasControlError(formGroup, controlName, error);
+  }
 
   isPasswordTouchedOrDirty(): boolean {
     return isControlTouchedOrDirty(this.authForm, 'password');
