@@ -7,3 +7,21 @@
   }
 
 //   komt nog
+
+@mixin auth-form-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+@mixin mat-error-style {
+  background-color: white;
+  z-index: 10;
+  position: relative;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}

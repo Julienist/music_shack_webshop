@@ -1,0 +1,9 @@
+@import '../mixins.scss';
+
+.auth-form {
+    @include auth-form-style;
+}
+
+mat-error {
+    @include mat-error-style;
+}
