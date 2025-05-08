@@ -9,12 +9,14 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 @Component({
   selector: 'app-products-container',
   standalone: true,
-  imports: [ProductComponent, CommonModule, TranslatePipe],
+  imports: [
+    ProductComponent,
+    CommonModule,
+    TranslatePipe],
   templateUrl: './products-container.component.html',
   styleUrl: './products-container.component.scss'
 })
 export class ProductsContainerComponent {
-  //mocht iemand deze code lezen, nee ik houd het gecomment.
 
   title = 'Products';
 

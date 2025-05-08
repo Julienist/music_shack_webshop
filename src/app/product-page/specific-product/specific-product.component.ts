@@ -1,5 +1,6 @@
 import { Component, computed, inject, OnInit, Signal, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider'; 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { NgIf } from '@angular/common';
@@ -8,7 +9,10 @@ import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-specific-product',
-  imports: [NgIf],
+  imports: [
+    NgIf,
+    MatDividerModule
+  ],
   templateUrl: './specific-product.component.html',
   styleUrl: './specific-product.component.scss'
 })

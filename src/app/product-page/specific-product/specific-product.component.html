@@ -1,11 +1,12 @@
-<img *ngIf="product()" [src]="product()?.imageurl" alt="Productafbeelding">
-<section *ngIf="product()">
-  <h2>{{ product()?.name }}</h2>
-  <p>ID: {{ product()?.id }}</p>
-  <p>{{ product()?.description }}</p>
-  <p>Prijs: €{{ product()?.price }}</p>
-  <p>Voorraad: {{ product()?.amountInStock }}</p>
-  <button (click)="addProductToCart()">Voeg toe aan mandje</button>
-</section>
-
+<div class="product-container">
+  <img *ngIf="product()" [src]="product()?.imageurl" alt="Productafbeelding" class="product-image">
+  <section *ngIf="product()" class="product-details">
+    <h2>{{ product()?.name }}</h2>
+    <!-- <p>ID: {{ product()?.id }}</p> -->
+    <p>{{ product()?.description }}</p>
+    <p>Prijs: €{{ product()?.price }}</p>
+    <p>Voorraad: {{ product()?.amountInStock }}</p>
+    <button (click)="addProductToCart()">Voeg toe aan mandje</button>
+  </section>
+</div>
 <div *ngIf="!product()">Product niet gevonden.</div>
