@@ -1,3 +1,5 @@
+<!-- 1e versie van login html hieronder -->
+
 <!-- <form (ngSubmit)="login()">
     <div>
       <label>Email:</label>
@@ -11,7 +13,11 @@
   </form> -->
   
 
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+<!-- ------------------------------------------ -->
+
+<!-- 2e iteratie van de html hieronder -->
+
+  <!-- <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <p>
       <label>Email</label><br>
       <input type="text" formControlName="email">
@@ -48,4 +54,29 @@
         Maak een account
       </button>
     </p>
+  </form> -->
+
+  <!-- ------------------------------- -->
+
+  <!-- 3e iteratie, met materialized input-->
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="test@example.com">
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'required')">Email is <strong>required</strong></mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'email')">Please enter a valid email address</mat-error>
+    </mat-form-field><br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Enter your password">
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'required')">Password is <strong>required</strong></mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'minlength')">Password must be at least 8 characters</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'maxlength')">Password cannot exceed 30 characters</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'digit')">Password must contain at least one digit</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'lowercase')">Password must contain at least one lowercase letter</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'uppercase')">Password must contain at least one uppercase letter</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'specialChar')">Password must contain at least one special character</mat-error>
+    </mat-form-field><br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button><br>
+    <button mat-button (click)="navigateToMaakAccount()">Maak een account</button>
   </form>
