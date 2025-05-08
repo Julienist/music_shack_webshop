@@ -36,6 +36,11 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                  "/src/app/mixins.scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -108,6 +113,11 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                  "/src/app/mixins.scss"
+              ]
+            },  
             "scripts": []
           }
         }

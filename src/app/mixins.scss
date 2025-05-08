@@ -1,13 +1,13 @@
-@mixin gradient-background($direction, $colors...) {
-    background: linear-gradient($direction, $colors);
-  }
+// Verwijder de @forward-regel, mixins.scss wordt direct gebruikt
+// @mixin gradient-background($direction, $colors...) {
+//     background: linear-gradient($direction, $colors);
+//   }
 
-  .my-element {
-    @include gradient-background(to right, red, yellow, green);
-  }
+//   .my-element {
+//     @include gradient-background(to right, red, yellow, green);
+//   }
 
 //   komt nog
-
 @mixin auth-form-style {
   display: flex;
   flex-direction: column;

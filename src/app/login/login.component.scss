@@ -1,12 +1,12 @@
-@import '../mixins.scss';
+@use '../mixins.scss' as mixins;
 
 .auth-form {
-    @include auth-form-style;
+    @include mixins.auth-form-style;
     gap: 16px; /* Specifieke aanpassing voor login */
 }
 
 mat-error {
-    @include mat-error-style;
+    @include mixins.mat-error-style;
 }
 
 button {
