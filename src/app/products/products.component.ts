@@ -1,4 +1,6 @@
-import { Component, inject, Input, Signal } from '@angular/core';
+import { Component, inject, Input, Signal, ChangeDetectionStrategy } from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import { Product } from '../models/product.model';
 import { RouterLink } from '@angular/router';
 import { ProductsService } from '../services/products.service';
@@ -8,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MatCardModule, MatButtonModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
