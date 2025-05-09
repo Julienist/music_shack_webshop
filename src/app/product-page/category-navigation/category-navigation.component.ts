@@ -1,12 +1,14 @@
 import {Component, inject, Signal} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import {CategoryService} from '../../services/category.service';
 import {Router} from '@angular/router';
 import {Category} from '../../models/category.model';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-category-navigation',
-  imports: [],
+  imports: [MatTabsModule, NgFor],
   templateUrl: './category-navigation.component.html',
   styleUrl: './category-navigation.component.scss'
 })
@@ -16,7 +18,7 @@ export class CategoryNavigationComponent {
 
   categories: Signal<Category[]> = this.categoryService.categoriesList;
 
-  constructor() {
+  ngOnInit() {
     this.categoryService.loadCategories();
   }
 
@@ -27,7 +29,19 @@ export class CategoryNavigationComponent {
     });
   }
 
+  onTabChange(event: any) {
+    const selectedIndex = event.index;
+    if (selectedIndex === 0) {
+      this.selectCategory(null); // "Alle producten"
+    } else {
+      const category = this.categories()[selectedIndex - 1]; // Correcte index corrigeren
+      this.selectCategory(category.id);
+    }
+  }
 
+  trackByCategoryId(index: number, category: Category): number {
+    return category.id;
+  }
 
   //hieronder taal-translation regelen
   // constructor(private translate: TranslateService) {

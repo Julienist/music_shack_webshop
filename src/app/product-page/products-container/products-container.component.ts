@@ -12,7 +12,8 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
   imports: [
     ProductComponent,
     CommonModule,
-    TranslatePipe],
+    // TranslatePipe
+  ],
   templateUrl: './products-container.component.html',
   styleUrl: './products-container.component.scss'
 })
