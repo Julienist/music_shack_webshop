@@ -1,40 +1,36 @@
 import {
-  MAT_RIPPLE_GLOBAL_OPTIONS,
-  MatRipple,
-  RippleRenderer,
-  _StructuralStylesLoader,
-  defaultRippleAnimationConfig
-} from "./chunk-KAPBZ2PJ.js";
-import "./chunk-JUGGGE7M.js";
-import "./chunk-RXVQCC6F.js";
+  MatRippleLoader
+} from "./chunk-QKISI7CX.js";
+import {
+  MatRippleModule
+} from "./chunk-CJH3SJBZ.js";
+import {
+  _StructuralStylesLoader
+} from "./chunk-ZTNBGWTR.js";
+import "./chunk-4E74RVZO.js";
+import "./chunk-IBYU652R.js";
 import {
   FocusMonitor,
-  MatCommonModule,
-  _getEventTarget
-} from "./chunk-5ZMVTWPH.js";
-import "./chunk-UYPASEVL.js";
+  MatCommonModule
+} from "./chunk-2NUIIIEH.js";
+import "./chunk-2O4WY5GE.js";
+import "./chunk-AAWFXFGG.js";
 import {
-  Platform,
-  _CdkPrivateStyleLoader,
-  _bindEventWithOptions
-} from "./chunk-DXXDIY6U.js";
-import {
-  DOCUMENT
-} from "./chunk-LL5RF35Z.js";
+  _CdkPrivateStyleLoader
+} from "./chunk-EA3WK3AG.js";
+import "./chunk-RN745ZQH.js";
+import "./chunk-MQ6C4RFN.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
   Component,
   Directive,
   ElementRef,
-  Injectable,
   InjectionToken,
-  Injector,
   Input,
   NgModule,
   NgZone,
   Renderer2,
-  RendererFactory2,
   ViewEncapsulation,
   booleanAttribute,
   inject,
@@ -46,7 +42,6 @@ import {
   ɵɵclassProp,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
-  ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵelement,
@@ -55,153 +50,14 @@ import {
   ɵɵgetInheritedFactory,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-733PALXA.js";
+} from "./chunk-TQLNORJW.js";
+import "./chunk-3SOMR3T5.js";
+import "./chunk-LML3PKCU.js";
+import "./chunk-6OZNFX5X.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-S35MAB2V.js";
-
-// node_modules/@angular/material/fesm2022/ripple-loader-dabcd93d.mjs
-var eventListenerOptions = {
-  capture: true
-};
-var rippleInteractionEvents = ["focus", "mousedown", "mouseenter", "touchstart"];
-var matRippleUninitialized = "mat-ripple-loader-uninitialized";
-var matRippleClassName = "mat-ripple-loader-class-name";
-var matRippleCentered = "mat-ripple-loader-centered";
-var matRippleDisabled = "mat-ripple-loader-disabled";
-var MatRippleLoader = class _MatRippleLoader {
-  _document = inject(DOCUMENT);
-  _animationMode = inject(ANIMATION_MODULE_TYPE, {
-    optional: true
-  });
-  _globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, {
-    optional: true
-  });
-  _platform = inject(Platform);
-  _ngZone = inject(NgZone);
-  _injector = inject(Injector);
-  _eventCleanups;
-  _hosts = /* @__PURE__ */ new Map();
-  constructor() {
-    const renderer = inject(RendererFactory2).createRenderer(null, null);
-    this._eventCleanups = this._ngZone.runOutsideAngular(() => {
-      return rippleInteractionEvents.map((name) => _bindEventWithOptions(renderer, this._document, name, this._onInteraction, eventListenerOptions));
-    });
-  }
-  ngOnDestroy() {
-    const hosts = this._hosts.keys();
-    for (const host of hosts) {
-      this.destroyRipple(host);
-    }
-    this._eventCleanups.forEach((cleanup) => cleanup());
-  }
-  /**
-   * Configures the ripple that will be rendered by the ripple loader.
-   *
-   * Stores the given information about how the ripple should be configured on the host
-   * element so that it can later be retrived & used when the ripple is actually created.
-   */
-  configureRipple(host, config) {
-    host.setAttribute(matRippleUninitialized, this._globalRippleOptions?.namespace ?? "");
-    if (config.className || !host.hasAttribute(matRippleClassName)) {
-      host.setAttribute(matRippleClassName, config.className || "");
-    }
-    if (config.centered) {
-      host.setAttribute(matRippleCentered, "");
-    }
-    if (config.disabled) {
-      host.setAttribute(matRippleDisabled, "");
-    }
-  }
-  /** Sets the disabled state on the ripple instance corresponding to the given host element. */
-  setDisabled(host, disabled) {
-    const ripple = this._hosts.get(host);
-    if (ripple) {
-      ripple.target.rippleDisabled = disabled;
-      if (!disabled && !ripple.hasSetUpEvents) {
-        ripple.hasSetUpEvents = true;
-        ripple.renderer.setupTriggerEvents(host);
-      }
-    } else if (disabled) {
-      host.setAttribute(matRippleDisabled, "");
-    } else {
-      host.removeAttribute(matRippleDisabled);
-    }
-  }
-  /**
-   * Handles creating and attaching component internals
-   * when a component is initially interacted with.
-   */
-  _onInteraction = (event) => {
-    const eventTarget = _getEventTarget(event);
-    if (eventTarget instanceof HTMLElement) {
-      const element = eventTarget.closest(`[${matRippleUninitialized}="${this._globalRippleOptions?.namespace ?? ""}"]`);
-      if (element) {
-        this._createRipple(element);
-      }
-    }
-  };
-  /** Creates a MatRipple and appends it to the given element. */
-  _createRipple(host) {
-    if (!this._document || this._hosts.has(host)) {
-      return;
-    }
-    host.querySelector(".mat-ripple")?.remove();
-    const rippleEl = this._document.createElement("span");
-    rippleEl.classList.add("mat-ripple", host.getAttribute(matRippleClassName));
-    host.append(rippleEl);
-    const isNoopAnimations = this._animationMode === "NoopAnimations";
-    const globalOptions = this._globalRippleOptions;
-    const enterDuration = isNoopAnimations ? 0 : globalOptions?.animation?.enterDuration ?? defaultRippleAnimationConfig.enterDuration;
-    const exitDuration = isNoopAnimations ? 0 : globalOptions?.animation?.exitDuration ?? defaultRippleAnimationConfig.exitDuration;
-    const target = {
-      rippleDisabled: isNoopAnimations || globalOptions?.disabled || host.hasAttribute(matRippleDisabled),
-      rippleConfig: {
-        centered: host.hasAttribute(matRippleCentered),
-        terminateOnPointerUp: globalOptions?.terminateOnPointerUp,
-        animation: {
-          enterDuration,
-          exitDuration
-        }
-      }
-    };
-    const renderer = new RippleRenderer(target, this._ngZone, rippleEl, this._platform, this._injector);
-    const hasSetUpEvents = !target.rippleDisabled;
-    if (hasSetUpEvents) {
-      renderer.setupTriggerEvents(host);
-    }
-    this._hosts.set(host, {
-      target,
-      renderer,
-      hasSetUpEvents
-    });
-    host.removeAttribute(matRippleUninitialized);
-  }
-  destroyRipple(host) {
-    const ripple = this._hosts.get(host);
-    if (ripple) {
-      ripple.renderer._removeTriggerEvents();
-      this._hosts.delete(host);
-    }
-  }
-  static ɵfac = function MatRippleLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatRippleLoader)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _MatRippleLoader,
-    factory: _MatRippleLoader.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatRippleLoader, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
+} from "./chunk-J5HVRWJR.js";
 
 // node_modules/@angular/material/fesm2022/icon-button-655c4ed3.mjs
 var _c0 = ["mat-icon-button", ""];
@@ -600,30 +456,6 @@ var MatIconAnchor = class _MatIconAnchor extends MatAnchorBase {
 <span class="mat-mdc-button-touch-target"></span>
 `,
       styles: ['.mat-mdc-icon-button{-webkit-user-select:none;user-select:none;display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:rgba(0,0,0,0);fill:currentColor;color:inherit;text-decoration:none;cursor:pointer;z-index:0;overflow:visible;border-radius:50%;flex-shrink:0;text-align:center;width:var(--mdc-icon-button-state-layer-size, 40px);height:var(--mdc-icon-button-state-layer-size, 40px);padding:calc(calc(var(--mdc-icon-button-state-layer-size, 40px) - var(--mdc-icon-button-icon-size, 24px)) / 2);font-size:var(--mdc-icon-button-icon-size, 24px);color:var(--mdc-icon-button-icon-color, var(--mat-sys-on-surface-variant));-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-mdc-icon-button .mat-mdc-button-ripple,.mat-mdc-icon-button .mat-mdc-button-persistent-ripple,.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit}.mat-mdc-icon-button .mat-mdc-button-ripple{overflow:hidden}.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before{content:"";opacity:0}.mat-mdc-icon-button .mdc-button__label,.mat-mdc-icon-button .mat-icon{z-index:1;position:relative}.mat-mdc-icon-button .mat-focus-indicator{top:0;left:0;right:0;bottom:0;position:absolute}.mat-mdc-icon-button:focus>.mat-focus-indicator::before{content:""}.mat-mdc-icon-button .mat-ripple-element{background-color:var(--mat-icon-button-ripple-color, color-mix(in srgb, var(--mat-sys-on-surface-variant) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent))}.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before{background-color:var(--mat-icon-button-state-layer-color, var(--mat-sys-on-surface-variant))}.mat-mdc-icon-button.mat-mdc-button-disabled .mat-mdc-button-persistent-ripple::before{background-color:var(--mat-icon-button-disabled-state-layer-color, var(--mat-sys-on-surface-variant))}.mat-mdc-icon-button:hover>.mat-mdc-button-persistent-ripple::before{opacity:var(--mat-icon-button-hover-state-layer-opacity, var(--mat-sys-hover-state-layer-opacity))}.mat-mdc-icon-button.cdk-program-focused>.mat-mdc-button-persistent-ripple::before,.mat-mdc-icon-button.cdk-keyboard-focused>.mat-mdc-button-persistent-ripple::before,.mat-mdc-icon-button.mat-mdc-button-disabled-interactive:focus>.mat-mdc-button-persistent-ripple::before{opacity:var(--mat-icon-button-focus-state-layer-opacity, var(--mat-sys-focus-state-layer-opacity))}.mat-mdc-icon-button:active>.mat-mdc-button-persistent-ripple::before{opacity:var(--mat-icon-button-pressed-state-layer-opacity, var(--mat-sys-pressed-state-layer-opacity))}.mat-mdc-icon-button .mat-mdc-button-touch-target{position:absolute;top:50%;height:48px;left:50%;width:48px;transform:translate(-50%, -50%);display:var(--mat-icon-button-touch-target-display, block)}.mat-mdc-icon-button._mat-animation-noopable{transition:none !important;animation:none !important}.mat-mdc-icon-button[disabled],.mat-mdc-icon-button.mat-mdc-button-disabled{cursor:default;pointer-events:none;color:var(--mdc-icon-button-disabled-icon-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-mdc-icon-button.mat-mdc-button-disabled-interactive{pointer-events:auto}.mat-mdc-icon-button img,.mat-mdc-icon-button svg{width:var(--mdc-icon-button-icon-size, 24px);height:var(--mdc-icon-button-icon-size, 24px);vertical-align:baseline}.mat-mdc-icon-button .mat-mdc-button-persistent-ripple{border-radius:50%}.mat-mdc-icon-button[hidden]{display:none}.mat-mdc-icon-button.mat-unthemed:not(.mdc-ripple-upgraded):focus::before,.mat-mdc-icon-button.mat-primary:not(.mdc-ripple-upgraded):focus::before,.mat-mdc-icon-button.mat-accent:not(.mdc-ripple-upgraded):focus::before,.mat-mdc-icon-button.mat-warn:not(.mdc-ripple-upgraded):focus::before{background:rgba(0,0,0,0);opacity:1}', "@media(forced-colors: active){.mat-mdc-button:not(.mdc-button--outlined),.mat-mdc-unelevated-button:not(.mdc-button--outlined),.mat-mdc-raised-button:not(.mdc-button--outlined),.mat-mdc-outlined-button:not(.mdc-button--outlined),.mat-mdc-icon-button.mat-mdc-icon-button,.mat-mdc-outlined-button .mdc-button__ripple{outline:solid 1px}}"]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/material/fesm2022/index-a36e3c7c.mjs
-var MatRippleModule = class _MatRippleModule {
-  static ɵfac = function MatRippleModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatRippleModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _MatRippleModule,
-    imports: [MatCommonModule, MatRipple],
-    exports: [MatRipple, MatCommonModule]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    imports: [MatCommonModule, MatCommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatRippleModule, [{
-    type: NgModule,
-    args: [{
-      imports: [MatCommonModule, MatRipple],
-      exports: [MatRipple, MatCommonModule]
     }]
   }], null, null);
 })();

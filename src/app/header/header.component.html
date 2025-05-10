@@ -1,3 +1,5 @@
+<!-- 1e versie hoofdmenu -->
+
  <!-- <button routerLinkActive="active" routerLink="/products" class="product-page-knop">
     <img [src]="shoppingCartimg" [alt]="shoppingCartAlt">
     <mat-icon>home</mat-icon>
@@ -5,7 +7,10 @@
 <button routerLink="/login">
     <mat-icon>account_circle</mat-icon>
 </button> -->
-<nav>
+
+<!-- 1e iteratie hoofdmenu, nog steeds buttons -->
+
+<!-- <nav>
   <a class="button"
      routerLink="/producten"
      routerLinkActive="activebutton"
@@ -34,4 +39,72 @@
   <button (click)="useLanguage('nl')" >nl</button>
   <button (click)="useLanguage('en')" >en</button>
 
+  </nav> -->
+
+<!-- 2e iteratie hoofdmenu -->
+ <!-- vereisten uiterlijk:
+  1. buttons bevatten nog steeds enkel icons
+  2. buttons linken door met router die ze verbindt met de juiste pagina
+  vereisten positie:
+  1. buttons zijn horizontaal uitgelijnd
+  2. buttons zijn verticaal gecentreerd
+  3. buttons zijn responsive
+  4. buttons zijn in een flexbox
+  5. "producten" button is de default button & staat aan de linkerkant
+  6. "winkelmandje" button staat aan de rechterkant
+  7. "orders" button staat aan de rechterkant na "winkelmandje"
+  8. "account" button staat aan de rechterkant na "orders"
+  9. "account" button is de laatste button
+  nieuwe functionaliteit:
+  in het midden staan een input veld, met auto-complete, die zoekt in de producten.
+  1. input veld is een mat-form-field
+  2. input veld is een mat-autocomplete
+  3. input veld filtert de producten op naam
+  4. filtering gebeurt met een pipe
+  5. filtering zorgt ervoor dat erop juiste product word gefilterd met de product card.
+   -->
+<nav>
+  <a class="button"
+     routerLink="/producten"
+     routerLinkActive="activebutton"
+     [routerLinkActiveOptions]="{ exact: false }"
+     ariaCurrentWhenActive="page">
+    <mat-icon>home</mat-icon>
+  </a>
+  <div class="search-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Zoek producten</mat-label>
+      <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let product of filteredProducts" [value]="product.name">
+          {{ product.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="button-utilities-container">
+    <a class="button"
+    routerLink="/winkelmandje"
+    routerLinkActive="activebutton"
+    ariaCurrentWhenActive="page">
+  <mat-icon>shopping_bag</mat-icon>
+  </a>
+    <a class="button"
+    routerLink="/orders"
+    routerLinkActive="activebutton"
+    ariaCurrentWhenActive="page">
+    <mat-icon>local_shipping</mat-icon>
+    </a>
+    <a class="button"
+      routerLink="/login"
+      routerLinkActive="activebutton"
+      ariaCurrentWhenActive="page">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <button (click)="useLanguage('nl')" >nl</button>
+    <button (click)="useLanguage('en')" >en</button>
+  </div>
+
+
   </nav>
+

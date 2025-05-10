@@ -1,8 +1,8 @@
-.product-page-knop {
+// .product-page-knop {
     // background-image: url(/src/assets/icons/shopping_cart.png) !important;
-    width: 72px;
-    height: 70px;
-}
+    // width: 72px;
+    // height: 70px;
+// }
 
 .button {
     box-shadow: inset 0 1px 0 0 #ffffff;
@@ -19,6 +19,8 @@
     text-decoration: none;
     text-shadow: 0 1px 0 #ffffff;
     outline: 0;
+    margin: 0 5px;
+    transition: all 0.2s ease-in-out;
 }
 .activebutton {
     box-shadow: inset 0 1px 0 0 #dcecfb;
@@ -26,4 +28,40 @@
     border: 1px solid #84bbf3;
     color: #ffffff;
     text-shadow: 0 1px 0 #528ecc;
+}
+
+.button:hover {
+    box-shadow: inset 0 1px 0 0 #dcecfb;
+    background: #bddbfa linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+    border: 1px solid #84bbf3;
+    color: #ffffff;
+    text-shadow: 0 1px 0 #528ecc;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #5d3ee6;
+    height: 60px; // Verhoog de hoogte voor betere uitlijning
+}
+
+.button-utilities-container {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #3c9ae7;
+    padding: 5px 10px;
+    border: #f59920 1px solid;
+    box-shadow: #666666;
+    height: 80%; // Zorgt ervoor dat de hoogte gelijk is aan de nav
+}
+
+.search-container {
+    display: flex; // Zorgt ervoor dat de container flexibel is
+    align-items: center; // Centreert de inhoud verticaal
+    height: 100%; // Zorgt ervoor dat de hoogte gelijk is aan de nav
+    margin: 0 10px; // Optioneel: voegt wat ruimte toe tussen de zoekbalk en de buttons
+    padding: 0; // Verwijder eventuele extra padding
 }
