@@ -68,43 +68,45 @@
      routerLink="/producten"
      routerLinkActive="activebutton"
      [routerLinkActiveOptions]="{ exact: false }"
-     ariaCurrentWhenActive="page">
+     ariaCurrentWhenActive="page"
+     (click)="showSearch()">
     <mat-icon>home</mat-icon>
   </a>
-  <div class="search-container">
+  <div class="search-container" *ngIf="isSearchVisible">
     <mat-form-field appearance="fill">
       <mat-label>Zoek producten</mat-label>
       <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let product of filteredProducts" [value]="product.name">
-          {{ product.name }}
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onProductSelected($event.option.value)">
+        <mat-option *ngFor="let product of (filteredOptions | async)" [value]="product">
+          {{ product }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </div>
   <div class="button-utilities-container">
     <a class="button"
-    routerLink="/winkelmandje"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">
-  <mat-icon>shopping_bag</mat-icon>
-  </a>
-    <a class="button"
-    routerLink="/orders"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">
-    <mat-icon>local_shipping</mat-icon>
+       routerLink="/winkelmandje"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page"
+       (click)="hideSearch()">
+      <mat-icon>shopping_bag</mat-icon>
     </a>
     <a class="button"
-      routerLink="/login"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page">
+       routerLink="/orders"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page"
+       (click)="hideSearch()">
+      <mat-icon>local_shipping</mat-icon>
+    </a>
+    <a class="button"
+       routerLink="/login"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page"
+       (click)="hideSearch()">
       <mat-icon>account_circle</mat-icon>
     </a>
-    <button (click)="useLanguage('nl')" >nl</button>
-    <button (click)="useLanguage('en')" >en</button>
+    <button (click)="useLanguage('nl')">nl</button>
+    <button (click)="useLanguage('en')">en</button>
   </div>
-
-
-  </nav>
+</nav>
 

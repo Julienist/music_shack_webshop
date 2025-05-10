@@ -1,18 +1,21 @@
-import { Component, inject } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { NgFor, CommonModule } from '@angular/common'; // Add CommonModule
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule} from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormField } from '@angular/material/input';
 import { MatLabel } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
 import { MatOption } from '@angular/material/core';
-import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
-import { MatInput } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
+import { ProductsService } from '../services/products.service';
+import { Product } from '../models/product.model';
 
 
 @Component({
@@ -27,26 +30,73 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     MatOption,
     MatInput,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgFor,
+    CommonModule // Ensure CommonModule is included
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   private translate =  inject(TranslateService);
+  private productsService = inject(ProductsService);
+
+  @Output() filteredProducts = new EventEmitter<Product[]>();
+  @Output() searchQueryChanged = new EventEmitter<string>();
+
+  searchControl = new FormControl('');
+  filteredOptions: Observable<string[]> = of(this.productsService.productnames); // Initialize with all product names
+
+  isSearchVisible = true; // Flag to control visibility of the search-container
 
   ngOnInit(): void {
+    console.log('HeaderComponent initialized');
+    console.log('Initial product names:', this.productsService.productnames);
+
     this.translate.addLangs(['nl', 'en']);
     this.translate.setDefaultLang('nl');
     this.translate.use('en');
+
+    // Dynamically filter product names from ProductsService
+    this.filteredOptions = this.searchControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const query = (value ?? '').toLowerCase(); // Ensure value is a string
+        const productNames = this.productsService.productnames;
+        console.log('Filtered product names:', productNames);
+        return productNames.filter(name =>
+          name.toLowerCase().includes(query)
+        );
+      })
+    );
+
+    this.searchControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (value ?? '').toString()) // Ensure value is a string, default to ''
+    ).subscribe(query => {
+      this.searchQueryChanged.emit(query);
+    });
   }
 
   useLanguage(language: string): void {
     this.translate.use(language);
   }
 
-  searchControl= new FormControl('');
-  filteredOptions: Observable<string[]> = of([]);
+  hideSearch(): void {
+    this.isSearchVisible = false; // Hide the search-container
+  }
 
+  showSearch(): void {
+    this.isSearchVisible = true; // Show the search-container
+  }
 
+  onProductSelected(productName: string): void {
+    const filteredProducts = this.productsService.filterProductsByName(productName);
+    this.filteredProducts.emit(filteredProducts);
+  }
+  onSearchInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const query = input.value.toLowerCase();
+    this.searchQueryChanged.emit(query);
+  }
 }

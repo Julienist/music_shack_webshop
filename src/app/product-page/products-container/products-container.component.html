@@ -8,8 +8,8 @@
     }
 
     @if (products() && products().length > 0) {
-        <app-product [products]="products()" class="product-card"/>
+        <app-product [products]="products()" class="product-card"></app-product>
     } @else {
-        <p class="fallback-text">Het in laden van de producten is niet gelukt.</p>
+        <p class="fallback-text">Geen producten gevonden.</p>
     }
 </section>

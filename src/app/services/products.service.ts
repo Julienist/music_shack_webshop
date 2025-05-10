@@ -9,30 +9,38 @@ import { DataLoaderService } from './data-loader.service';
   providedIn: 'root',
 })
 export class ProductsService {
-  products = signal<Product[]>([]);
-  isFetching = signal(false);
-  error = signal('');
-
-  private httpClient = inject(HttpClient);
+  public products = signal<Product[]>([]);
+  public isFetching = signal(false);
+  public error = signal('');
   private dataLoaderService = inject(DataLoaderService);
 
-  constructor() {}
+  constructor() {
+    console.log('ProductsService initialized');
+
+    // Ensure products are loaded
+    this.loadProducts();
+
+    // Log initial products (will likely be empty initially)
+    console.log('Initial products:', this.products());
+  }
 
   public loadProducts(): void {
     this.isFetching.set(true);
 
     this.dataLoaderService
       .loadDataWithFallback<Category[]>(
-        `${environment.apiUrl}/categories`,
+        `${environment.apiUrl}/products`,
         'assets/test_data/categorie_en_product_data.json'
       )
       .subscribe({
         next: (categories) => {
           const allProducts = this.flattenProducts(categories);
-          this.products.set(allProducts);
+          this.products.set(allProducts); // Update the products signal
+          console.log('Products loaded:', allProducts);
           this.isFetching.set(false);
         },
         error: (error: Error) => {
+          console.error('Error loading products:', error.message);
           this.error.set(error.message);
           this.isFetching.set(false);
         },
@@ -40,6 +48,7 @@ export class ProductsService {
   }
 
   private flattenProducts(categories: Category[]): Product[] {
+    console.log('Flattening categories:', categories);
     return categories.flatMap((category) =>
       category.products.map((product) => ({
         id: product.id,
@@ -57,10 +66,6 @@ export class ProductsService {
     );
   }
 
-  get productsList() {
-    return computed(() => this.products());
-  }
-
   public getProductByIdFromCache(productId: number): Product {
     const product = this.products().find((p) => p.id === productId);
     if (!product) {
@@ -73,14 +78,23 @@ export class ProductsService {
     return this.products().filter((p) => p.categoryId === categoryId);
   }
 
-  get productnames() {
-    return computed(() => this.products().map((product) => product.name));
-  }
-
   public filterProductsByName(query: string): Product[] {
     const lowerCaseQuery = query.toLowerCase();
     return this.products().filter(product =>
       product.name.toLowerCase().includes(lowerCaseQuery)
     );
+  }
+
+  // Get all product names from the products list
+  get productnames(): string[] {
+    console.log('productnames called'+ this.products().length);
+    return this.products().map((product) => product.name); // Dynamically derive product names
+  }
+
+  get productsList() {
+    return computed(() => {
+      console.log('Products signal updated:', this.products());
+      return this.products();
+    });
   }
 }

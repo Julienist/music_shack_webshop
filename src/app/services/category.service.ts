@@ -9,11 +9,10 @@ import { DataLoaderService } from './data-loader.service';
   providedIn: 'root',
 })
 export class CategoryService {
-  categories = signal<Category[]>([]);
-  isFetching = signal(false);
-  error = signal('');
+  public categories = signal<Category[]>([]);
+  public isFetching = signal(false);
+  public error = signal('');
 
-  private httpClient = inject(HttpClient);
   private dataLoaderService = inject(DataLoaderService);
 
 
