@@ -19,10 +19,11 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 })
 export class ProductsContainerComponent {
 
-  title = 'Products';
+  // title = 'Products';
 
   private productsService = inject(ProductsService);
   private route = inject(ActivatedRoute);
+  private translate = inject(TranslateService);
 
   // Category from URL (of null)
   categoryId = signal<number | null>(null);
@@ -48,14 +49,11 @@ export class ProductsContainerComponent {
       const id = params.get('id');
       this.categoryId.set(id ? Number(id) : null);
     });
-  }
 
-  // taal translate gedeelte
-  constructor(private translate: TranslateService) {
+    // taal translate gedeelte
     this.translate.addLangs(['nl', 'en']);
     this.translate.setDefaultLang('nl');
     this.translate.use('en');
   }
-
 
 }

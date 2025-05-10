@@ -72,4 +72,15 @@ export class ProductsService {
   public getProductsByCategory(categoryId: number): Product[] {
     return this.products().filter((p) => p.categoryId === categoryId);
   }
+
+  get productnames() {
+    return computed(() => this.products().map((product) => product.name));
+  }
+
+  public filterProductsByName(query: string): Product[] {
+    const lowerCaseQuery = query.toLowerCase();
+    return this.products().filter(product =>
+      product.name.toLowerCase().includes(lowerCaseQuery)
+    );
+  }
 }
