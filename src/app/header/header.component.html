@@ -105,8 +105,16 @@
        (click)="hideSearch()">
       <mat-icon>account_circle</mat-icon>
     </a>
-    <button (click)="useLanguage('nl')">nl</button>
-    <button (click)="useLanguage('en')">en</button>
+    <div class="language-switch">
+      <button mat-button (click)="switchLanguage('nl')" aria-label="Nederlands">
+        <img src="assets/nl.png" alt="Nederlands" class="flag-icon">
+      </button>
+      <button mat-button (click)="switchLanguage('en')" aria-label="English">
+        <img src="assets/en.png" alt="English" class="flag-icon">
+      </button>
+    </div>
+    <!-- <button (click)="useLanguage('nl')">nl</button> -->
+    <!-- <button (click)="useLanguage('en')">en</button> -->
   </div>
 </nav>
 

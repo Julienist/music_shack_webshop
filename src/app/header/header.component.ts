@@ -13,7 +13,7 @@ import { MatOption } from '@angular/material/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { map, startWith } from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
 
@@ -32,7 +32,7 @@ import { Product } from '../models/product.model';
     MatInput,
     ReactiveFormsModule,
     NgFor,
-    CommonModule // Ensure CommonModule is included
+    CommonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -50,12 +50,11 @@ export class HeaderComponent {
   isSearchVisible = true; // Flag to control visibility of the search-container
 
   ngOnInit(): void {
+
+    this.translate.setDefaultLang('nl');
+
     console.log('HeaderComponent initialized');
     console.log('Initial product names:', this.productsService.productnames);
-
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
 
     // Dynamically filter product names from ProductsService
     this.filteredOptions = this.searchControl.valueChanges.pipe(
@@ -78,8 +77,8 @@ export class HeaderComponent {
     });
   }
 
-  useLanguage(language: string): void {
-    this.translate.use(language);
+  switchLanguage(lang: string) {
+    this.translate.use(lang);
   }
 
   hideSearch(): void {
