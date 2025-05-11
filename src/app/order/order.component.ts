@@ -3,6 +3,9 @@ import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
 import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
@@ -11,7 +14,10 @@ import {TranslateService} from '@ngx-translate/core';
     NgIf,
     DatePipe,
     DecimalPipe,
-    NgFor
+    NgFor,
+    MatTableModule,
+    FormsModule,
+    MatButtonModule
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
@@ -19,6 +25,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class OrderComponent {
   private orderService = inject(OrderService);
   orders: Order[] = [];
+  displayedColumns: string[] = ['product','date','status', 'total'];
 
   constructor(private translate: TranslateService) {
     this.loadOrders();

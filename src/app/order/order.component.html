@@ -21,7 +21,7 @@
 
 <h2 class="text-2xl font-semibold mb-4">🧾 Jouw Bestellingen</h2>
 
-<section *ngIf="orders.length > 0; else emptyOrders">
+<!-- <section *ngIf="orders.length > 0; else emptyOrders">
   <ul class="space-y-6">
     <li *ngFor="let order of orders" class="border rounded-xl p-4 shadow-md">
       <div class="flex items-center space-x-4">
@@ -39,10 +39,49 @@
         </div>
       </div>
     </li>
-  </ul>
+  </ul> -->
 <!--  <button (click)="sendLocalOrders()">📤 Verstuur lokale orders</button>-->
-</section>
+<!-- </section> -->
 
 <ng-template #emptyOrders>
   <p class="text-gray-500">Je hebt nog geen bestellingen geplaatst.</p>
 </ng-template>
+
+<!-- versie 2 orders, maar met material-table -->
+<mat-table [dataSource]="orders" class="orderTable">
+ <ng-container matColumnDef="product">
+   <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+   <mat-cell *matCellDef="let order">
+     <img [src]="getRandomImage(order)" alt="Product" class="productimage" />
+     <ul class="list-disc ml-5">
+       <li *ngFor="let name of getProductNames(order); let i = index">
+         {{ name }} - x{{ getProductQuantities(order)[i] }}
+       </li>
+     </ul>
+   </mat-cell>
+ </ng-container>
+ <ng-container matColumnDef="date">
+   <mat-header-cell *matHeaderCellDef> Datum </mat-header-cell>
+   <mat-cell *matCellDef="let order">
+     {{ getOrderDate(order) | date:'mediumDate' }}
+   </mat-cell>
+ </ng-container>
+ <ng-container matColumnDef="status">
+   <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+   <mat-cell *matCellDef="let order">
+     {{ getOrderStatus(order) }}
+   </mat-cell>
+ </ng-container>
+ <ng-container matColumnDef="total">
+   <mat-header-cell *matHeaderCellDef> Totaal </mat-header-cell>
+   <mat-cell *matCellDef="let order">
+     €{{ getTotalPrice(order) | number:'1.2-2' }}
+   </mat-cell>
+ </ng-container>
+ <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+ <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<ng-template #emptyOrders>
+ <p class="text-gray-500">Je hebt nog geen bestellingen geplaatst.</p>
+</ng-template>
+<!-- <button (click)="sendLocalOrders()">📤 Verstuur lokale orders</button> -->
