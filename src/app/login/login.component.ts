@@ -25,7 +25,7 @@ import {
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +38,8 @@ import { TranslateService } from '@ngx-translate/core';
     MatFormFieldModule,
     MatLabel,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    TranslatePipe
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

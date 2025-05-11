@@ -24,7 +24,7 @@ import {
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
@@ -37,7 +37,8 @@ import {TranslateService} from '@ngx-translate/core';
     MatInputModule,
     MatFormFieldModule,
     MatLabel,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -47,15 +48,8 @@ export class RegisterComponent {
   protected loginService = inject(LoginService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
-  private translate = inject(TranslateService);
 
   protected authForm: FormGroup;
-
-  ngOnInit() {
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
-  }
 
   constructor() {
     this.authForm = this.fb.group({

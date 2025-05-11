@@ -74,7 +74,7 @@
   </a>
   <div class="search-container" *ngIf="isSearchVisible">
     <mat-form-field appearance="fill">
-      <mat-label>Zoek producten</mat-label>
+      <mat-label>{{"HEADER_QUERY" | translate}}</mat-label>
       <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onProductSelected($event.option.value)">
         <mat-option *ngFor="let product of (filteredOptions | async)" [value]="product">
@@ -107,10 +107,10 @@
     </a>
     <div class="language-switch">
       <button mat-button (click)="switchLanguage('nl')" aria-label="Nederlands">
-        <img src="assets/nl.png" alt="Nederlands" class="flag-icon">
+        <img src="../../assets/netherlands.png" alt="Nederlands" class="flag-icon">
       </button>
       <button mat-button (click)="switchLanguage('en')" aria-label="English">
-        <img src="assets/en.png" alt="English" class="flag-icon">
+        <img src="../../assets/united-kingdom.png" alt="English" class="flag-icon">
       </button>
     </div>
     <!-- <button (click)="useLanguage('nl')">nl</button> -->

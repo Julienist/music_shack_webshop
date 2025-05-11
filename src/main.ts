@@ -24,7 +24,7 @@ bootstrapApplication(AppComponent, {
                     useFactory: HttpLoaderFactory,
                     deps: [HttpClient],
                 },
-                defaultLanguage: 'ne',
+                defaultLanguage: 'nl',
             })
         ),
         ...appConfig.providers

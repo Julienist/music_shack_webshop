@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { merge } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
@@ -12,11 +12,19 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Order, OrderStatus } from '../models/order.model';
 import { Product } from '../models/product.model';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-paymentpage',
-  imports: [MatButtonModule, MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslatePipe
+  ],
   templateUrl: './paymentpage.component.html',
   styleUrl: './paymentpage.component.scss'
 })

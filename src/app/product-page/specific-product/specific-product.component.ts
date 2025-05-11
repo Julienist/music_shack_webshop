@@ -5,13 +5,14 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
 import { NgIf } from '@angular/common';
 import { CartService } from '../../services/cart.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService,  TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-specific-product',
   imports: [
     NgIf,
-    MatDividerModule
+    MatDividerModule,
+    TranslatePipe
   ],
   templateUrl: './specific-product.component.html',
   styleUrl: './specific-product.component.scss'
@@ -35,10 +36,6 @@ export class SpecificProductComponent implements OnInit {
       return foundProduct;
     });
 
-    // en hier translate, doe later maar in eigen functie.
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
   }
 
   ngOnInit() {

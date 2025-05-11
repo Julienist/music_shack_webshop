@@ -33,6 +33,7 @@ import { Product } from '../models/product.model';
     ReactiveFormsModule,
     NgFor,
     CommonModule,
+    TranslatePipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

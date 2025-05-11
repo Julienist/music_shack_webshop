@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
-import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
-import {TranslateService} from '@ngx-translate/core';
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     NgFor,
     MatTableModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
