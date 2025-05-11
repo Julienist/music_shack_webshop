@@ -8,8 +8,8 @@ export interface Product {
     imageurl: string;
     version: number;
     amountInStock: number;
-    available: boolean;
     orderProducts: Array<null | OrderProduct>;
+    available: boolean;
     quantity: number;
     categoryId: number;
 }

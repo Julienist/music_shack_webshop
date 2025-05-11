@@ -29,7 +29,7 @@ export class ProductsService {
 
     this.dataLoaderService
       .loadDataWithFallback<Category[]>(
-        `${environment.apiUrl}/products`,
+        `${environment.apiUrl}/categories`,
         'assets/test_data/categorie_en_product_data.json'
       )
       .subscribe({
@@ -48,18 +48,18 @@ export class ProductsService {
   }
 
   private flattenProducts(categories: Category[]): Product[] {
-    console.log('Flattening categories:', categories);
+    console.log('Flattening products:', categories);
     return categories.flatMap((category) =>
       category.products.map((product) => ({
         id: product.id,
         name: product.name,
         description: product.description,
         price: product.price,
-        imageurl: product.imageurl ?? product.imageurl, // fallback
+        imageurl: product.imageurl,
         version: product.version,
         amountInStock: product.amountInStock,
+        orderProducts: product.orderProducts || [],
         available: product.available,
-        orderProducts: product.orderProducts ?? [],
         quantity: 1,
         categoryId: category.id,
       }))
