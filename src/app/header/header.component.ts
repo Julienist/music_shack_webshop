@@ -16,7 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
-
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -39,7 +39,8 @@ import { Product } from '../models/product.model';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  private translate =  inject(TranslateService);
+  private translate = inject(TranslateService);
+  private languageService = inject(LanguageService); // Injecteer LanguageService
   private productsService = inject(ProductsService);
 
   @Output() filteredProducts = new EventEmitter<Product[]>();
@@ -78,8 +79,9 @@ export class HeaderComponent {
     });
   }
 
-  switchLanguage(lang: string) {
-    this.translate.use(lang);
+  switchLanguage(lang: string): void {
+    this.translate.use(lang); // Wijzig de taal in TranslateService
+    this.languageService.setLanguage(lang); // Update de taal in LanguageService
   }
 
   hideSearch(): void {

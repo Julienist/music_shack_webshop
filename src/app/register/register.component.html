@@ -41,41 +41,41 @@
 
   <form [formGroup]="authForm" (ngSubmit)="onMakeAccount()" class="auth-form">
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>{{ 'EMAILTEXT' | translate }}</mat-label>
       <input matInput formControlName="email" required>
       <mat-error *ngIf="authForm.get('email')?.hasError('required')">
-        Email is benodigd.
+        {{ 'ERRORMESSAGE_EmailRequired' | translate }}
       </mat-error>
       <mat-error *ngIf="authForm.get('email')?.hasError('email')">
-        Ongeldig email adres.
+        {{ 'ERRORMESSAGE_ValidEmail' | translate }}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Wachtwoord</mat-label>
+      <mat-label>{{ 'ERRORMESSAGE_PasswordRequired' | translate }}</mat-label>
       <input matInput formControlName="password" required>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'required')">
-        Wachtwoord is benodigd.
+        {{ 'ERRORMESSAGE_PasswordRequired' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'minlength')">
-        Wachtwoord moet minimaal 8 karakters lang zijn.
+        {{ 'ERRORMESSAGE_PasswordLength' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'maxlength')">
-        Wachtwoord mag maximaal 30 karakters lang zijn.
+        {{ 'ERRORMESSAGE_PasswordChar30' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'digit')">
-        Wachtwoord moet minstens 1 cijfer bevatten.
+        {{ 'ERRORMESSAGE_PasswordDigit' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'lowercase')">
-        Wachtwoord moet minstens 1 kleine letter bevatten.
+        {{ 'ERRORMESSAGE_Passwordlwc' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'uppercase')">
-        Wachtwoord moet minstens 1 hoofdletter bevatten.
+        {{ 'ERRORMESSAGE_Passwordupc' | translate }}
       </mat-error>
       <mat-error *ngIf="hasControlError(authForm, 'password', 'specialChar')">
-        Wachtwoord moet minstens 1 speciaal karakter bevatten.
+        {{ 'ERRORMESSAGE_Passwordchar' | translate }}
       </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" [disabled]="!authForm.valid">
-      Maak account
+      {{ 'MAKEACCOUNTTEXT' | translate }}
     </button>
   </form>

@@ -61,23 +61,23 @@
   <!-- 3e iteratie, met materialized input-->
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="example-form" class="auth-form">
     <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email" placeholder="test@example.com">
-      <mat-error *ngIf="hasControlError(loginForm, 'email', 'required')">Email is <strong>required</strong></mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'email', 'email')">Please enter a valid email address</mat-error>
+      <mat-label>{{ 'EMAILTEXT' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="{{ 'PlaceholderEmail' | translate }}"> 
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'required')">{{ 'ERRORMESSAGE_EmailRequired' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'email')">{{ 'ERRORMESSAGE_ValidEmail' | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
-      <input matInput type="password" formControlName="password" placeholder="Enter your password">
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'required')">Password is <strong>required</strong></mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'minlength')">Password must be at least 8 characters</mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'maxlength')">Password cannot exceed 30 characters</mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'digit')">Password must contain at least one digit</mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'lowercase')">Password must contain at least one lowercase letter</mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'uppercase')">Password must contain at least one uppercase letter</mat-error>
-      <mat-error *ngIf="hasControlError(loginForm, 'password', 'specialChar')">Password must contain at least one special character</mat-error>
+      <mat-label>{{ 'PASSWORDTEXT' | translate }}</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="{{ 'PlaceholderPassword' | translate }}">
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'required')">{{ 'ERRORMESSAGE_PasswordRequired' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'minlength')">{{ 'ERRORMESSAGE_PasswordLength' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'maxlength')">{{ 'ERRORMESSAGE_PasswordChar30' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'digit')">{{ 'ERRORMESSAGE_PasswordDigit' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'lowercase')">{{ 'ERRORMESSAGE_Passwordlwc' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'uppercase')">{{ 'ERRORMESSAGE_Passwordupc' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'specialChar')">{{ 'ERRORMESSAGE_Passwordchar' | translate }}</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
-    <mat-label>nog geen account?</mat-label><br>
-    <button mat-button (click)="navigateToMaakAccount()">Maak een account</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">{{ 'LOGINTEXT' | translate }}</button>
+    <mat-label>{{ 'NOACCOUNTQUESTION' | translate }}</mat-label><br>
+    <button mat-button (click)="navigateToMaakAccount()">{{ 'MAKEACCOUNTTEXT' | translate }}</button>
   </form>

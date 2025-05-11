@@ -1,9 +1,11 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../models/category.model';
 import { catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { DataLoaderService } from './data-loader.service';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../services/language.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,17 @@ export class CategoryService {
   public error = signal('');
 
   private dataLoaderService = inject(DataLoaderService);
+  private translateService = inject(TranslateService);
+  private languageService = inject(LanguageService);
 
+  constructor() {
+    // Luister naar taalwijzigingen
+    effect(() => {
+      const lang = this.languageService.onLanguageChange(); // Detecteer taalwijziging
+      this.translateService.use(lang); // Stel de taal in
+      this.loadCategories(); // Herlaad categorieën
+    });
+  }
 
   public loadCategories(): void {
     this.isFetching.set(true);
@@ -26,7 +38,16 @@ export class CategoryService {
       )
       .subscribe({
         next: (categories) => {
-          this.categories.set(categories);
+          const translatedCategories = categories.map((category) => ({
+            ...category,
+            name: this.translateService.instant(`CATEGORY_${category.id}`),
+            products: category.products.map((product) => ({
+              ...product,
+              name: this.translateService.instant(`PRODUCT_${product.id}`),
+              description: this.translateService.instant(`DESCRIPTION_${product.id}`),
+            })),
+          }));
+          this.categories.set(translatedCategories);
           this.isFetching.set(false);
         },
         error: (error: Error) => {

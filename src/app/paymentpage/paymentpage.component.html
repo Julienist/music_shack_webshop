@@ -1,6 +1,6 @@
 <div class="pincode-container">
     <mat-form-field>
-      <mat-label>geef je pincode</mat-label>
+      <mat-label>{{ 'GivePincode'| translate }}</mat-label>
       <input
         matInput
         placeholder="1234"
@@ -13,7 +13,7 @@
       }
     </mat-form-field>
     <div class="example-button-row">
-        <button mat-raised-button [disabled]="!pincode.valid" type="submit" (click)="onPay()">Betaal</button>
+        <button mat-raised-button [disabled]="!pincode.valid" type="submit" (click)="onPay()">{{ 'PAYTEXT'| translate }}</button>
     </div>
   </div>
   

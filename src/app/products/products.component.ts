@@ -26,10 +26,8 @@ export class ProductComponent {
   // private route = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
   private cartService = inject(CartService);
+  
 
-  constructor() {
-
-  }
   productsSignal: Signal<Product[]> = this.productsService.products;
 
   addProductToCart(product: Product) {

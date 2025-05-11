@@ -1,14 +1,18 @@
-import {Component, inject, Signal} from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import {CategoryService} from '../../services/category.service';
-import {Router} from '@angular/router';
-import {Category} from '../../models/category.model';
+import { CategoryService } from '../../services/category.service';
+import { Router } from '@angular/router';
+import { Category } from '../../models/category.model';
 import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-category-navigation',
-  imports: [MatTabsModule, NgFor, TranslatePipe],
+  imports: [
+    MatTabsModule,
+    NgFor,
+    TranslatePipe
+  ],
   templateUrl: './category-navigation.component.html',
   styleUrl: './category-navigation.component.scss'
 })

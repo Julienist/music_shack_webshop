@@ -21,7 +21,7 @@
 <!--  <p>Je hebt geen orders</p>-->
 <!--</ng-template>-->
 
-<h2 class="text-2xl font-semibold mb-4">🧾 Jouw Bestellingen</h2>
+
 
 <!-- iteratie 1 order overzicht -->
 <!-- <section *ngIf="orders.length > 0; else emptyOrders">
@@ -50,14 +50,15 @@
   <p class="text-gray-500">Je hebt nog geen bestellingen geplaatst.</p>
 </ng-template> -->
 
+<h2 class="text-2xl font-semibold mb-4">{{ 'YourOrders'| translate }}</h2>
 <!-- versie 2 orders, maar met material-table -->
 <mat-table *ngIf="orders.length > 0; else emptyOrders" [dataSource]="orders" class="orderTable">
   @for (order of orders; track order.orderProducts) {
       <ng-container matColumnDef="order">
-        <mat-header-cell *matHeaderCellDef> Bestelling </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'OrdersText'| translate }}</mat-header-cell>
         <mat-cell *matCellDef="let order">
           <img [src]="getRandomImage(order)" alt="Product" class="productimage" />
-          <h3 class="text-lg font-bold mb-1">📦 Producten:</h3>
+          <h3 class="text-lg font-bold mb-1">{{ 'ProductsText'| translate }}</h3>
           <ul class="list-disc ml-5">
             <li *ngFor="let name of getProductNames(order); let i = index">
               {{ name }} - x{{ getProductQuantities(order)[i] }}
@@ -66,7 +67,7 @@
         </mat-cell>
       </ng-container>
   <ng-container matColumnDef="product">
-    <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'ProductText'| translate }}</mat-header-cell>
     <mat-cell *matCellDef="let order">
       <img [src]="getRandomImage(order)" alt="Product" class="productimage" />
       <ul class="list-disc ml-5">
@@ -77,19 +78,19 @@
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef> Datum </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'DateText'| translate }}</mat-header-cell>
     <mat-cell *matCellDef="let order">
       {{ getOrderDate(order) | date:'mediumDate' }}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="status">
-    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'StatusText'| translate }}</mat-header-cell>
     <mat-cell *matCellDef="let order">
       {{ getOrderStatus(order) }}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="total">
-    <mat-header-cell *matHeaderCellDef> Totaal </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'TotalText'| translate }}</mat-header-cell>
     <mat-cell *matCellDef="let order">
       €{{ getTotalPrice(order) | number:'1.2-2' }}
     </mat-cell>
@@ -99,6 +100,6 @@
  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 <ng-template #emptyOrders>
- <p class="text-gray-500">Je hebt nog geen bestellingen geplaatst.</p>
+ <p class="text-gray-500">{{ 'NoOrders'| translate }}</p>
 </ng-template>
 <!-- <button (click)="sendLocalOrders()">📤 Verstuur lokale orders</button> -->

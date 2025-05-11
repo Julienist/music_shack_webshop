@@ -23,14 +23,14 @@
         </button>
     <mat-card-content>
       <p> 
-        {{ product.name }}
+        {{ product.name | translate}}
       </p>
       <mat-card-subtitle>
         € {{ product.price }}
       </mat-card-subtitle>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="addProductToCart(product)" class="addProductToCart">Voeg toe aan mandje</button>
+      <button mat-button (click)="addProductToCart(product)" class="addProductToCart">{{'ADDTOCART' | translate}}</button>
     </mat-card-actions>
   </mat-card>
 }

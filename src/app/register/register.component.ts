@@ -24,7 +24,7 @@ import {
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({

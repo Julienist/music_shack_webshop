@@ -1,6 +1,6 @@
 <section>
     @if (isFetching() && !error()) {
-        <p class="fallback-text">Verkijgen van producten...</p>
+        <p class="fallback-text">{{'LoadingProducts'| translate }}</p>
     }
 
     @if (error()) {
@@ -10,6 +10,6 @@
     @if (products() && products().length > 0) {
         <app-product [products]="products()" class="product-card"></app-product>
     } @else {
-        <p class="fallback-text">Geen producten gevonden.</p>
+        <p class="fallback-text">{{'NoProducts'| translate }}</p>
     }
 </section>
