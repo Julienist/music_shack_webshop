@@ -1,15 +1,15 @@
-.example-card {
+.productcard {
     max-width: 400px;
     margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #6372d3; // Default background color
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 16px;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background-color 0.5s ease; // Smooth transition effect
 
     &:hover {
         transform: scale(1.05);
@@ -76,4 +76,9 @@
             background-color: #0056b3;
         }
     }
+}
+
+// Apply dark mode styles when the body has the dark-mode class
+body.dark-mode .productcard {
+    background-color: #e7a52a; // Dark mode background color
 }

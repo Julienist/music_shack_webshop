@@ -1,4 +1,4 @@
-import { Component, inject, Input, Signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, Input, Signal, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Product } from '../models/product.model';
@@ -17,7 +17,8 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrls: ['./products.component.scss'],
+  encapsulation: ViewEncapsulation.None // Disable encapsulation
 })
 export class ProductComponent {
   @Input() products: Product[] = [];

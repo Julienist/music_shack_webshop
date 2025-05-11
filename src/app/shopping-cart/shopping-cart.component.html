@@ -61,13 +61,12 @@
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" when="true"></tr>
   }
 </table>
 <h1 *ngIf="cartItems().length > 0">{{'TotalPriceText' | translate }}{{ totalPrice() }}</h1>
 
-<button mat-stroked-button routerLink="/afrekenen">{{'PAYTEXT' | translate }}</button>
+<button mat-stroked-button *ngIf="cartItems().length > 0" routerLink="/afrekenen">{{'PAYTEXT' | translate }}</button>
 <button mat-stroked-button *ngIf="cartItems().length > 0" (click)="clearCart()">{{'EmptyMandjeText' | translate }}</button>
 
 <ng-template #emptyCart>

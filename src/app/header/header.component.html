@@ -105,6 +105,11 @@
        (click)="hideSearch()">
       <mat-icon>account_circle</mat-icon>
     </a>
+    <a class="button"
+       aria-label="Contrast Mode"
+       (click)="contrastMode()">
+      <mat-icon>contrast</mat-icon>
+    </a>
     <div class="language-switch">
       <button mat-button (click)="switchLanguage('nl')" aria-label="Nederlands">
         <img src="../../assets/netherlands.png" alt="Nederlands" class="flag-icon">
@@ -113,8 +118,6 @@
         <img src="../../assets/united-kingdom.png" alt="English" class="flag-icon">
       </button>
     </div>
-    <!-- <button (click)="useLanguage('nl')">nl</button> -->
-    <!-- <button (click)="useLanguage('en')">en</button> -->
   </div>
 </nav>
 

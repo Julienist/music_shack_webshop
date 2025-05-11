@@ -84,6 +84,11 @@ export class HeaderComponent {
     this.languageService.setLanguage(lang); // Update de taal in LanguageService
   }
 
+  contrastMode(): void {
+    const body = document.body;
+    body.classList.toggle('dark-mode'); // Toggle the dark-mode class
+  }
+
   hideSearch(): void {
     this.isSearchVisible = false; // Hide the search-container
   }

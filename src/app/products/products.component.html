@@ -15,7 +15,7 @@
   </ul> -->
 
   @for (product of products; track product.id) {
-  <mat-card class="example-card" appearance="outlined">
+  <mat-card class="productcard" appearance="outlined">
         <button [routerLink]="['/producten', product.id]">
           <img mat-card-image class="product-image"
           [src]="product.imageurl"
