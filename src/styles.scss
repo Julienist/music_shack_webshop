@@ -3,11 +3,23 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-body.dark-mode {
-    background-color: #e27575; // Dark mode background color
-    color: #ffffff; // Dark mode text color
+/* Default background color */
+body:not(.dark-mode) {
+    .productcard {
+    background-color: #a8b4f7; // Default background color
+    }
+    .category-tabs {
+        background-color: #f7eba8; // Default background color
+    }
+
 }
-body.dark-mode .productcard {
-    background-color: #e7a52a; // Dark mode background color
-    color: #ffffff; // Dark mode text color
+
+/* Dark mode background color */
+body.dark-mode {
+    .productcard {
+        background-color: #e7a52a; // Dark mode background color
+    }
+    .category-tabs {
+        background-color: #6476da; // Dark mode background color
+    }
 }

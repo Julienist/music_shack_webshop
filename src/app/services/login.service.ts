@@ -62,6 +62,13 @@ export class LoginService {
       this.token = localStorage.getItem('authToken')
   }
 
+  public logout() {
+    this.loggedIn = false;
+    this.token = null;
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('email');
+  }
+
   // private saveRoleInLocalStorage(role: string){
   //   localStorage.setItem('role', role);
   //   console.log("role saved in localstorage: "+ role);

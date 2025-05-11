@@ -8,7 +8,7 @@
 } -->
 
 <!-- 1e iteratie categorie menu, met materialized tab's -->
-<mat-tab-group (selectedTabChange)="onTabChange($event)">
+<mat-tab-group (selectedTabChange)="onTabChange($event)" class="category-tabs">
   <mat-tab label="{{ 'ALL_PRODUCTS' | translate }}"></mat-tab>
   <ng-container *ngFor="let category of categories(); trackBy: trackByCategoryId">
     <mat-tab label="{{category.name}}"></mat-tab>

@@ -99,15 +99,21 @@
       <mat-icon>local_shipping</mat-icon>
     </a>
     <a class="button"
-       routerLink="/login"
-       routerLinkActive="activebutton"
-       ariaCurrentWhenActive="page"
-       (click)="hideSearch()">
+      routerLink="/login"
+      routerLinkActive="activebutton"
+      ariaCurrentWhenActive="page"
+      (click)="hideSearch()">
       <mat-icon>account_circle</mat-icon>
     </a>
     <a class="button"
-       aria-label="Contrast Mode"
-       (click)="contrastMode()">
+      aria-label="logout"
+      *ngIf="loginService.isLoggedIn()"
+      (click)="loginService.logout()">
+      <mat-icon>logout</mat-icon>
+    </a>
+    <a class="button"
+      aria-label="Contrast Mode"
+      (click)="contrastMode()">
       <mat-icon>contrast</mat-icon>
     </a>
     <div class="language-switch">

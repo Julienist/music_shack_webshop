@@ -1,4 +1,4 @@
-import { Component, inject, EventEmitter, Output } from '@angular/core';
+import { Component, inject, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgFor, CommonModule } from '@angular/common'; // Add CommonModule
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -17,9 +17,11 @@ import { TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
 import { LanguageService } from '../services/language.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     MatIconModule,
     RouterModule,
@@ -42,6 +44,7 @@ export class HeaderComponent {
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService); // Injecteer LanguageService
   private productsService = inject(ProductsService);
+  public loginService = inject(LoginService);
 
   @Output() filteredProducts = new EventEmitter<Product[]>();
   @Output() searchQueryChanged = new EventEmitter<string>();
@@ -50,6 +53,8 @@ export class HeaderComponent {
   filteredOptions: Observable<string[]> = of(this.productsService.productnames); // Initialize with all product names
 
   isSearchVisible = true; // Flag to control visibility of the search-container
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
 
@@ -87,6 +92,7 @@ export class HeaderComponent {
   contrastMode(): void {
     const body = document.body;
     body.classList.toggle('dark-mode'); // Toggle the dark-mode class
+    this.cdr.detectChanges(); // Ensure Angular detects the change
   }
 
   hideSearch(): void {
@@ -104,6 +110,7 @@ export class HeaderComponent {
   onSearchInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const query = input.value.toLowerCase();
+
     this.searchQueryChanged.emit(query);
   }
 }

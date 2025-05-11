@@ -12,7 +12,7 @@
         <mat-error>{{errorMessage()}}</mat-error>
       }
     </mat-form-field>
-    <div class="example-button-row">
+    <div class="paybutton">
         <button mat-raised-button [disabled]="!pincode.valid" type="submit" (click)="onPay()">{{ 'PAYTEXT'| translate }}</button>
     </div>
   </div>
