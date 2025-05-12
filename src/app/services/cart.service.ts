@@ -20,7 +20,7 @@ export class CartService {
     this.cartItems.set(savedCart);
   }
 
-  public addToCart(product: Product) {
+  public addToCart(product: Product): void {
     const existingProduct = this.cartItems().find(p => p.id === product.id);
 
     if (existingProduct) {
@@ -33,19 +33,19 @@ export class CartService {
     localStorage.setItem("cart", JSON.stringify(this.cartItems()));
   }
 
-  public removeItem(productId: number) {
+  public removeItem(productId: number): void {
     const updatedCart = this.cartItems().filter(item => item.id !== productId);
     this.cartItems.set(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   }
 
   /** Winkelmandje leegmaken */
-  public clearCart() {
+  public clearCart(): void {
     this.updateCart([]);
   }
 
   /** Slaat winkelmandje op in localStorage en update Signal */
-  private updateCart(newCart: Product[]) {
+  private updateCart(newCart: Product[]): void {
     this.cartItems.set([...newCart]); // Signal updaten
     localStorage.setItem('cart', JSON.stringify(newCart)); // Opslaan in localStorage
   }
@@ -55,7 +55,7 @@ export class CartService {
   }
 
   /** Winkelmandje opslaan in localStorage */
-  private saveCart() {
+  private saveCart(): void {
     localStorage.setItem('cart', JSON.stringify(this.cartItems()));
   }
 
