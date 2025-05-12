@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
 import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -28,8 +28,12 @@ export class OrderComponent {
   orders: Order[] = [];
   displayedColumns: string[] = ['product','date','status', 'total'];
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.loadOrders();
+
+    this.translate.addLangs(['nl', 'en']);
+    this.translate.setDefaultLang('nl');
+    this.translate.use('en');
   }
 
 
@@ -52,7 +56,7 @@ export class OrderComponent {
   // }
 
 
-  loadLocalOrders(): void {
+  loadLocalOrders() {
     const localOrders = this.orderService.getOrdersFromLocalStorage();
     if (localOrders.length > 0) {
       this.orders.push(...localOrders);

@@ -1,5 +1,5 @@
 import { Component, inject, Signal } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CategoryService } from '../../services/category.service';
 import { Router } from '@angular/router';
@@ -26,14 +26,14 @@ export class CategoryNavigationComponent {
     this.categoryService.loadCategories();
   }
 
-  selectCategory(categoryId: number | null): void {
+  selectCategory(categoryId: number | null) {
     const route = categoryId === null ? ['/producten/AlleProducten'] : ['/producten/categorie', categoryId];
     this.router.navigate(route).catch((err) => {
       console.error('Navigatiefout:', err);
     });
   }
 
-  onTabChange(event: any): void {
+  onTabChange(event: any) {
     const selectedIndex = event.index;
     if (selectedIndex === 0) {
       this.selectCategory(null); // "Alle producten"
