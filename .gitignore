@@ -16,3 +16,5 @@ node_modules
 /dist/webshop/browser/main-CEXJ6MK3.js
 /dist/webshop/3rdpartylicenses.txt
 /dist/webshop/prerendered-routes.json
+.vscode/
+
