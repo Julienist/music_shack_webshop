@@ -16,7 +16,6 @@ import { map, startWith } from 'rxjs/operators';
 import { TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
-import { LanguageService } from '../services/language.service';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -42,7 +41,6 @@ import { LoginService } from '../services/login.service';
 })
 export class HeaderComponent {
   private translate = inject(TranslateService);
-  private languageService = inject(LanguageService); // Injecteer LanguageService
   private productsService = inject(ProductsService);
   public loginService = inject(LoginService);
 
@@ -86,7 +84,6 @@ export class HeaderComponent {
 
   switchLanguage(lang: string): void {
     this.translate.use(lang); // Wijzig de taal in TranslateService
-    this.languageService.setLanguage(lang); // Update de taal in LanguageService
   }
 
   contrastMode(): void {
