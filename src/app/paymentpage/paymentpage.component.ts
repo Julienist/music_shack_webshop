@@ -11,6 +11,7 @@ import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Order, OrderStatus } from '../models/order.model';
+import { ApiOrder } from '../models/orderToApi.model';
 import { Product } from '../models/product.model';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
@@ -102,9 +103,11 @@ export class PaymentpageComponent {
   }
 
   private submitOrder(order: Order) {
-    this.orderService.saveOrderToApi(order).subscribe({
+    const transformedOrder = this.transformOrderForApi(order);
+
+    this.orderService.saveOrderToApi(transformedOrder).subscribe({
       next: response => {
-        console.log('✅ Order succesvol verstuurd:', response);
+        console.log('✅ Order succesvol verstuurd:', response); // Response is nu een tekst
         this.cartService.clearCart();
         this.router.navigate(['/orders']);
       },
@@ -115,6 +118,19 @@ export class PaymentpageComponent {
         this.isProcessing.set(false);
       }
     });
+  }
+
+  private transformOrderForApi(order: Order): ApiOrder {
+    return {
+      orderDate: order.orderDate,
+      orderStatus: order.orderStatus,
+      totalPrice: order.totalPrice,
+      orderProducts: order.orderProducts.map(op => ({
+        productId: op.product.id, // Use only the product ID
+        quantity: op.quantity,
+        totalPrice: op.totalPrice
+      }))
+    };
   }
 
 

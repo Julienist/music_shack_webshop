@@ -1,10 +1,11 @@
-import { inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import {Order, OrderProduct} from '../models/order.model';
-import {Product} from '../models/product.model';
-import {ProductsService} from './products.service';
+import { Order, OrderProduct } from '../models/order.model';
+import { ApiOrder } from '../models/orderToApi.model';
+import { Product} from '../models/product.model';
+import { ProductsService } from './products.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +36,8 @@ export class OrderService {
     return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
   }
 
-  public saveOrderToApi(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(this.orderUrl, order);
+  public saveOrderToApi(order: ApiOrder): Observable<string> {
+    return this.httpClient.post<string>(this.orderUrl, order, { responseType: 'text' as 'json' });
   }
 
   // hieronder de order data, als getters.
