@@ -1,28 +1,3 @@
-<!-- <h2>Winkelmandje</h2> -->
-<!-- 1e versie winkelmandje page -->
-<!-- <section>
-  <ul *ngIf="cartItems().length > 0; else emptyCart">
-    @for (item of cartItems(); track item.id) {
-      <li>
-        <img [src]="item.imageurl" alt="{{ item.name }}">
-        <h3>{{ item.name }}</h3>
-        <p>Prijs: €{{ item.price }}</p>
-        <p>Aantal: {{ item.quantity }}</p>
-        <button (click)="removeItem(item.id)">Verwijderen</button>
-      </li>
-    }
-  </ul>
-  <p *ngIf="cartItems().length > 0">Totale prijs: €{{ totalPrice() }}</p>
-  <button routerLink="/afrekenen">Afrekenen</button>
-</section>
-
-<ng-template #emptyCart>
-  <p>Je winkelmandje is leeg.</p>
-</ng-template>
-
-<button *ngIf="cartItems().length > 0" (click)="clearCart()">Winkelmandje leegmaken</button> -->
-
-<!-- 2e versie winkelmandje page, met mat-table -->
 <h2>{{'WinkelmandjeText' | translate }} </h2>
 <table mat-table [dataSource]="cartItems()" class="cartTable" *ngIf="cartItems().length > 0; else emptyCart">
   <ng-container matColumnDef="image">
@@ -63,9 +38,10 @@
 </table>
 <h1 *ngIf="cartItems().length > 0">{{'TotalPriceText' | translate }}{{ totalPrice() }}</h1>
 
-<button mat-stroked-button *ngIf="cartItems().length > 0" routerLink="/afrekenen">{{'PAYTEXT' | translate }}</button>
-<button mat-stroked-button *ngIf="cartItems().length > 0" (click)="clearCart()">{{'EmptyMandjeText' | translate }}</button>
-
+<div class="button-container">
+  <button mat-stroked-button *ngIf="cartItems().length > 0" routerLink="/afrekenen">{{'PAYTEXT' | translate }}</button>
+  <button mat-stroked-button *ngIf="cartItems().length > 0" (click)="clearCart()">{{'EmptyMandjeText' | translate }}</button>
+</div>
 <ng-template #emptyCart>
   <h1>{{'EMPTYshoppingbasketText' | translate }}</h1>
 </ng-template>
