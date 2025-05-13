@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core';
+import {Component, inject, OnInit, Signal} from '@angular/core';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CategoryService } from '../../services/category.service';
@@ -22,9 +22,9 @@ export class CategoryNavigationComponent {
 
   categories: Signal<Category[]> = this.categoryService.categoriesList;
 
-  ngOnInit() {
-    this.categoryService.loadCategories();
-  }
+  // ngOnInit() {
+  //   this.categoryService.loadCategories();
+  // }
 
   selectCategory(categoryId: number | null) {
     const route = categoryId === null ? ['/producten/AlleProducten'] : ['/producten/categorie', categoryId];

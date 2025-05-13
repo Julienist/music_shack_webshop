@@ -62,14 +62,13 @@ export class HeaderComponent {
     this.loginService.loginEvent.subscribe(() => {
       this.showSearch()
     })
+    this.translate.setDefaultLang('ne');
+    this.translate.use('ne');
   }
 
   ngOnInit(): void {
-
-    this.translate.setDefaultLang('nl');
-
-    console.log('HeaderComponent initialized');
-    console.log('Initial product names:', this.productsService.productnames);
+    // console.log('HeaderComponent initialized'); just for debugging
+    // console.log('Initial product names:', this.productsService.productnames);
 
     // Dynamically filter product names from ProductsService
     this.filteredOptions = this.searchControl.valueChanges.pipe(
