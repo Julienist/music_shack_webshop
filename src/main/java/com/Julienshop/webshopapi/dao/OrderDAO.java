@@ -54,31 +54,29 @@ public class OrderDAO {
 
     @Transactional
     public void createOrder(CustomUser customUser, OrderDTO orderDTO) {
-        // 1. Haal ingelogde gebruiker op via email
         CustomUser currentUser = customUserDAO.getCustomUserByEmail(customUser.getEmail());
 
-        // 2. Maak een nieuwe order aan
         OrderEntity order = new OrderEntity();
         order.setCustomUser(currentUser);
         order.setOrderDate(orderDTO.getOrderDate());
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setTotalPrice(orderDTO.getTotalPrice());
 
-        // 3. Maak orderProducts aan
         List<OrderProduct> orderProducts = new ArrayList<>();
 
         for (OrderProductDTO orderProductDTO : orderDTO.getOrderProducts()) {
-            Product product = productRepository.findById(orderProductDTO.getProduct().getId())
-                    .orElseThrow(() -> new RuntimeException("Product niet gevonden met ID: " + orderProductDTO.getProduct().getId()));
+            if (orderProductDTO.getProductId() == null) {
+                throw new IllegalArgumentException("Product ID must not be null");
+            }
+
+            Product product = productRepository.findById(orderProductDTO.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with ID: " + orderProductDTO.getProductId()));
 
             OrderProduct orderProduct = new OrderProduct(order, product, orderProductDTO.getQuantity(), orderProductDTO.getTotalPrice());
             orderProducts.add(orderProduct);
         }
 
-        // 4. Koppel producten aan order
         order.setOrderProducts(orderProducts);
-
-        // 5. Save alles in één keer (cascade!)
         orderRepository.save(order);
     }
 
