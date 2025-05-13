@@ -62,7 +62,8 @@ export const routes: Routes = [
     },
     {
         path: 'afrekenen',
-        component: PaymentpageComponent
+        component: PaymentpageComponent,
+        canMatch: [canAccessWinkelmandje]
     },
     {
       path: 'orders',

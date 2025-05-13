@@ -4,6 +4,7 @@ import { Login } from '../models/login.model';
 import { Token } from '../models/token.model';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class LoginService {
   private token: string | null = null;
   private role: string = '';
   private email: string = '';
+  private route = inject(Router);
   public loginEvent = new EventEmitter<void>();
 
   public isLoggedIn(): boolean {
@@ -70,6 +72,7 @@ export class LoginService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('email');
     localStorage.removeItem('pendingOrder');
+    this.route.navigate(['/producten/AlleProducten']);
   }
 
   // private saveRoleInLocalStorage(role: string){
