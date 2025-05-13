@@ -71,17 +71,13 @@ export class PaymentpageComponent {
     // this.storeOrderLocally(order);
     this.submitOrder(order);
     this.orderService.getOrdersFromAPI().subscribe(orders => {})
-    // this.placeOrder(order);
     try {
       await this.router.navigate(['/orders']);
       console.log('✅ Navigatie succesvol');
     } catch (err) {
       console.error('❌ Navigatie mislukt:', err);
     }
-
-
   }
-
 
   private createOrder(): Order {
     return {
@@ -96,12 +92,6 @@ export class PaymentpageComponent {
     };
   }
 
-  // deactivated because of loading orders from API
-  // private storeOrderLocally(order: Order) {
-    // this.orderService.saveOrderToLocalStorage(order);
-    // console.log("Order opgeslagen in LocalStorage:", order);
-  // }
-
   private submitOrder(order: Order) {
     const transformedOrder = this.transformOrderForApi(order);
 
@@ -109,7 +99,6 @@ export class PaymentpageComponent {
       next: response => {
         console.log('✅ Order succesvol verstuurd:', response); // Response is nu een tekst
         this.cartService.clearCart();
-        this.router.navigate(['/orders']);
       },
       error: err => {
         console.error('❌ Fout bij order plaatsen:', err);
@@ -133,63 +122,11 @@ export class PaymentpageComponent {
     };
   }
 
-
-
-
-    // if (this.hasPayed === true) {
-    //   const order = this.createOrder();
-    //   this.placeOrder(order);
-    // }
-
-
-  /** Maak order-object aan */
-  // private createOrder() {
-  //   return {
-  //     userId: this.userService.getUserId(),
-  //     orderDate: new Date(),
-  //     orderStatus: 'Pending',
-  //     totalPrice: this.cartService.getTotalPrice(),
-  //     orderDetails: this.cartItems().map(item => ({
-  //       productId: item.id,
-  //       quantity: item.quantity,
-  //       totalPrice: item.price * item.quantity
-  //     }))
-  //   };
+  // deactivated because of loading orders from API,
+  // you can use this function to store orders locally if needed
+  // private storeOrderLocally(order: Order) {
+  // this.orderService.saveOrderToLocalStorage(order);
+  // console.log("Order opgeslagen in LocalStorage:", order);
   // }
-
-  /** 📦 Plaats bestelling via OrderService */
-  // private placeOrder(order: Order) {
-  //   this.orderService.placeOrder(order)
-  //   .subscribe({
-  //     next: response => {
-  //       console.log('✅ Order succesvol geplaatst:', response);
-  //       this.cartService.clearCart(); // 🛒 Winkelmand legen
-  //       this.router.navigate(['/order-confirmation']);
-  //     },
-  //     error: err => {
-  //       console.error('❌ Order mislukt:', err);
-  //     },
-  //     complete: () => {
-  //       this.isProcessing.set(false);
-  //     }
-  //   });
-  // }
-
-  // this.orderService.placeOrder({
-  //   customUserId: this.userId,
-  //   orderDate: new Date(),
-  //   orderStatus: OrderStatus.PENDING, // ✅ Enum gebruiken
-  //   totalPrice: this.cartService.getTotalPrice(),
-  //   orderDetails: this.cartService.getCartItems()
-  //     .map(item => ({
-  //       orderId: 0, // Wordt door de backend gegenereerd
-  //       productId: item.id,
-  //       quantity: item.quantity,
-  //       totalPrice: item.price * item.quantity
-  //     }))
-  //   }).subscribe(order => {
-  //       console.log('Order geplaatst:', order);
-  //       this.cartService.clearCart(); // ✅ Winkelmand legen na bestelling
-  //     });
 
 }

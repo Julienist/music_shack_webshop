@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import {EventEmitter, inject, Injectable} from '@angular/core';
 import { Login } from '../models/login.model';
 import { Token } from '../models/token.model';
 import { Observable, tap } from 'rxjs';
@@ -14,6 +14,7 @@ export class LoginService {
   private token: string | null = null;
   private role: string = '';
   private email: string = '';
+  public loginEvent = new EventEmitter<void>();
 
   public isLoggedIn(): boolean {
     return this.loggedIn;
@@ -49,6 +50,7 @@ export class LoginService {
           // this.email = response.email;
           localStorage.setItem('email', login.email);
           this.saveTokenInLocalStorage(response.token);
+          this.loginEvent.emit();
         }
       })
     );
@@ -67,6 +69,7 @@ export class LoginService {
     this.token = null;
     localStorage.removeItem('authToken');
     localStorage.removeItem('email');
+    localStorage.removeItem('pendingOrder');
   }
 
   // private saveRoleInLocalStorage(role: string){

@@ -39,7 +39,7 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
     MatLabel,
     MatButtonModule,
     MatDividerModule,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

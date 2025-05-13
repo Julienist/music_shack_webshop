@@ -18,6 +18,7 @@ export class OrderService {
   private productsService = inject(ProductsService);
   private storageKey = 'pendingOrder';
 
+  // word niet meer gebruikt, wegens dat orders niet meer lokaal worden opgeslagen.
   // Opslaan van een nieuwe order in een array
   saveOrderToLocalStorage(order: Order) {
     const existingOrders = this.getOrdersFromLocalStorage() || [];
@@ -53,6 +54,7 @@ export class OrderService {
     );
   }
 
+  // lokale orders worden niet meer opgeslagen.
   clearLocalOrders() {
     localStorage.removeItem(this.storageKey);
   }

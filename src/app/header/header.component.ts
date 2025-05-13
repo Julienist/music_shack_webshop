@@ -1,6 +1,6 @@
 import { Component, inject, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgFor, CommonModule } from '@angular/common'; // Add CommonModule
+import {NgFor, CommonModule, NgOptimizedImage} from '@angular/common'; // Add CommonModule
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule} from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +18,7 @@ import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
 import { LanguageService } from '../services/language.service';
 import { LoginService } from '../services/login.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-header',
@@ -35,7 +36,9 @@ import { LoginService } from '../services/login.service';
     ReactiveFormsModule,
     NgFor,
     CommonModule,
-    TranslatePipe
+    TranslatePipe,
+    MatButton,
+    NgOptimizedImage
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -44,6 +47,7 @@ export class HeaderComponent {
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService); // Injecteer LanguageService
   private productsService = inject(ProductsService);
+  private cdr : ChangeDetectorRef = inject(ChangeDetectorRef);
   public loginService = inject(LoginService);
 
   @Output() filteredProducts = new EventEmitter<Product[]>();
@@ -54,7 +58,11 @@ export class HeaderComponent {
 
   isSearchVisible = true; // Flag to control visibility of the search-container
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor() {
+    this.loginService.loginEvent.subscribe(() => {
+      this.showSearch()
+    })
+  }
 
   ngOnInit(): void {
 
