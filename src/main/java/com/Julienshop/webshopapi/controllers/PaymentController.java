@@ -27,13 +27,13 @@ public class PaymentController {
         return ResponseEntity.ok(this.paymentDAO.getAllPayments());
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Payment>> getPaymentById(@PathVariable long id) {
         return ResponseEntity.ok(this.paymentDAO.getPaymentById(id));
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<String> createPayment(@RequestBody PaymentDTO paymentDTO) {
 //        this.paymentDAO.createPayment(paymentDTO);
@@ -46,5 +46,8 @@ public class PaymentController {
         this.paymentDAO.deletePayment(id);
         return ResponseEntity.ok("Payment deleted!");
     }
+
+    // Alles in deze controller is admin only en extra.
+    // Dit zijn geen MUST-have requirements en werken niet met de huidige implementatie
 
 }

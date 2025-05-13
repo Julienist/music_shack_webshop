@@ -31,7 +31,7 @@ public class Cart {
     public Cart(List<CartProduct> cartProducts, CustomUser customUser, boolean isActive) {
         this.cartProducts = cartProducts;
         this.customUser = customUser;
-        this.isActive = isActive;
+        this.isActive = true;
     }
 
     public Cart(List<CartProduct> cartProducts, long customUserId, boolean isActive) {

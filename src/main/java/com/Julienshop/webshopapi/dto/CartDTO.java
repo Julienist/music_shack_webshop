@@ -12,8 +12,4 @@ public class CartDTO {
 
     private List<CartProduct> cartProducts;
 
-//    @JsonAlias("custom_user")
-//    private CustomUser customUser;
-    private boolean isActive;
-
 }

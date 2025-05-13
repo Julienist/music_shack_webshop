@@ -39,19 +39,13 @@ public class CartDAO {
         return this.cartRepository.findById(id);
     }
 
-//    public void createCart(CartDTO cartDTO) {
-        //note:
-        // 1. waarschijnlijk wil je ook checken of een customUser wel bestaat.
-        // 2. Producten wil je in een cart zetten, je wilt dus niet hier een table vullen wss.
-//        Cart cart = new Cart(cartDTO.cartProducts,cartDTO.customUser,cartDTO.isActive);
-//        this.cartRepository.save(cart);
-//    }
     public void createCart(CustomUser customUser, CartDTO cartDTO) {
-        // 1. Haal ingelogde gebruiker op via email
         CustomUser currentUser = customUserDAO.getCustomUserByEmail(customUser.getEmail());
 
-        // 2. Maak een nieuwe cart aan
-        Cart cart = new Cart(cartDTO.getCartProducts(), currentUser, cartDTO.isActive());
+        Cart cart = new Cart();
+        cart.setCustomUser(currentUser);
+
+//        Cart cart = new Cart(cartDTO.getCartProducts(), currentUser, cartDTO.isActive());
 
         // 3. Sla de cart op in de database
         this.cartRepository.save(cart);

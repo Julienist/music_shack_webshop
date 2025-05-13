@@ -34,4 +34,12 @@ public class EntityValidator {
     public boolean checkCartProductExists(long cartId, long productId) {
         return cartProductRepository.findByCartIdAndProductId(cartId, productId).isPresent();
     }
+
+    public boolean checkCartExists(long cartId) {
+        return cartProductRepository.findById(cartId).isPresent();
+    }
+
+    public boolean checkProductExists(long productid) {
+        return cartProductRepository.findById(productid).isPresent();
+    }
 }

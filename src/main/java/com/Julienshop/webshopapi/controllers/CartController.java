@@ -28,6 +28,9 @@ public class CartController {
         this.authenticationService = authenticationService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+//    werkt nog niet, dus voorlopig admin only.
+//    kan zelfde als bij orders
     @GetMapping("/my_cart")
     public ResponseEntity<List<Cart>>  getCartForUser(@RequestBody AuthenticationDTO authenticationDTO) {
         return ResponseEntity.ok(Collections.singletonList(cartDAO.getCartForCurrentUser(authenticationDTO.getEmail())));
@@ -39,23 +42,19 @@ public class CartController {
         return ResponseEntity.ok(this.cartDAO.getAllCarts());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Cart>> getCartById(@PathVariable long id) {
         return ResponseEntity.ok(this.cartDAO.getCartById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<String> createCart(@RequestBody CartDTO cartDTO) {
         CustomUser customuser = authenticationService.getAuthenticatedUser();
         this.cartDAO.createCart(customuser, cartDTO);
         return ResponseEntity.ok("Cart created!");
     }
-
-//    @PostMapping
-//    public ResponseEntity<String> createCart(@RequestBody CartDTO cartDTO) {
-//        this.cartDAO.createCart(cartDTO);
-//        return ResponseEntity.ok("Cart created!");
-//    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")

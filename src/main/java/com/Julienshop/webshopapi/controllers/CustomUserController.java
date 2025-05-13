@@ -33,13 +33,14 @@ public class CustomUserController {
         return ResponseEntity.ok(users);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/id/{email}")
     public UUID getCustomUserIdByEmail(@PathVariable String email) {
         CustomUser customUser = authService.getAuthenticatedUser();
         return this.customUserDAO.getCustomUserIdByEmail(email, customUser);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user_of_{id}")
     public ResponseEntity<Optional<CustomUser>> getCustomUserById(@PathVariable UUID id) {
         CustomUser customUser = authService.getAuthenticatedUser();
@@ -47,6 +48,8 @@ public class CustomUserController {
         return ResponseEntity.ok(Optional.ofNullable(user));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    // dit is geen MUST-have requirement en werkt niet met de huidige implementatie
     @PutMapping("/{email}")
     public ResponseEntity<String> updateUserData(@RequestBody AuthenticationDTO authenticationDTO, @RequestBody UpdateAccountDTO updateAccountDTO) {
         CustomUser user = customUserDAO.getCustomUserByEmail(authenticationDTO.getEmail());

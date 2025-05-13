@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 public class CartProductDTO {
 
 //    @JsonAlias("product_id")
-    private Cart cart;
-    private Product product;
+    private long cartId;
+    private long productid;
     private int quantity;
     private BigDecimal totalPrice;
 

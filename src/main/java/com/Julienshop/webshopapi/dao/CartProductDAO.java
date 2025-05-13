@@ -30,17 +30,26 @@ public class CartProductDAO {
         return cartProduct;
     }
 
-    public void createCartProduct(CartProductDTO cartProductDTO) {
-        CartProduct cartProduct = new CartProduct(cartProductDTO.getCart(), cartProductDTO.getProduct(), cartProductDTO.getQuantity(), cartProductDTO.getTotalPrice());
-        this.cartProductRepository.save(cartProduct);
-    }
+//    public void createCartProduct(CartProductDTO cartProductDTO) {
+//        // Check if the cart and product exist
+//        if (!entityValidator.checkCartExists(cartProductDTO.getCartId())) {
+//            throw new EntityNotFoundException("cart not found");
+//        }
+//        if (!entityValidator.checkProductExists(cartProductDTO.getProductid())) {
+//            throw new EntityNotFoundException("product not found");
+//        }
+//        // Create a new CartProduct object
+//        CartProductDTO cartProduct = new CartProduct(cartProductDTO.getCartId(), cartProductDTO.getProductid(), cartProductDTO.getQuantity(), cartProductDTO.getTotalPrice());
+//        // Save the CartProduct object to the database
+//        this.cartProductRepository.save(cartProduct);
+//    }
 
-    public void deleteCartProduct(long cartId, long productId) {
-        if (!entityValidator.checkOrderProductExists(cartId, productId)) {
-            throw new EntityNotFoundException("cartProduct not found");
-        }
-
-        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, productId).get();
-        this.cartProductRepository.delete(cartProduct);
-    }
+//    public void deleteCartProduct(long cartId, long productId) {
+//        if (!entityValidator.checkOrderProductExists(cartId, productId)) {
+//            throw new EntityNotFoundException("cartProduct not found");
+//        }
+//
+//        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, productId).isPresent();
+//        this.cartProductRepository.delete(cartProduct);
+//    }
 }
