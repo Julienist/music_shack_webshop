@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
 import { Order, OrderStatus } from '../models/order.model';
 import { ApiOrder } from '../models/orderToApi.model';
 import { Product } from '../models/product.model';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-paymentpage',
@@ -43,14 +43,10 @@ export class PaymentpageComponent {
   errorMessage = signal('');
   isProcessing = signal(false);
 
-  constructor(private translate: TranslateService) {
+  constructor() {
     merge(this.pincode.statusChanges, this.pincode.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
-
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
   }
 
   updateErrorMessage() {
@@ -66,20 +62,23 @@ export class PaymentpageComponent {
   // Onderstaande kan beter in payment-service worden geplaatst.
   // HIERVOOR IS NIET GEKOZEN, wegens dat payments niet worden gekozen.
 
-  async onPay() {
+  async onPay(): Promise<void> {
     if (this.isProcessing()) return;
     this.isProcessing.set(true);
 
     const order = this.createOrder();
-    this.storeOrderLocally(order);
-
+    // deactivated because of loading orders from API
+    // this.storeOrderLocally(order);
+    this.submitOrder(order);
+    this.orderService.getOrdersFromAPI().subscribe(orders => {})
+    // this.placeOrder(order);
     try {
       await this.router.navigate(['/orders']);
       console.log('✅ Navigatie succesvol');
     } catch (err) {
       console.error('❌ Navigatie mislukt:', err);
     }
-    this.submitOrder(order);
+
 
   }
 
@@ -97,10 +96,11 @@ export class PaymentpageComponent {
     };
   }
 
-  private storeOrderLocally(order: Order) {
-    this.orderService.saveOrderToLocalStorage(order);
-    console.log("Order opgeslagen in LocalStorage:", order);
-  }
+  // deactivated because of loading orders from API
+  // private storeOrderLocally(order: Order) {
+    // this.orderService.saveOrderToLocalStorage(order);
+    // console.log("Order opgeslagen in LocalStorage:", order);
+  // }
 
   private submitOrder(order: Order) {
     const transformedOrder = this.transformOrderForApi(order);

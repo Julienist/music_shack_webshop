@@ -2,10 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { Order, OrderProduct } from '../models/order.model';
+import { Order, OrderProduct, OrderStatus } from '../models/order.model';
 import { ApiOrder } from '../models/orderToApi.model';
 import { Product} from '../models/product.model';
 import { ProductsService } from './products.service';
+import { orderFromApi } from '../models/orderFromApi.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +30,31 @@ export class OrderService {
     return data ? JSON.parse(data) : [];
   }
 
-  clearLocalOrders() {
-    localStorage.removeItem(this.storageKey);
+  public getOrdersFromAPI(): Observable<Order[]> {
+    return this.httpClient.get<orderFromApi[]>(`${this.orderUrl}/my_orders`).pipe(
+      map((ordersFromApi: orderFromApi[]) => {
+        return ordersFromApi.map(orderFromApi => ({
+          orderDate: new Date(orderFromApi.orderDate),
+          orderStatus: orderFromApi.orderStatus as OrderStatus,
+          totalPrice: orderFromApi.totalPrice,
+          orderProducts: orderFromApi.orderProducts.map(orderProductFromApi => {
+            const product = this.productsService.getProductByIdFromCache(orderProductFromApi.id);
+            if (!product) {
+              throw new Error(`Product with ID ${orderProductFromApi.id} not found in cache.`);
+            }
+            return {
+              product,
+              quantity: orderProductFromApi.quantity,
+              totalPrice: orderProductFromApi.totalPrice,
+            };
+          }),
+        }));
+      })
+    );
   }
 
-  getOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.orderUrl}/my_orders`);
+  clearLocalOrders() {
+    localStorage.removeItem(this.storageKey);
   }
 
   public saveOrderToApi(order: ApiOrder): Observable<string> {

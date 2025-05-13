@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
 import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -28,17 +28,14 @@ export class OrderComponent {
   orders: Order[] = [];
   displayedColumns: string[] = ['product','date','status', 'total'];
 
-  constructor(private translate: TranslateService) {
+  constructor() {
     this.loadOrders();
-
-    this.translate.addLangs(['nl', 'en']);
-    this.translate.setDefaultLang('nl');
-    this.translate.use('en');
   }
 
 
   loadOrders(): void {
-    this.loadLocalOrders()
+    // this.loadLocalOrders()
+    this.loadOrdersFromApi();
   }
 
   // loadOrders() {
@@ -63,6 +60,18 @@ export class OrderComponent {
       //comment/debug: testing debug
       console.log('📦 Lokale orders geladen:', localOrders);
     }
+  }
+
+  loadOrdersFromApi() {
+    this.orderService.getOrdersFromAPI().subscribe({
+      next: (orders: Order[]) => {
+        this.orders = [...orders];
+        console.log('📦 Orders van API geladen:', orders);
+      },
+      error: (err: Error) => {
+        console.error('❌ Fout bij ophalen orders:', err);
+      }
+    });
   }
 
   getRandomImage(order: Order): string | null {
