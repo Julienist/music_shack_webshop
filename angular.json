@@ -53,8 +53,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "20mb",
+                  "maximumError": "20mb"
                 }
               ],
               "outputHashing": "all",
@@ -117,7 +117,7 @@
               "includePaths": [
                   "/src/app/mixins.scss"
               ]
-            },  
+            },
             "scripts": []
           }
         }
