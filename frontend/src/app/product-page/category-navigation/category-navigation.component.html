@@ -1,0 +1,16 @@
+<!-- 1e versie categorie menu (d.m.v. gewone buttons) -->
+
+<!-- <button (click)="selectCategory(null)">Alle producten</button>
+@for (category of categories(); track category.id) {
+  <button (click)="selectCategory(category.id)">
+    {{ category.name }}
+  </button>
+} -->
+
+<!-- 1e iteratie categorie menu, met materialized tab's -->
+<mat-tab-group (selectedTabChange)="onTabChange($event)" class="category-tabs">
+  <mat-tab label="{{ 'ALL_PRODUCTS' | translate }}"></mat-tab>
+  <ng-container *ngFor="let category of categories(); trackBy: trackByCategoryId">
+    <mat-tab label="{{category.name}}"></mat-tab>
+  </ng-container>
+</mat-tab-group>

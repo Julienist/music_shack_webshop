@@ -1,0 +1,81 @@
+<!-- <form [formGroup]="authForm" (ngSubmit)="onMakeAccount()">
+    <p>
+      <label>Email</label><br>
+      <input type="text" formControlName="email">
+      @if (email?.touched && email?.invalid) {
+        <span>Email is benodigd.</span>
+      }
+    </p>
+    <p>
+        <label>Wachtwoord</label><br>
+        <input type="text" formControlName="password">
+        @if (authForm.get('password')?.touched || authForm.get('password')?.dirty) {
+          <div *ngIf="authForm?.get('password')?.hasError('required')">
+            <span>Wachtwoord is nodig.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('minlength') || authForm?.get('password')?.hasError('maxlength')">
+            <span>Wachtwoord moet tussen 8 en 30 karakters lang zijn.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('digit')">
+            <span>Wachtwoord moet minstens 1 cijfer bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('lowercase')">
+            <span>Wachtwoord moet minstens 1 kleine letter bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('uppercase')">
+            <span>Wachtwoord moet minstens 1 hoofdletter bevatten.</span>
+          </div>
+          <div *ngIf="authForm?.get('password')?.hasError('specialChar')">
+            <span>Wachtwoord moet minstens 1 speciaal karakter bevatten.</span>
+          </div>
+        }
+      </p>
+    <p>
+      <button type="submit" [disabled]="!authForm.valid">
+        Maak account
+      </button>
+    </p>
+  </form> -->
+
+  <!-- 1e iteratie -->
+
+  <form [formGroup]="authForm" (ngSubmit)="onMakeAccount()" class="auth-form">
+    <mat-form-field>
+      <mat-label>{{ 'EMAILTEXT' | translate }}</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="authForm.get('email')?.hasError('required')">
+        {{ 'ERRORMESSAGE_EmailRequired' | translate }}
+      </mat-error>
+      <mat-error *ngIf="authForm.get('email')?.hasError('email')">
+        {{ 'ERRORMESSAGE_ValidEmail' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'ERRORMESSAGE_PasswordRequired' | translate }}</mat-label>
+      <input matInput formControlName="password" required>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'required')">
+        {{ 'ERRORMESSAGE_PasswordRequired' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'minlength')">
+        {{ 'ERRORMESSAGE_PasswordLength' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'maxlength')">
+        {{ 'ERRORMESSAGE_PasswordChar30' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'digit')">
+        {{ 'ERRORMESSAGE_PasswordDigit' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'lowercase')">
+        {{ 'ERRORMESSAGE_Passwordlwc' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'uppercase')">
+        {{ 'ERRORMESSAGE_Passwordupc' | translate }}
+      </mat-error>
+      <mat-error *ngIf="hasControlError(authForm, 'password', 'specialChar')">
+        {{ 'ERRORMESSAGE_Passwordchar' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!authForm.valid">
+      {{ 'MAKEACCOUNTTEXT' | translate }}
+    </button>
+  </form>

@@ -1,0 +1,14 @@
+@use '../mixins.scss' as mixins;
+
+.auth-form {
+    @include mixins.auth-form-style;
+    gap: 16px; /* Specifieke aanpassing voor login */
+}
+
+mat-error {
+    @include mixins.mat-error-style;
+}
+
+button {
+    margin-top: 16px; /* Specifieke aanpassing voor login */
+}

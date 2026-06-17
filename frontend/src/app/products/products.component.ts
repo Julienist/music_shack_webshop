@@ -1,0 +1,41 @@
+import { Component, inject, Input, Signal, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { Product } from '../models/product.model';
+import { RouterLink } from '@angular/router';
+import { ProductsService } from '../services/products.service';
+import { CartService } from '../services/cart.service';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-product',
+  standalone: true,
+  imports: [
+    RouterLink,
+    MatCardModule,
+    MatButtonModule,
+    TranslatePipe
+  ],
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.scss'],
+  encapsulation: ViewEncapsulation.None // Disable encapsulation
+})
+export class ProductComponent {
+  @Input() products: Product[] = [];
+
+
+  // private route = inject(ActivatedRoute);
+  private productsService = inject(ProductsService);
+  private cartService = inject(CartService);
+  
+
+  productsSignal: Signal<Product[]> = this.productsService.products;
+
+  addProductToCart(product: Product) {
+    if (!product) {
+      return;
+    }
+
+    this.cartService.addToCart(product);
+  }
+}

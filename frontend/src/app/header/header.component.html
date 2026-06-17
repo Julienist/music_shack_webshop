@@ -1,0 +1,65 @@
+<nav>
+  <a class="button"
+     routerLink="/producten"
+     routerLinkActive="activebutton"
+     [routerLinkActiveOptions]="{ exact: false }"
+     ariaCurrentWhenActive="page"
+     (click)="showSearch()">
+    <mat-icon>home</mat-icon>
+  </a>
+  <div class="search-container" *ngIf="isSearchVisible">
+    <mat-form-field appearance="fill">
+      <mat-label>{{"HEADER_QUERY" | translate}}</mat-label>
+      <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onProductSelected($event.option.value)">
+        <mat-option *ngFor="let product of (filteredOptions | async)" [value]="product">
+          {{ product }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="button-utilities-container">
+    <a class="button"
+       routerLink="/winkelmandje"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page"
+       (click)="hideSearch()">
+      <mat-icon>shopping_bag</mat-icon>
+    </a>
+    <a class="button"
+       routerLink="/orders"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page"
+       (click)="hideSearch()">
+      <mat-icon>local_shipping</mat-icon>
+    </a>
+    <a class="button"
+      routerLink="/login"
+      routerLinkActive="activebutton"
+      ariaCurrentWhenActive="page"
+      *ngIf="!loginService.isLoggedIn()"
+      (click)="hideSearch()">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a class="button"
+      aria-label="logout"
+      *ngIf="loginService.isLoggedIn()"
+      (click)="loginService.logout()">
+      <mat-icon>logout</mat-icon>
+    </a>
+    <a class="button"
+      aria-label="Contrast Mode"
+      (click)="contrastMode()">
+      <mat-icon>contrast</mat-icon>
+    </a>
+    <div class="language-switch">
+      <button mat-button (click)="switchLanguage('nl')" aria-label="Nederlands">
+        <img ngSrc="../../assets/netherlands.png" alt="Nederlands" class="flag-icon" height="512" width="512">
+      </button>
+      <button mat-button (click)="switchLanguage('en')" aria-label="English">
+        <img ngSrc="../../assets/united-kingdom.png" alt="English" class="flag-icon" height="512" width="512">
+      </button>
+    </div>
+  </div>
+</nav>
+

@@ -1,0 +1,258 @@
+[
+    {
+        "id": 1,
+        "name": "LPs",
+        "products": [
+            {
+                "id": 1,
+                "name": "The Dark Side of the Moon - Pink Floyd",
+                "description": "Een klassiek product van Pink Floyd",
+                "price": 45.99,
+                "imageurl": "assets/products/product_image_1.jpg",
+                "version": 1,
+                "amountInStock": 20,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 2,
+                "name": "Abbey Road - The Beatles",
+                "description": "Een klassiek product van The Beatles",
+                "price": 39.99,
+                "imageurl": "assets/products/product_image_2.jpg",
+                "version": 1,
+                "amountInStock": 15,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 3,
+                "name": "Back in Black - AC/DC",
+                "description": "Een klassiek product van AC/DC",
+                "price": 42.50,
+                "imageurl": "assets/products/product_image_3.jpg",
+                "version": 1,
+                "amountInStock": 10,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 4,
+                "name": "Rumours - Fleetwood Mac",
+                "description": "Een klassiek product van Fleetwood Mac",
+                "price": 38.75,
+                "imageurl": "assets/products/product_image_4.jpg",
+                "version": 1,
+                "amountInStock": 25,
+                "orderProducts": [
+                    {
+                        "id": 1,
+                        "quantity": 1,
+                        "totalPrice": 38.75
+                    }
+                ],
+                "available": true
+            },
+            {
+                "id": 5,
+                "name": "Nevermind - Nirvana",
+                "description": "Een klassiek product van Nirvana",
+                "price": 41.20,
+                "imageurl": "assets/products/product_image_5.jpg",
+                "version": 1,
+                "amountInStock": 18,
+                "orderProducts": [
+                    {
+                        "id": 2,
+                        "quantity": 1,
+                        "totalPrice": 41.20
+                    }
+                ],
+                "available": true
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Cassettes",
+        "products": [
+            {
+                "id": 6,
+                "name": "Master of Puppets - Metallica",
+                "description": "Een klassiek product van Metallica",
+                "price": 35.99,
+                "imageurl": "assets/products/product_image_6.jpg",
+                "version": 1,
+                "amountInStock": 10,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 7,
+                "name": "Purple Rain - Prince",
+                "description": "Een klassiek product van Prince",
+                "price": 33.50,
+                "imageurl": "assets/products/product_image_7.jpg",
+                "version": 1,
+                "amountInStock": 12,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 8,
+                "name": "Thriller - Michael Jackson",
+                "description": "Een klassiek product van Michael Jackson",
+                "price": 37.75,
+                "imageurl": "assets/products/product_image_8.jpg",
+                "version": 1,
+                "amountInStock": 14,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 9,
+                "name": "Born to Run - Bruce Springsteen",
+                "description": "Een klassiek product van Bruce Springsteen",
+                "price": 31.99,
+                "imageurl": "assets/products/product_image_9.jpg",
+                "version": 1,
+                "amountInStock": 9,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 10,
+                "name": "Led Zeppelin IV - Led Zeppelin",
+                "description": "Een klassiek product van Led Zeppelin",
+                "price": 36.20,
+                "imageurl": "assets/products/product_image_10.jpg",
+                "version": 1,
+                "amountInStock": 11,
+                "orderProducts": [],
+                "available": true
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Platenspelers",
+        "products": [
+            {
+                "id": 11,
+                "name": "Technics SL-1210 - Technics",
+                "description": "Een klassiek product van Technics",
+                "price": 899.99,
+                "imageurl": "assets/products/product_image_11.jpg",
+                "version": 1,
+                "amountInStock": 5,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 12,
+                "name": "Audio-Technica AT-LP60 - Audio-Technica",
+                "description": "Een klassiek product van Audio-Technica",
+                "price": 149.99,
+                "imageurl": "assets/products/product_image_12.jpg",
+                "version": 1,
+                "amountInStock": 8,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 13,
+                "name": "Sony PS-LX310BT - Sony",
+                "description": "Een klassiek product van Sony",
+                "price": 199.99,
+                "imageurl": "assets/products/product_image_13.jpg",
+                "version": 1,
+                "amountInStock": 7,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 14,
+                "name": "Pioneer PLX-500 - Pioneer",
+                "description": "Een klassiek product van Pioneer",
+                "price": 299.99,
+                "imageurl": "assets/products/product_image_14.jpg",
+                "version": 1,
+                "amountInStock": 4,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 15,
+                "name": "Rega Planar 1 - Rega",
+                "description": "Een klassiek product van Rega",
+                "price": 275.50,
+                "imageurl": "assets/products/product_image_15.jpg",
+                "version": 1,
+                "amountInStock": 6,
+                "orderProducts": [],
+                "available": true
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Cassettespelers",
+        "products": [
+            {
+                "id": 16,
+                "name": "Sony TC-WE475 - Sony",
+                "description": "Een klassiek product van Sony",
+                "price": 119.99,
+                "imageurl": "assets/products/product_image_16.jpg",
+                "version": 1,
+                "amountInStock": 6,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 17,
+                "name": "Pioneer CT-W208R - Pioneer",
+                "description": "Een klassiek product van Pioneer",
+                "price": 134.99,
+                "imageurl": "assets/products/product_image_17.jpg",
+                "version": 1,
+                "amountInStock": 4,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 18,
+                "name": "JVC TD-W354 - JVC",
+                "description": "Een klassiek product van JVC",
+                "price": 109.99,
+                "imageurl": "assets/products/product_image_18.jpg",
+                "version": 1,
+                "amountInStock": 5,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 19,
+                "name": "Marantz PMD-300CP - Marantz",
+                "description": "Een klassiek product van Marantz",
+                "price": 159.99,
+                "imageurl": "assets/products/product_image_19.jpg",
+                "version": 1,
+                "amountInStock": 3,
+                "orderProducts": [],
+                "available": true
+            },
+            {
+                "id": 20,
+                "name": "Denon DRW-695 - Denon",
+                "description": "Een klassiek product van Denon",
+                "price": 129.99,
+                "imageurl": "assets/products/product_image_20.jpg",
+                "version": 1,
+                "amountInStock": 7,
+                "orderProducts": [],
+                "available": true
+            }
+        ]
+    }
+]

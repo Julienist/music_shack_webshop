@@ -1,0 +1,83 @@
+<!-- 1e versie van login html hieronder -->
+
+<!-- <form (ngSubmit)="login()">
+    <div>
+      <label>Email:</label>
+      <input type="text" name="email" [(ngModel)]="email">
+    </div>
+    <div>
+      <label>Wachtwoord:</label>
+      <input type="password" name="password"  [(ngModel)]="password">
+    </div>
+    <button type="submit">Login</button>
+  </form> -->
+  
+
+<!-- ------------------------------------------ -->
+
+<!-- 2e iteratie van de html hieronder -->
+
+  <!-- <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <p>
+      <label>Email</label><br>
+      <input type="text" formControlName="email">
+      @if (email?.touched && email?.invalid) {
+        <span>Email is benodigd.</span>
+      }
+    </p>
+    <p>
+      <label>Wachtwoord</label><br>
+      <input type="text" formControlName="password">
+      @if (isPasswordTouchedOrDirty()) {
+        <div *ngIf="hasPasswordError('required')">
+          <br><span>Wachtwoord voldoet niet</span>
+        </div>
+        @if (
+          hasPasswordError('minlength') ||
+          hasPasswordError('maxlength') ||
+          hasPasswordError('digit') ||
+          hasPasswordError('lowercase') ||
+          hasPasswordError('uppercase') ||
+          hasPasswordError('specialChar')
+        ) 
+          {<span>Wachtwoord is fout.</span>}
+      }
+    </p>
+    <p>
+      <button type="submit" [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </p>
+    <p>
+      <label>nog geen account?</label><br>
+      <button (click)="navigateToMaakAccount()">
+        Maak een account
+      </button>
+    </p>
+  </form> -->
+
+  <!-- ------------------------------- -->
+
+  <!-- 3e iteratie, met materialized input-->
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="example-form" class="auth-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>{{ 'EMAILTEXT' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="{{ 'PlaceholderEmail' | translate }}"> 
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'required')">{{ 'ERRORMESSAGE_EmailRequired' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'email', 'email')">{{ 'ERRORMESSAGE_ValidEmail' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{ 'PASSWORDTEXT' | translate }}</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="{{ 'PlaceholderPassword' | translate }}">
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'required')">{{ 'ERRORMESSAGE_PasswordRequired' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'minlength')">{{ 'ERRORMESSAGE_PasswordLength' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'maxlength')">{{ 'ERRORMESSAGE_PasswordChar30' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'digit')">{{ 'ERRORMESSAGE_PasswordDigit' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'lowercase')">{{ 'ERRORMESSAGE_Passwordlwc' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'uppercase')">{{ 'ERRORMESSAGE_Passwordupc' | translate }}</mat-error>
+      <mat-error *ngIf="hasControlError(loginForm, 'password', 'specialChar')">{{ 'ERRORMESSAGE_Passwordchar' | translate }}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">{{ 'LOGINTEXT' | translate }}</button>
+    <mat-label>{{ 'NOACCOUNTQUESTION' | translate }}</mat-label><br>
+    <button mat-button (click)="navigateToMaakAccount()">{{ 'MAKEACCOUNTTEXT' | translate }}</button>
+  </form>

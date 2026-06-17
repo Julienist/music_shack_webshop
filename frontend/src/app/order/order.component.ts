@@ -1,0 +1,100 @@
+import { Component, inject } from '@angular/core';
+import { OrderService } from '../services/order.service';
+import { Order } from '../models/order.model';
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-order',
+  standalone: true,
+  imports: [
+    NgIf,
+    DatePipe,
+    DecimalPipe,
+    NgFor,
+    MatTableModule,
+    FormsModule,
+    MatButtonModule,
+    TranslatePipe
+  ],
+  templateUrl: './order.component.html',
+  styleUrl: './order.component.scss'
+})
+export class OrderComponent {
+  private orderService = inject(OrderService);
+  orders: Order[] = [];
+  displayedColumns: string[] = ['product','date','status', 'total'];
+
+  constructor() {
+    this.loadOrders();
+  }
+
+
+  loadOrders(): void {
+    // this.loadLocalOrders()
+    this.loadOrdersFromApi();
+  }
+
+  // loadOrders() {
+  //   this.orderService.getOrders().subscribe({
+  //     next: (orders: Order[]) => {
+  //       // this.orders = [...orders]; // Vanuit backend
+  //       this.loadLocalOrders(); // Voeg lokale orders toe
+  //     },
+  //     error: (err: Error) => {
+  //       //comment/debug: testing debug
+  //       console.error('❌ Fout bij ophalen orders:', err);
+  //       this.loadLocalOrders(); // Fallback naar lokale data
+  //     }
+  //   });
+  // }
+
+
+  loadLocalOrders() {
+    const localOrders = this.orderService.getOrdersFromLocalStorage();
+    if (localOrders.length > 0) {
+      this.orders.push(...localOrders);
+      //comment/debug: testing debug
+      console.log('📦 Lokale orders geladen:', localOrders);
+    }
+  }
+
+  loadOrdersFromApi() {
+    this.orderService.getOrdersFromAPI().subscribe({
+      next: (orders: Order[]) => {
+        this.orders = [...orders];
+        console.log('📦 Orders van API geladen:', orders);
+      },
+      error: (err: Error) => {
+        console.error('❌ Fout bij ophalen orders:', err);
+      }
+    });
+  }
+
+  getRandomImage(order: Order): string | null {
+    return this.orderService.getRandomProductImage(order);
+  }
+
+  getProductNames(order: Order): string[] {
+    return this.orderService.getProductNames(order);
+  }
+
+  getProductQuantities(order: Order): number[] {
+    return this.orderService.getProductQuantities(order);
+  }
+
+  getOrderDate(order: Order): Date {
+    return this.orderService.getOrderDate(order);
+  }
+
+  getOrderStatus(order: Order): string {
+    return this.orderService.getOrderStatus(order);
+  }
+
+  getTotalPrice(order: Order): number {
+    return this.orderService.getTotalPrice(order);
+  }
+}

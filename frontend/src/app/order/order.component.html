@@ -1,0 +1,50 @@
+<h2 class="headertext">{{ 'YourOrders'| translate }}</h2>
+<!-- versie 2 orders, maar met material-table -->
+<mat-table *ngIf="orders.length > 0; else emptyOrders" [dataSource]="orders" class="orderTable">
+      <ng-container matColumnDef="order">
+        <mat-header-cell *matHeaderCellDef>{{ 'OrdersText'| translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let order">
+          <img [src]="getRandomImage(order)" alt="Product" class="productimage" />
+          <h3 class="text-lg font-bold mb-1">{{ 'ProductsText'| translate }}</h3>
+          <ul class="list-disc ml-5">
+            <li *ngFor="let name of getProductNames(order); let i = index">
+              {{ name }} - x{{ getProductQuantities(order)[i] }}
+            </li>
+          </ul>
+        </mat-cell>
+      </ng-container>
+  <ng-container matColumnDef="product">
+    <mat-header-cell *matHeaderCellDef>{{ 'ProductText'| translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      <img [src]="getRandomImage(order)" alt="Product" class="productimage" />
+      <ul class="list-disc ml-5">
+        <li *ngFor="let name of getProductNames(order); let i = index">
+          {{ name }} - x{{ getProductQuantities(order)[i] }}
+        </li>
+      </ul>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>{{ 'DateText'| translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      {{ getOrderDate(order) | date:'mediumDate' }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>{{ 'StatusText'| translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      {{ getOrderStatus(order) }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="total">
+    <mat-header-cell *matHeaderCellDef>{{ 'TotalText'| translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      €{{ getTotalPrice(order) | number:'1.2-2' }}
+    </mat-cell>
+  </ng-container>
+ <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+ <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<ng-template #emptyOrders>
+ <p class="noOrderText">{{ 'NoOrders'| translate }}</p>
+</ng-template>

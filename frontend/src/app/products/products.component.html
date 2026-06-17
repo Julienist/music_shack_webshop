@@ -1,0 +1,36 @@
+<!-- Originele html bovenaan, eronder de product-card versie ervan.-->
+<!-- <ul>
+    @for (product of products; track product.id) {
+      <li class="product-item">
+        <button [routerLink]="['/producten', product.id]">
+          <img
+            [src]="product.imageurl"
+            [alt]="'product plaatje niet ingeladen'"
+          />
+        </button>
+        <h3>{{ product.name }}</h3>
+        <button (click)="addProductToCart(product)">Voeg toe aan mandje</button>
+      </li>
+    }
+  </ul> -->
+
+  @for (product of products; track product.id) {
+  <mat-card class="productcard" appearance="outlined">
+        <button [routerLink]="['/producten', product.id]">
+          <img mat-card-image class="product-image"
+          [src]="product.imageurl"
+          [alt]="'product plaatje niet ingeladen'">
+        </button>
+    <mat-card-content>
+      <p> 
+        {{ product.name | translate}}
+      </p>
+      <mat-card-subtitle>
+        € {{ product.price }}
+      </mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="addProductToCart(product)" class="addProductToCart">{{'ADDTOCART' | translate}}</button>
+    </mat-card-actions>
+  </mat-card>
+}

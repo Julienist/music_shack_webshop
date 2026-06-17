@@ -1,0 +1,28 @@
+.env
+node_modules
+.angular/
+/.angular/
+dist/
+/dist/
+.vscode/
+/.vscode/
+/.idea/
+.idea/
+
+/dist/webshop/
+/dist/webshop/browser/
+/dist/webshop/browser/assets/
+/dist/webshop/browser/assets/account_circle.png
+/dist/webshop/browser/assets/contrast.png
+/dist/webshop/browser/assets/local_shipping.png
+/dist/webshop/browser/assets/shopping_bag.png
+/dist/webshop/browser/assets/shoppingCart.png
+/dist/webshop/browser/assets/translate.png
+/dist/webshop/browser/main-CEXJ6MK3.js
+/dist/webshop/3rdpartylicenses.txt
+/dist/webshop/prerendered-routes.json
+
+# dit project gebruikt pnpm — voorkom dat er per ongeluk een npm/yarn lockfile
+# naast pnpm-lock.yaml in git komt
+package-lock.json
+yarn.lock

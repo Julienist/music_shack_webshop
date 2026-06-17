@@ -1,0 +1,11 @@
+<div class="product-container">
+  <img *ngIf="product()" [src]="product()?.imageurl" alt="Productafbeelding" class="product-image">
+  <section *ngIf="product()" class="product-details">
+    <h2>{{ product()?.name }}</h2>
+    <p>{{ product()?.description }}</p>
+    <p>{{ 'PRICE' | translate }}: €{{ product()?.price }}</p>
+    <p>{{ 'STOCK' | translate }}: {{ product()?.amountInStock }}</p>
+    <button (click)="addProductToCart()">{{ 'ADDTOCART' | translate }}</button>
+  </section>
+</div>
+<div *ngIf="!product()">Product niet gevonden.</div>
