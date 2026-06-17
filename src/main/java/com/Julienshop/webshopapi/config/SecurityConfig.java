@@ -36,12 +36,10 @@ public class SecurityConfig {
                 .userDetailsService(userService)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/auth/**").permitAll()
-                    .requestMatchers("/products/**").permitAll()
-                    .requestMatchers("/categories/**").permitAll()
+                    .requestMatchers("/auth/**", "/products/**", "/categories/**").permitAll()
+                    .requestMatchers("/orders/**").authenticated()
                     .requestMatchers("/error").anonymous()
-                    .anyRequest().authenticated()
-                )
+                    .anyRequest().authenticated())
                 .build();
     }
 
