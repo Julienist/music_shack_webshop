@@ -1,9 +1,14 @@
+.env
 node_modules
 .angular/
 /.angular/
+dist/
 /dist/
+.vscode/
 /.vscode/
 /.idea/
+.idea/
+
 /dist/webshop/
 /dist/webshop/browser/
 /dist/webshop/browser/assets/
@@ -16,5 +21,8 @@ node_modules
 /dist/webshop/browser/main-CEXJ6MK3.js
 /dist/webshop/3rdpartylicenses.txt
 /dist/webshop/prerendered-routes.json
-.vscode/
 
+# dit project gebruikt pnpm — voorkom dat er per ongeluk een npm/yarn lockfile
+# naast pnpm-lock.yaml in git komt
+package-lock.json
+yarn.lock
