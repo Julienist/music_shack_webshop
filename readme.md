@@ -3,7 +3,7 @@ Dit is de repository van Julien Mijnders (s1142531) - dit was een opdracht aan d
 Ik bouw in deze repo aan een webshop en verwerk daarin de feature "Promocodes".
 
 # Installeren
-1. `git clone git@gitlab.inf-hsleiden.nl:s1142531/INSOFAD_s1142531.git`
+1. `git clone`
 1. Ga in de frontend directory.
 2. `npm install`
 3. Ga in de backend directory.
