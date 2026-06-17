@@ -1,0 +1,20 @@
+package com.Julienshop.webshopapi.dto;
+
+import com.Julienshop.webshopapi.models.enums.OrderStatus;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Getter
+@AllArgsConstructor
+public class OrderDTO {
+
+    private LocalDateTime orderDate;
+    private OrderStatus orderStatus;
+    private BigDecimal totalPrice;
+    private List<OrderProductDTO> orderProducts;
+
+}
