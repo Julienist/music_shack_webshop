@@ -32,7 +32,7 @@ jobs:
 
       - name: Build
         working-directory: frontend
-        run: pnpm run build -- --configuration=production
+        run: pnpm run build --configuration=production
 
       - name: Start Tailscale
         uses: tailscale/github-action@v2
