@@ -62,8 +62,8 @@ export class HeaderComponent {
     this.loginService.loginEvent.subscribe(() => {
       this.showSearch()
     })
-    this.translate.setDefaultLang('ne');
-    this.translate.use('ne');
+    this.translate.setDefaultLang('nl');
+    this.translate.use('nl');
   }
 
   ngOnInit(): void {

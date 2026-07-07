@@ -1,4 +1,4 @@
 export const environment = {
-    apiUrl: 'http://localhost:22531/api',
+    apiUrl: (window as any).__env?.apiUrl ?? 'http://localhost:8085/api',
     name: 'prod'
-}
+};
